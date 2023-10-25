@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "typescript-plugin-css-modules": "^5.0.2"
+  },
+  "dependencies": {
+    "node-sass": "^9.0.0"
+  }
+}
