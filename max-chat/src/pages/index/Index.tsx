@@ -14,8 +14,12 @@ function Index() {
         <Link to="/login">
           <BotaoGrande icon="fa-solid fa-right-to-bracket" texto="Login | Já sou membro" />
         </Link>
-        <BotaoGrande icon="fa-solid fa-user-plus" texto="Signup | Novo registro" />
-        <BotaoGrande icon="fa-solid fa-question" texto="Dúvidas | Sobre" />
+        <Link to="/registrar">
+          <BotaoGrande icon="fa-solid fa-user-plus" texto="Signup | Novo registro" />
+        </Link>
+        <Link to="/login">
+          <BotaoGrande icon="fa-solid fa-question" texto="Dúvidas | Sobre" />
+        </Link>
       </section>
       <Rodape />
     </>

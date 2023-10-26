@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Index from './pages/index/Index';
 import Login from './pages/login/login';
+import Registrar from './pages/registrar/registrar';
 
 const root = document.getElementById('root') as HTMLElement;
 
@@ -11,6 +12,7 @@ ReactDOM.render(
     <Routes>
       <Route path="/" element={<Index />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/registrar" element={<Registrar />} />
     </Routes>
   </BrowserRouter>,
   root
