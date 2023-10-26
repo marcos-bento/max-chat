@@ -1,0 +1,25 @@
+@import url("../../style.css");
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--cinza-principal);
+}
+.navbar .titulo__container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.navbar .titulo__container .titulo {
+  font-size: 20px;
+  font-weight: 400;
+  margin: -10px;
+  text-align: center;
+  color: var(--azul-principal);
+  font-family: var(--fonte-logo);
+  -webkit-text-stroke: 1px var(--azul-secundario);
+}
+.navbar .svg {
+  -webkit-text-stroke: 1px var(--azul-secundario);
+}/*# sourceMappingURL=cabecalho.module.css.map */

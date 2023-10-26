@@ -13,3 +13,8 @@
   --fonte-principal: 'Inter', sans-serif;
   --fonte-logo: 'Koulen', sans-serif;
 }
+
+body{
+  padding: 0;
+  margin: 0;
+}

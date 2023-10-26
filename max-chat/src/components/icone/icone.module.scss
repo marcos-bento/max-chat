@@ -1,0 +1,17 @@
+@import url("../../style.css");
+
+.icone{
+    color: var(--azul-principal);
+    align-self: center;
+}
+
+.icone_inativo{
+    color: var(--cinza-secundario);
+    align-self: center;
+    position: relative;
+    top: 8px;
+}
+
+.icone_branco{
+    color: white;
+}

@@ -1,0 +1,22 @@
+@import url("../../style.css");
+
+.botao_grande{
+    border-radius: 90px;
+    width: 300px;
+    height: 69px;
+    margin: auto;
+    border: 1px solid var(--azul-secundario);
+    background: linear-gradient(180deg, var(--azul-principal) 0%, var(--azul-secundario) 48.96%, var(--azul-principal) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    &:hover{
+        background: linear-gradient(180deg, var(--verde-principal) 0%, var(--verde-secundario) 48.96%, var(--verde-principal) 100%);
+        border: 1px solid var(--cinza-secundario)
+    }
+    .botao_grande_texto{
+        color: white;
+    }
+}

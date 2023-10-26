@@ -1,20 +1,13 @@
 @import url("../../style.css");
-.navbar {
-  display: flex;
-  justify-content: space-between;
+.conteudo {
+  background: linear-gradient(180deg, #FFF 0%, var(--azul-principal) 100%);
+  width: 100%;
+  height: 75vh;
+  padding-bottom: 1rem;
 }
-.navbar .titulo__container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  margin: 15px;
-}
-.navbar .titulo__container .titulo {
-  font-size: 20px;
-  font-weight: 400;
-  margin: -10px;
+.conteudo .titulo {
   text-align: center;
-  color: var(--azul-principal);
-  font-family: var(--fonte-logo);
-  -webkit-text-stroke: 1px var(--azul-secundario);
+  font-size: 16px;
+  font-family: var(--font-principal);
+  font-weight: 400;
 }/*# sourceMappingURL=App.module.css.map */

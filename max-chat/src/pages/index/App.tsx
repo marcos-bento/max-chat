@@ -1,22 +1,20 @@
 import React from 'react';
-import style from './App.module.css';
-import Botao from '../../components/botao/botao';
+import Cabecalho from '../../components/cabecalho/cabecalho';
+import BotaoGrande from '../../components/botaoGrande/botaoGrande';
+import style from "./App.module.css"
+import Rodape from '../../components/rodape/rodape';
 
 function App() {
   return (
     <>
-      {/* Header Navbar */}
-      <header className={style.navbar}>
-        {/* First element: Logo */}
-      <div className={style.titulo__container}>
-        <h1 className={style.titulo}>Max</h1>
-        <h2 className={style.titulo}>Chat</h2>
-      </div>
-        {/* Second element: Home Ícon */}
-        
-      </header>
-      
-      <Botao/>
+      <Cabecalho/>
+      <section className={style.conteudo}>
+        <h3 className={style.titulo}>Max Chat</h3>
+        <BotaoGrande icon={"fa-solid fa-right-to-bracket"} texto={"Login | Já sou membro"}/>
+        <BotaoGrande icon={"fa-solid fa-user-plus"} texto={"Signup | Novo registro"}/>
+        <BotaoGrande icon={"fa-solid fa-question"} texto={"Dúvidas | Sobre"}/>
+      </section>
+      <Rodape/>
     </>
   );
 }
