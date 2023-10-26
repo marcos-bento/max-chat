@@ -1,5 +1,4 @@
-@import url("../../style.css");
-
+@import url("../../Common/CSS/style.module.css");
 
 .conteudo{
     background: linear-gradient(180deg, #FFF 0%, var(--azul-principal) 100%);
@@ -13,4 +12,3 @@
         font-weight: 400;
     }
 }
-

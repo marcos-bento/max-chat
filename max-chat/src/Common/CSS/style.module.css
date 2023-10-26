@@ -1,0 +1,24 @@
+:root {
+  /* Colors */
+  --azul-principal: #7EDAEC;
+  --azul-secundario: #147B8F;
+  --cinza-principal: #CCCCCC;
+  --cinza-secundario: #AEAEAE;
+  --verde-principal: #7CF488;
+  --verde-secundario: #24B732;
+  --vermelho-principal: #F47C7C;
+  --vermelho-secundario: #B02828;
+  /* Fonts */
+  --fonte-principal: "Inter", sans-serif;
+  --fonte-logo: "Koulen", sans-serif;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: var(--fonte-principal);
+}
+
+a {
+  text-decoration: none;
+}/*# sourceMappingURL=style.module.css.map */

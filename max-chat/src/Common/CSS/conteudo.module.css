@@ -1,4 +1,4 @@
-@import url("../../style.css");
+@import url("../../Common/CSS/style.module.css");
 .conteudo {
   background: linear-gradient(180deg, #FFF 0%, var(--azul-principal) 100%);
   width: 100%;
@@ -10,4 +10,4 @@
   font-size: 16px;
   font-family: var(--font-principal);
   font-weight: 400;
-}/*# sourceMappingURL=App.module.css.map */
+}/*# sourceMappingURL=conteudo.module.css.map */

@@ -1,14 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './style.css';
-import App from './pages/index/App';
+import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Index from './pages/index/Index';
+import Login from './pages/login/login';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <App/>
-  </React.StrictMode>
-);
+const root = document.getElementById('root') as HTMLElement;
 
+ReactDOM.render(
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Index />} />
+      <Route path="/login" element={<Login />} />
+    </Routes>
+  </BrowserRouter>,
+  root
+);

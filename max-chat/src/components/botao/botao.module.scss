@@ -1,4 +1,16 @@
-.botao{
-    background-color: #06457e;
-    font-size: 3rem;
+@import url('../../Common/CSS/style.module.css');
+
+.botao_verde{
+    margin-top: 1rem;
+    background: linear-gradient(180deg, var(--verde-principal) 0%, var(--verde-secundario) 47.4%, var(--verde-principal) 100%);
+    border-radius: 15px;
+    border: 1px solid var(--verde-secundario);
+    width: 85px;
+    height: 40px;
+    align-self: center;
+    .botao_texto{
+        margin: 0;
+        font-size: 16px;
+        color: white;
+    }
 }

@@ -1,7 +1,8 @@
-@import url("../../style.css");
+@import url("../../Common/CSS/style.module.css");
 .navbar {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   margin: 1rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--cinza-principal);

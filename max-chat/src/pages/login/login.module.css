@@ -1,0 +1,7 @@
+@import url("../../Common/CSS/style.module.css");
+.login_reset_password {
+  text-decoration: underline;
+  font-size: 12px;
+  text-align: center;
+  color: var(--cinza-secundario);
+}/*# sourceMappingURL=login.module.css.map */
