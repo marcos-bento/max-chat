@@ -17,7 +17,7 @@ function Index() {
         <Link to="/registrar">
           <BotaoGrande icon="fa-solid fa-user-plus" texto="Signup | Novo registro" />
         </Link>
-        <Link to="/login">
+        <Link to="/sobre">
           <BotaoGrande icon="fa-solid fa-question" texto="Dúvidas | Sobre" />
         </Link>
       </section>
