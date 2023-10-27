@@ -11,6 +11,14 @@
         font-family: var(--font-principal);
         font-weight: 400;
     }
+    .conversas{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding-bottom: 1rem;
+        margin: 0 2rem;
+        border-bottom: 1px solid var(--cinza-principal);
+    }
 }
 
 .containerDeBotoes{

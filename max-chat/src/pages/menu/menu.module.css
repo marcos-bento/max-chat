@@ -1,9 +1,0 @@
-@import url("../../Common/CSS/style.module.css");
-.conversas {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding-bottom: 1rem;
-  margin: 0 2rem;
-  border-bottom: 1px solid var(--cinza-principal);
-}/*# sourceMappingURL=menu.module.css.map */
