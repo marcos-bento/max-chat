@@ -17,9 +17,14 @@ function Formulario({type = ""}:{type?:string}){
                 <Input placeholder={"Digite seu nome"}/>
             </>
             )}
-            <Link to="/">
+            
+            {/* Se o Login foi feito corretamente */}
+            {/* Se o Registro foi feito corretamente */}
+            <Link to="/menu">
                 <Botao texto={(type === "" ? "Entrar" : "Registrar")}/>
             </Link>
+
+            {/* Caso contrário exibir modal com erro (A programar) */}
         </div>
     )
 }
