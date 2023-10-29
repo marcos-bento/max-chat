@@ -1,0 +1,23 @@
+@import url('../../Common/CSS/style.module.css');
+
+.containerContato{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .containerSuperior{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        div{
+            padding: 1rem 1rem 0 1rem;
+        }
+    }
+    p{
+        padding: 0;
+    }
+    .texto__contatoDesde{
+        align-self: self-start;
+        padding: 0.5rem 1rem ;
+    }
+}

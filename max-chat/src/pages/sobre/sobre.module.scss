@@ -1,2 +1,17 @@
 @import url("../../Common/CSS/style.module.css");
 
+.titulo__container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1rem;
+    .titulo{
+        font-size: 28px;
+        font-weight: 400;
+        margin: -14px;
+        text-align: center;
+        color: var(--azul-principal);
+        font-family: var(--fonte-logo);
+        -webkit-text-stroke: 1px var(--azul-secundario);
+    }
+}

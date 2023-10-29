@@ -8,21 +8,6 @@
     border-radius: 25px;
     background: linear-gradient(180deg, var(--azul-principal) 0%, var(--azul-secundario) 22.4%, var(--azul-secundario) 80.21%, var(--azul-principal) 100%);
     margin-bottom: 1rem;
-    .titulo__container{
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        padding: 1rem;
-        .titulo{
-            font-size: 28px;
-            font-weight: 400;
-            margin: -14px;
-            text-align: center;
-            color: var(--azul-principal);
-            font-family: var(--fonte-logo);
-            -webkit-text-stroke: 1px var(--azul-secundario);
-        }
-    }
     p{
         margin: 0;
         font-size: 16px;

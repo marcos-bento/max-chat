@@ -1,5 +1,6 @@
 import React from "react";
 import style from './balao.module.css'
+import { Link } from 'react-router-dom';
 import Perfil from "../imagemDePerfil/perfil";
 import ElementoCirculo from "./elementoCirculo/elementoCirculo";
 
@@ -7,9 +8,10 @@ interface BalaoProps {
   tipo: "chat" | "contato" | "botao";
   icone?: string;
   cor?: string;
+  texto?: string;
 }
 
-function Balao({ tipo, icone = "fa-solid fa-plus", cor = "verde" }: BalaoProps) {
+function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contato" }: BalaoProps) {
   const renderContent = () => {
     switch (tipo) {
       case "chat":
@@ -36,8 +38,10 @@ function Balao({ tipo, icone = "fa-solid fa-plus", cor = "verde" }: BalaoProps) 
                 <p>Marcos</p>
             </div>
             <div className={style.botao_container}>
+              <Link to="/editarContato">
                 <ElementoCirculo icon={"fa-solid fa-pen-to-square"} cor={"azul"}/>
                 <p>Editar</p>
+              </Link>
             </div>
             <div className={style.botao_container}>
                 <ElementoCirculo icon={"fa-solid fa-x"} cor={"vermelho"}/>
@@ -54,7 +58,7 @@ function Balao({ tipo, icone = "fa-solid fa-plus", cor = "verde" }: BalaoProps) 
         return (
           <div>
             <ElementoCirculo icon={icone} cor={cor}/>
-            <p className={style.texto_botao}>Novo Contato</p>
+            <p className={style.texto_botao}>{texto}</p>
           </div>
         );
     }
