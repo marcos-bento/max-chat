@@ -5,7 +5,7 @@ import Icon from "../icone/icone";
 function BotaoGrande({icon, texto} : {icon: string, texto: string}){
     return (
         <button className={style.botao_grande}>
-            <Icon icon={icon} active={true} cor="branco"/>
+            <Icon icon={icon} cor="branco"/>
             <p className={style.botao_grande_texto}>{texto}</p>
         </button>
     )

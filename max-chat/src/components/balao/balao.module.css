@@ -11,8 +11,29 @@
   justify-content: center;
   align-items: center;
 }
+.balao div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 .balao p {
   color: black;
   font-size: 12px;
   text-wrap: wrap;
+}
+.balao .texto_botao {
+  padding-left: 1rem;
+}
+.balao .botao_container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0 5px;
+  margin-top: 10px;
+}
+.balao .botao_container p {
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }/*# sourceMappingURL=balao.module.css.map */

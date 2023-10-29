@@ -4,7 +4,7 @@
   align-self: center;
 }
 
-.icone_inativo {
+.icone_cinza {
   color: var(--cinza-secundario);
   align-self: center;
   position: relative;
@@ -13,4 +13,16 @@
 
 .icone_branco {
   color: white;
+}
+
+.icone_azul {
+  color: var(--azul-secundario);
+}
+
+.icone_vermelho {
+  color: var(--vermelho-secundario);
+}
+
+.icone_verde {
+  color: var(--verde-secundario);
 }/*# sourceMappingURL=icone.module.css.map */

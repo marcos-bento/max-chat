@@ -13,18 +13,20 @@ function Conversas(){
             <section className={style.conteudo}>
                 <h3 className={style.titulo}>Todas conversas</h3>
                 <div className={style.conversas}>
-                    <Balao/>
-                    <Balao/>
-                    <Balao/>
-                    <Balao/>
-                    <Balao/>
+                    <Balao tipo={"chat"}/>
+                    <Balao tipo={"chat"}/>
+                    <Balao tipo={"chat"}/>
+                    <Balao tipo={"chat"}/>
+                    <Balao tipo={"chat"}/>
                 </div>
             </section>
             <section className={style.containerDeBotoes}>
                 <Link to="/menu">
                     <BotaoGrande icon={"fa-solid fa-house"} texto={"Voltar ao Menu"}/>
                 </Link>
+                <Link to="/contatos">
                     <BotaoGrande icon={"fa-solid fa-address-book"} texto={"Ver todos os contatos"}/>
+                </Link>
                     <BotaoGrande icon={"fa-solid fa-plus"} texto={"Iniciar nova conversa"}/>
             </section>
             <Rodape />

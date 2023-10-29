@@ -7,6 +7,7 @@ import Registrar from './pages/registrar/registrar';
 import Sobre from './pages/sobre/sobre';
 import Menu from './pages/menu/menu';
 import Conversas from './pages/conversas/conversas';
+import Contatos from './pages/contatos/contatos';
 
 const root = document.getElementById('root') as HTMLElement;
 
@@ -19,6 +20,7 @@ ReactDOM.render(
       <Route path="/sobre" element={<Sobre />} />
       <Route path="/menu" element={<Menu />} />
       <Route path="/conversas" element={<Conversas />} />
+      <Route path="/contatos" element={<Contatos />} />
     </Routes>
   </BrowserRouter>,
   root

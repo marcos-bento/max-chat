@@ -1,10 +1,20 @@
 import React from "react";
 import style from './balao.module.css'
 import Perfil from "../imagemDePerfil/perfil";
+import ElementoCirculo from "./elementoCirculo/elementoCirculo";
 
-function Balao(){
-    return (
-        <div className={style.balao}>
+interface BalaoProps {
+  tipo: "chat" | "contato" | "botao";
+  icone?: string;
+  cor?: string;
+}
+
+function Balao({ tipo, icone = "fa-solid fa-plus", cor = "verde" }: BalaoProps) {
+  const renderContent = () => {
+    switch (tipo) {
+      case "chat":
+        return (
+          <div>
             <Perfil/>
             <svg width="238" height="65" viewBox="0 0 238 65" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g>
@@ -14,10 +24,47 @@ function Balao(){
                         <p>Marcos diz: E você viu o último lançamento? Vai sair em Dezembro...</p>
                     </foreignObject>
                 </g>
-                
             </svg>
-        </div>
-    )
+          </div>
+        );
+
+      case "contato":
+        return (
+          <>
+            <div className={style.botao_container}>
+                <Perfil/>
+                <p>Marcos</p>
+            </div>
+            <div className={style.botao_container}>
+                <ElementoCirculo icon={"fa-solid fa-pen-to-square"} cor={"azul"}/>
+                <p>Editar</p>
+            </div>
+            <div className={style.botao_container}>
+                <ElementoCirculo icon={"fa-solid fa-x"} cor={"vermelho"}/>
+                <p>Apagar</p>
+            </div>
+            <div className={style.botao_container}>
+                <ElementoCirculo icon={"fa-solid fa-comment-dots"} cor={"verde"}/>
+                <p>Chat</p>
+            </div>
+          </>
+        );
+
+      case "botao":
+        return (
+          <div>
+            <ElementoCirculo icon={icone} cor={cor}/>
+            <p className={style.texto_botao}>Novo Contato</p>
+          </div>
+        );
+    }
+  };
+
+  return (
+    <div className={style.balao}>
+      {renderContent()}
+    </div>
+  );
 }
 
 export default Balao;
