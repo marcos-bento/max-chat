@@ -10,7 +10,7 @@ function Formulario({type = ""}:{type?:string}){
             <p className={style.formulario_texto}>Login:</p>
             <Input placeholder={"Digite seu e-mail"}/>
             <p className={style.formulario_texto}>Senha:</p>
-            <Input placeholder={"Digite sua senha"}/>
+            <Input placeholder={"Digite sua senha"} type={"password"}/>
             {(type === "" ? "" : 
             <>
                 <p className={style.formulario_texto}>Nome:</p>

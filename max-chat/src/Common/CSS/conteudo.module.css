@@ -30,5 +30,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  height: 100%;
   background-color: var(--azul-principal);
 }/*# sourceMappingURL=conteudo.module.css.map */
