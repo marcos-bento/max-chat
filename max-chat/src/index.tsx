@@ -9,6 +9,7 @@ import Menu from './pages/menu/menu';
 import Conversas from './pages/conversas/conversas';
 import Contatos from './pages/contatos/contatos';
 import EditarContato from './pages/editarContato/editarContato';
+import NovoContato from './pages/novoContato/novoContato';
 
 const root = document.getElementById('root') as HTMLElement;
 
@@ -23,6 +24,7 @@ ReactDOM.render(
       <Route path="/conversas" element={<Conversas />} />
       <Route path="/contatos" element={<Contatos />} />
       <Route path="/editarContato" element={<EditarContato />} />
+      <Route path="/novoContato" element={<NovoContato />} />
     </Routes>
   </BrowserRouter>,
   root
