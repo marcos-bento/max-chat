@@ -28,7 +28,7 @@ function EditarContato(){
                                     <Perfil/>
                                 </div>
                             </div>
-                            <Input placeholder={"Digite o apelido para o contato"}/>
+                            {/* <Input placeholder={"Digite o apelido para o contato"}/> */}
                             <p className={styleContato.texto__contatoDesde}>Contato desde: 19/10/2023</p>
                         </div>
                     </Modal>

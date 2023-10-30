@@ -1,10 +1,20 @@
 import React from "react";
-import style from "./botao.module.css"
+import style from "./botao.module.css";
 
-function Botao({texto}:{texto:string}){
-    return(
-        <button className={style.botao_verde}><p className={style.botao_texto}>{texto}</p></button>
-    )
+interface Props {
+  texto: string;
+  onClick: () => void; // Define a prop onClick como uma função sem parâmetros e sem valor de retorno.
+}
+
+function Botao({ texto, onClick }: Props) {
+  return (
+    <button onClick={onClick} className={style.botao_verde}>
+      <p className={style.botao_texto}>{texto}</p>
+    </button>
+  );
+}
+function BotaoValidaLogin(){
+    console.log("validando")
 }
 
 export default Botao;

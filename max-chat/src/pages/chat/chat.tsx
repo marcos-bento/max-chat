@@ -53,7 +53,7 @@ function Chat(){
                             </div>
                         </div>
                         <div  className={chatStyle.chat_submit}>
-                            <Input placeholder={"Digite sua mensagem"}/>
+                            {/* <Input placeholder={"Digite sua mensagem"}/> */}
                             <div className={chatStyle.chat_submit_botao}>
                                 <p className={chatStyle.chat_submit_botao_texto}>Enviar mensagem</p>
                             </div>

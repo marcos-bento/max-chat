@@ -19,9 +19,9 @@ function NovoContato(){
                     <Modal altura={0}>
                         <div className={novoContatoStyle.novoContato}>
                             <p>Digite o e-mail</p>
-                            <Input placeholder={"Digite o e-mail do contato"}/>
+                            {/* <Input placeholder={"Digite o e-mail do contato"}/> */}
                             <p>Conhecido como:</p>
-                            <Input placeholder={"Digite o apelido para o contato"}/> 
+                            {/* <Input placeholder={"Digite o apelido para o contato"}/>  */}
                         </div>
                     </Modal>
                     <Balao tipo={"botao"} icone={"fa-solid fa-plus"} cor={"verde"} texto={"Adicionar contato"}/>

@@ -1,9 +1,17 @@
 {
-  "posts": [
+  "user": [
     {
       "id": 1,
-      "title": "Some",
-      "author": "typicode"
+      "email": "marcos.x.marcos@hotmail.com",
+      "nome": "Marcos Bento",
+      "senha": "mortadela01",
+      "imagem": ""
+    },{
+      "id": 2,
+      "email": "fabio_albarelli@hotmail.com",
+      "nome": "Fabio Albareli",
+      "senha": "mortadela01",
+      "imagem": ""
     }
   ],
   "comments": [
