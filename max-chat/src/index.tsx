@@ -10,6 +10,7 @@ import Conversas from './pages/conversas/conversas';
 import Contatos from './pages/contatos/contatos';
 import EditarContato from './pages/editarContato/editarContato';
 import NovoContato from './pages/novoContato/novoContato';
+import NovoChat from './pages/novoChat/novoChat';
 
 const root = document.getElementById('root') as HTMLElement;
 
@@ -25,6 +26,7 @@ ReactDOM.render(
       <Route path="/contatos" element={<Contatos />} />
       <Route path="/editarContato" element={<EditarContato />} />
       <Route path="/novoContato" element={<NovoContato />} />
+      <Route path="/novoChat" element={<NovoChat />} />
     </Routes>
   </BrowserRouter>,
   root

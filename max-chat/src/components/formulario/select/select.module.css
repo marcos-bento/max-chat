@@ -1,0 +1,19 @@
+@import url("../../../Common/CSS/style.module.css");
+.input {
+  border-top-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  height: 35px;
+  width: 250px;
+  margin: 0 auto;
+  border: 1px solid var(--azul-secundario);
+}
+.input::-moz-placeholder {
+  color: var(--cinza-secundario);
+  font-size: 16px;
+  padding-left: 1rem;
+}
+.input::placeholder {
+  color: var(--cinza-secundario);
+  font-size: 16px;
+  padding-left: 1rem;
+}/*# sourceMappingURL=select.module.css.map */

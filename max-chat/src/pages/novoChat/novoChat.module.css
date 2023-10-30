@@ -1,0 +1,11 @@
+@import url("../../Common/CSS/style.module.css");
+.novoChat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.novoChat p {
+  align-self: flex-start;
+  padding: 1rem 1.5rem;
+}/*# sourceMappingURL=novoChat.module.css.map */

@@ -27,7 +27,9 @@ function Conversas(){
                 <Link to="/contatos">
                     <BotaoGrande icon={"fa-solid fa-address-book"} texto={"Ver todos os contatos"}/>
                 </Link>
+                <Link to="/novoChat">
                     <BotaoGrande icon={"fa-solid fa-plus"} texto={"Iniciar nova conversa"}/>
+                </Link>
             </section>
             <Rodape />
         </>
