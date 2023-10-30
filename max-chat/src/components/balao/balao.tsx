@@ -48,8 +48,10 @@ function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contat
                 <p>Apagar</p>
             </div>
             <div className={style.botao_container}>
+              <Link to="/chat">
                 <ElementoCirculo icon={"fa-solid fa-comment-dots"} cor={"verde"}/>
                 <p>Chat</p>
+              </Link>
             </div>
           </>
         );

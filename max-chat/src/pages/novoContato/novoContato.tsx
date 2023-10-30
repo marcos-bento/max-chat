@@ -16,7 +16,7 @@ function NovoContato(){
             <section className={style.conteudo}>
                 <h3 className={style.titulo}>Adicionar contato</h3>
                 <div className={style.conversas}>
-                    <Modal altura={170}>
+                    <Modal altura={0}>
                         <div className={novoContatoStyle.novoContato}>
                             <p>Digite o e-mail</p>
                             <Input placeholder={"Digite o e-mail do contato"}/>

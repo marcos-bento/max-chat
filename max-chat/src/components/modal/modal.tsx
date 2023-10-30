@@ -8,7 +8,7 @@ interface BackgroundProps {
 
 const Modal: React.FC<BackgroundProps> = ({ children, altura = 500 }) => {
     return (
-        <div className={style.modal} style={{height: `${altura}px`}}>
+        <div className={style.modal} style={{height: (altura === 0 ? "auto" : `${altura}px`)}}>
             {children}
         </div>
     )

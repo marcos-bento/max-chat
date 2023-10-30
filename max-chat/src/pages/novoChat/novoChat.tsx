@@ -16,13 +16,15 @@ function NovoChat(){
             <section className={style.conteudo}>
                 <h3 className={style.titulo}>Nova conversa</h3>
                 <div className={style.conversas}>
-                    <Modal altura={120}>
+                    <Modal altura={100}>
                         <div className={styleNovoChat.novoChat}>
                             <p>Selecione o contato:</p>
                             <Select placeholder={"Selecione o contato"}/>
                         </div>
                     </Modal>
-                    <Balao tipo={"botao"} icone={"fa-solid fa-comment-dots"} cor={"azul"} texto={"Iniciar conversa"}/>
+                    <Link to="/chat">
+                        <Balao tipo={"botao"} icone={"fa-solid fa-comment-dots"} cor={"azul"} texto={"Iniciar conversa"}/>
+                    </Link>
                 </div>
             </section>
             <section className={style.containerDeBotoes}>

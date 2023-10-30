@@ -1,1 +1,1 @@
-{"version":3,"sources":["modal.module.scss","modal.module.css"],"names":[],"mappings":"AAAQ,gDAAA;AAER;EACI,YAAA;EACA,aAAA;EACA,YAAA;EACA,wCAAA;EACA,mBAAA;EACA,sJAAA;EACA,mBAAA;ACAJ;ADCI;EACI,SAAA;EACA,eAAA;EACA,gBAAA;EACA,YAAA;EACA,yBAAA;ACCR","file":"modal.module.css"}
+{"version":3,"sources":["modal.module.scss","modal.module.css"],"names":[],"mappings":"AAAQ,gDAAA;AAER;EACI,YAAA;EACA,aAAA;EACA,YAAA;EACA,wCAAA;EACA,mBAAA;EACA,sJAAA;EACA,mBAAA;EACA,oBAAA;ACAJ;ADCI;EACI,SAAA;EACA,eAAA;EACA,gBAAA;EACA,YAAA;EACA,yBAAA;ACCR","file":"modal.module.css"}

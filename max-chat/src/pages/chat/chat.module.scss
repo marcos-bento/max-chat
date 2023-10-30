@@ -1,0 +1,86 @@
+@import url('../../Common/CSS/style.module.css');
+
+.chat_container{
+    display: flex;
+    flex-direction: column;
+    .chat_titulo{
+        padding: 1rem 0 0 1rem;
+    }
+    .chat_income{
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        .chat_income_text{
+            color: var(--cinza-principal);
+            font-size: 12px;
+            padding: 0.5rem 0 0 1rem;
+        }
+        .chat_income_balao{
+            width: 280px;
+            margin: auto;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            border: 1px solid var(--azul-secundario);
+            background: var(--azul-principal);
+            border-radius: 15px;
+            padding: 0 0.3rem;
+            .chat_content{
+                color: white;
+                padding: 1rem;
+            }
+        }
+    }
+
+    .chat_outcome{
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        .chat_outcome_text{
+            color: var(--cinza-principal);
+            font-size: 12px;
+            padding: 0.5rem 1rem 0 0;
+            text-align: right;
+        }
+        .chat_outcome_balao{
+            width: 280px;
+            margin: auto;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            border: 1px solid var(--azul-secundario);
+            background: var(--verde-secundario);
+            border-radius: 15px;
+            padding: 0 0.3rem;
+            .chat_content{
+                color: white;
+                padding: 1rem;
+            }
+        }
+    }
+}
+
+.chat_submit{
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    .chat_submit_botao{
+        width: 220px;
+        height: 57px;
+        background: var(--azul-principal);
+        border-radius: 90px;
+        cursor: pointer;
+        border: 1px solid var(--azul-secundario);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        .chat_submit_botao_texto{
+            color: black;
+            padding: 0;
+        }
+    }
+}
