@@ -7,7 +7,7 @@ import Rodape from '../../components/rodape/rodape';
 
 function Index() {
   return (
-    <>
+    <div className={style.pagina}>
       <Cabecalho />
       <section className={style.conteudo}>
         <h3 className={style.titulo}>Max Chat</h3>
@@ -22,7 +22,7 @@ function Index() {
         </Link>
       </section>
       <Rodape />
-    </>
+    </div>
   );
 }
 

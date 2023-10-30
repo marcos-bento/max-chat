@@ -7,7 +7,7 @@ import Modal from '../../components/modal/modal';
 
 function Sobre() {
   return (
-    <>
+    <div className={style.pagina}>
       <Cabecalho />
       <section className={style.conteudo}>
         <h3 className={style.titulo}>Sobre</h3>
@@ -24,7 +24,7 @@ function Sobre() {
         </Modal>
       </section>
       <Rodape />
-    </>
+    </div>
   );
 }
 

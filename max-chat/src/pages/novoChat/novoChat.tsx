@@ -11,7 +11,7 @@ import Select from "../../components/formulario/select/select";
 
 function NovoChat(){
     return(
-        <>
+        <div className={style.pagina}>
             <Cabecalho />
             <section className={style.conteudo}>
                 <h3 className={style.titulo}>Nova conversa</h3>
@@ -39,7 +39,7 @@ function NovoChat(){
                 </Link>
             </section>
             <Rodape />
-        </>
+        </div>
     )
 };
 

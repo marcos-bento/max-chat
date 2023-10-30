@@ -11,7 +11,7 @@ import Input from "../../components/formulario/input/input";
 
 function NovoContato(){
     return(
-        <>
+        <div className={style.pagina}>
             <Cabecalho />
             <section className={style.conteudo}>
                 <h3 className={style.titulo}>Adicionar contato</h3>
@@ -42,7 +42,7 @@ function NovoContato(){
                 </Link>
             </section>
             <Rodape />
-        </>
+        </div>
     )
 };
 

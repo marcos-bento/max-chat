@@ -7,7 +7,7 @@ import Formulario from '../../components/formulario/formulario';
 
 function Login() {
   return (
-    <>
+    <div className={style.pagina}>
       <Cabecalho />
       <section className={style.conteudo}>
         <h3 className={style.titulo}>Login</h3>
@@ -15,7 +15,7 @@ function Login() {
         <p className={loginStyle.login_reset_password}>esqueceu a senha?</p>
       </section>
       <Rodape />
-    </>
+    </div>
   );
 }
 

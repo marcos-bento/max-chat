@@ -8,7 +8,7 @@ import BotaoGrande from "../../components/botaoGrande/botaoGrande";
 
 function Conversas(){
     return(
-        <>
+        <div className={style.pagina}>
             <Cabecalho />
             <section className={style.conteudo}>
                 <h3 className={style.titulo}>Todas conversas</h3>
@@ -32,7 +32,7 @@ function Conversas(){
                 </Link>
             </section>
             <Rodape />
-        </>
+        </div>
     )
 };
 

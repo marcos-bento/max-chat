@@ -7,7 +7,7 @@ import Formulario from '../../components/formulario/formulario';
 
 function Registrar() {
   return (
-    <>
+    <div className={style.pagina}>
       <Cabecalho />
       <section className={style.conteudo}>
         <h3 className={style.titulo}>Registrar</h3>
@@ -15,7 +15,7 @@ function Registrar() {
         <p className={registerStyle.register_to_login}>Já é cadastrado? Clique aqui para fazer o login</p>
       </section>
       <Rodape />
-    </>
+    </div>
   );
 }
 

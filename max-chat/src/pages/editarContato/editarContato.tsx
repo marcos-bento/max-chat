@@ -12,7 +12,7 @@ import Input from "../../components/formulario/input/input";
 
 function EditarContato(){
     return(
-        <>
+        <div className={style.pagina}>
             <Cabecalho />
             <section className={style.conteudo}>
                 <h3 className={style.titulo}>Editar contato</h3>
@@ -51,7 +51,7 @@ function EditarContato(){
                 </Link>
             </section>
             <Rodape />
-        </>
+        </div>
     )
 };
 

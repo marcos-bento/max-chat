@@ -8,7 +8,7 @@ import BotaoGrande from "../../components/botaoGrande/botaoGrande";
 
 function Contatos(){
     return(
-        <>
+        <div className={style.pagina}>
             <Cabecalho />
             <section className={style.conteudo}>
                 <h3 className={style.titulo}>Todos contatos</h3>
@@ -34,7 +34,7 @@ function Contatos(){
                 </Link>
             </section>
             <Rodape />
-        </>
+        </div>
     )
 };
 
