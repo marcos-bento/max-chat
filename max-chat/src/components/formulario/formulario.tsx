@@ -12,7 +12,6 @@ function Formulario({ type = "" }: { type?: string }) {
   const [nome, setNome] = useState(""); // Se você quiser rastrear o nome, se aplicável
   const [emailValido, setEmailValido] = useState(true);
 
-
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const novoEmail = e.target.value;
     setEmail(novoEmail);

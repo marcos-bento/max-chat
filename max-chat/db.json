@@ -4,15 +4,14 @@
       "id": 1,
       "email": "marcos.x.marcos@hotmail.com",
       "nome": "Marcos Bento",
-      "senha": "mortadela01",
+      "senha": "ssxyjjirf97",
       "imagem": ""
     },
     {
-      "id": 2,
       "email": "fabio_albarelli@hotmail.com",
-      "nome": "Fabio Albareli",
-      "senha": "mortadela01",
-      "imagem": ""
+      "nome": "Fabio Albarelli",
+      "senha": "ssxyjjirf97",
+      "id": 2
     }
   ],
   "chats": [

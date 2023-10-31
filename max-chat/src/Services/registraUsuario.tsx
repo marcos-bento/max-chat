@@ -1,7 +1,9 @@
 import { Cadastro } from "../Interfaces/cadastro";
 import { conectApi } from "./conectaApi";
+import { seguranca } from "./encriptador";
 
 async function RegistraUsuario({email, senha, nome}: Cadastro){
+    senha = seguranca.encriptador(senha);
     let dadosUsuario = await conectApi.recuperaUsuario();
     for (const element of dadosUsuario.conexaoConvertida) {
         if (element.email === email) {

@@ -1,4 +1,5 @@
 import { conectApi } from "./conectaApi";
+import { seguranca } from "./encriptador";
 
 interface Props{
     email: string;
@@ -8,7 +9,7 @@ interface Props{
 async function validaLogin({email, senha}: Props): Promise<boolean>{
     let dadosUsuario = await conectApi.recuperaUsuario();
     for (const element of dadosUsuario.conexaoConvertida) {
-        if (element.email === email && element.senha === senha) {
+        if (element.email === email && seguranca.decriptador(element.senha) === senha) {
             // Login efetuado com sucesso!
             return true;
         }
