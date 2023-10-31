@@ -14,6 +14,27 @@ Projeto desenvolvido para praticar e aperfeiçoar as habilidades adquiridas ao l
 
 O projeto "Chat App" é uma aplicação web mobile-first desenvolvida com React e TypeScript. Ele oferece uma interface de usuário amigável para chat, registro, login e gerenciamento de contatos. O desenvolvimento é orientado pelo método Kanban com auxílio do site Trello e o design se baseia em um modelo previamente criado no site Figma.
 
+O projeto está atualmente em: Desenvolvimento:
+
+**Progresso:** 20%
+
+<progress max="100" value="20"></progress>
+
+<style>
+progress {
+  width: 100%;
+  height: 20px;
+}
+
+progress::-webkit-progress-value {
+  background: #4CAF50;
+}
+
+progress::-webkit-progress-bar {
+  background: #ccc;
+}
+</style>
+
 ## Funcionalidades Principais
 1. **Login e Registro de Usuário**:
    - Os usuários podem fazer login com seu e-mail e senha.
