@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import style from "./formulario.module.css";
+import stdStyle from "../../Common/CSS/conteudo.module.css"
 import Input from "./input/input";
 import Botao from "../botao/botao";
 import validaLogin from "../../Services/validaLogin";
 import RegistraUsuario from "../../Services/registraUsuario";
+import Modal from "../modal/modal";
 
 function Formulario({ type = "" }: { type?: string }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [nome, setNome] = useState(""); // Se você quiser rastrear o nome, se aplicável
+  const [nome, setNome] = useState("");
   const [emailValido, setEmailValido] = useState(true);
+  const [modal, setModal] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const [modalButton, setModalButton] = useState("");
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const novoEmail = e.target.value;
@@ -31,17 +36,37 @@ function Formulario({ type = "" }: { type?: string }) {
     setSenha(event.target.value);
   };
 
+  const handleModal = (text: string, corBotao: string) => {
+    setModal(true)
+    handleModalText(text)
+    handleModalButton(corBotao)
+  };
+
+  const handleModalOk = () => {
+    setModal(false);
+    if (modalButton==="verde"){
+      window.location.href="/menu"
+    }
+  }
+
+  const handleModalText = (text: string) => {
+    setModalText(text)
+  };
+
+  const handleModalButton = (corBotao: string) => {
+    setModalButton(corBotao)
+  };
+
   const handleFormSubmit = async () => {
     // Valida o login
     if (emailValido) {
       if (await validaLogin({ email, senha })){
-        alert('Usuário logado com sucesso!');
-        window.location.href="/menu"
+        handleModal('Usuário logado com sucesso!','verde');
       } else {
-          alert('Dados inválidos! Tente novamente.');
+        handleModal('Dados inválidos! Tente novamente.','vermelho');
       };
     } else {
-      alert("Email inválido:");
+      handleModal("Email inválido!",'vermelho');
     }
   };
 
@@ -50,20 +75,31 @@ function Formulario({ type = "" }: { type?: string }) {
     if (emailValido) {
       if (email != "" && senha != "" && nome != ""){
         const resultado = await RegistraUsuario({ email, senha, nome })
-        alert(resultado.texto);
         if (resultado.resul){
-          window.location.href="/menu"
+          handleModal(resultado.texto, 'verde');
+        } else {
+          handleModal(resultado.texto,'vermelho');
         }
       } else {
-        alert('Preencha todos os campos para registrar um usuário!')
+        handleModal('Preencha todos os campos para registrar um usuário!', 'vermelho');
       }
     } else {
-      alert("Email inválido:");
+      handleModal("Email inválido!",'vermelho');
     }
   };
 
   return (
     <div className={type === "" ? style.formulario : style.formulario_medio}>
+      
+      {modal && <div className={stdStyle.modal_alert}>
+        {/* Modal */}
+        <Modal altura={0}>
+          <div className={stdStyle.modal_alert_content}>
+            <p>{modalText}</p>
+            <Botao texto ="Ok" cor={modalButton} onClick={handleModalOk}/>
+          </div>
+        </Modal>
+      </div>}
       <p className={style.formulario_texto}>Login:</p>
       <Input placeholder={"Digite seu e-mail"} onChange={handleEmailChange} />
       {!emailValido && <p className={style.alerta_erro} style={{ color: "salmon" }}>Email inválido</p>}

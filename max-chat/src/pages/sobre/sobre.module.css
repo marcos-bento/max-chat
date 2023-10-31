@@ -13,4 +13,8 @@
   color: var(--azul-principal);
   font-family: var(--fonte-logo);
   -webkit-text-stroke: 1px var(--azul-secundario);
+}
+
+.texto {
+  padding: 0 1rem 1rem 1rem;
 }/*# sourceMappingURL=sobre.module.css.map */

@@ -6,13 +6,17 @@ import Rodape from '../../components/rodape/rodape';
 import Formulario from '../../components/formulario/formulario';
 
 function Registrar() {
+  const handleOnClick = () =>{
+    window.location.href="/login"
+  }
+
   return (
     <div className={style.pagina}>
       <Cabecalho />
       <section className={style.conteudo}>
         <h3 className={style.titulo}>Registrar</h3>
         <Formulario type={"registrar"}/>
-        <p className={registerStyle.register_to_login}>Já é cadastrado? Clique aqui para fazer o login</p>
+        <p className={registerStyle.register_to_login} onClick={handleOnClick}>Já é cadastrado? Clique aqui para fazer o login</p>
       </section>
       <Rodape />
     </div>

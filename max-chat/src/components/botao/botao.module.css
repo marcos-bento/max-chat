@@ -1,15 +1,23 @@
 @import url("../../Common/CSS/style.module.css");
-.botao_verde {
+.botao {
   margin-top: 1rem;
-  background: linear-gradient(180deg, var(--verde-principal) 0%, var(--verde-secundario) 47.4%, var(--verde-principal) 100%);
   border-radius: 15px;
-  border: 1px solid var(--verde-secundario);
   width: 85px;
   height: 40px;
   align-self: center;
 }
-.botao_verde .botao_texto {
+.botao .botao_texto {
   margin: 0;
   font-size: 16px;
   color: white;
+}
+
+.botao_verde {
+  background: linear-gradient(180deg, var(--verde-principal) 0%, var(--verde-secundario) 47.4%, var(--verde-principal) 100%);
+  border: 1px solid var(--verde-secundario);
+}
+
+.botao_vermelho {
+  background: linear-gradient(180deg, var(--vermelho-principal) 0%, var(--vermelho-secundario) 47.4%, var(--vermelho-principal) 100%);
+  border: 1px solid var(--vermelho-secundario);
 }/*# sourceMappingURL=botao.module.css.map */

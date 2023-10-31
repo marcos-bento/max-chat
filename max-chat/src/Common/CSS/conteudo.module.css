@@ -5,6 +5,24 @@
   flex-direction: column;
   height: 100vh; /* Garante que o conteúdo ocupe pelo menos a altura da tela visível */
 }
+.pagina .modal_alert {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  background-color: rgba(128, 128, 128, 0.7);
+  padding-top: 33.3333333333vh;
+}
+.pagina .modal_alert .modal_alert_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  text-align: center;
+}
 .pagina .conteudo {
   background: linear-gradient(180deg, #FFF 0%, var(--azul-principal) 100%);
   width: 100%;
