@@ -18,7 +18,7 @@ O projeto está atualmente em: Desenvolvimento:
 
 **Progresso:** 20%
 
-[<span style="color: red;">////</span>////////////////]
+![Progress](https://progress-bar.dev/20)
 
 ## Funcionalidades Principais
 1. **Login e Registro de Usuário**:
