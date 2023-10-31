@@ -6,7 +6,8 @@
       "nome": "Marcos Bento",
       "senha": "mortadela01",
       "imagem": ""
-    },{
+    },
+    {
       "id": 2,
       "email": "fabio_albarelli@hotmail.com",
       "nome": "Fabio Albareli",
@@ -14,14 +15,37 @@
       "imagem": ""
     }
   ],
-  "comments": [
+  "chats": [
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "chat_id": 1,
+      "user_1_id": 1,
+      "user_2_id": 2,
+      "content": [
+        {
+          "message_id": 1,
+          "user": "Fabio Albareli",
+          "time": "20:18",
+          "chat": "Você jogou aquele jogo da memória?"
+        },
+        {
+          "message_id": 2,
+          "user": "Marcos Bento",
+          "time": "20:20",
+          "chat": "Joguei sim e curti bastante o jogo, meus sobrinhos também adoraram!"
+        },
+        {
+          "message_id": 3,
+          "user": "Fabio Albareli",
+          "time": "20:20",
+          "chat": "Será que tem alguma novidade saindo?"
+        },
+        {
+          "message_id": 4,
+          "user": "Fabio Albareli",
+          "time": "20:22",
+          "chat": "E voCê viu o último lançamento? Vai sair em Dezembro..."
+        }
+      ]
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }

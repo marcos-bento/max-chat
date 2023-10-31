@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "typescript-plugin-css-modules": "^5.0.2"
   },
   "dependencies": {
@@ -23,7 +24,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts --openssl-legacy-provider start",
+    "start-react": "set PORT=3001 && react-scripts --openssl-legacy-provider start node json-server --watch db.json",
+    "start-json-server": "json-server --watch db.json",
+    "start": "concurrently \"npm run start-react\" \"npm run start-json-server\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

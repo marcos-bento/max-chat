@@ -4,6 +4,7 @@ import style from "./formulario.module.css";
 import Input from "./input/input";
 import Botao from "../botao/botao";
 import validaLogin from "../../Services/validaLogin";
+import RegistraUsuario from "../../Services/registraUsuario";
 
 function Formulario({ type = "" }: { type?: string }) {
   const [email, setEmail] = useState("");
@@ -23,14 +24,27 @@ function Formulario({ type = "" }: { type?: string }) {
   };
 
   const handleFormSubmit = async () => {
-    // console.log("Nome:", nome);
+    // Valida o login
     if (await validaLogin({ email, senha })){
         alert('Usuário logado com sucesso!');
         window.location.href="/menu"
     } else {
         alert('Dados inválidos! Tente novamente.');
     };
-    // Redirecionar o usuário, se necessário
+  };
+
+  const handleFormSubmitRegister = async () => {
+    // Valida o registro
+    if (email != "" && senha != "" && nome != ""){
+      const resultado = await RegistraUsuario({ email, senha, nome })
+      alert(resultado.texto);
+      if (resultado.resul){
+        window.location.href="/menu"
+      }
+    } else {
+      alert('Preencha todos os campos para registrar um usuário!')
+    }
+ 
   };
 
   return (
@@ -46,7 +60,7 @@ function Formulario({ type = "" }: { type?: string }) {
         </>
       )}
 
-      <Botao texto={type === "" ? "Entrar" : "Registrar"} onClick={handleFormSubmit} />
+      <Botao texto={type === "" ? "Entrar" : "Registrar"} onClick={type === "" ? handleFormSubmit : handleFormSubmitRegister}/>
     </div>
   );
 }
