@@ -16,9 +16,7 @@ O projeto "Chat App" é uma aplicação web mobile-first desenvolvida com React 
 
 O projeto está atualmente em: Desenvolvimento:
 
-**Progresso:** 20%
-
-![Progress](https://progress-bar.dev/20)
+**Progresso:** ![Progress](https://progress-bar.dev/20)
 
 ## Funcionalidades Principais
 1. **Login e Registro de Usuário**:
@@ -56,10 +54,10 @@ O projeto segue uma estrutura de pastas organizada:
 - **Back-End Simulado**: REST API com json-server
 
 ## Abordagem de Desenvolvimento
-- Desenvolvimento orientado pelo método Kanban, com acompanhamento no site Trello.
+- Desenvolvimento orientado pelo método Kanban, com acompanhamento no site [Trello](https://trello.com/b/CQQmoXZv/projeto-max-chat).
 
 ## Design e UX/UI
-- O design da aplicação é baseado em um modelo previamente desenvolvido no site Figma para garantir a melhor experiência do usuário (UX/UI).
+- O design da aplicação é baseado em um modelo previamente desenvolvido no site [Figma](https://www.figma.com/file/LpDSvA4n5beAFSZuwtcwjx/maxChat?type=design&node-id=0-1&mode=design&t=fOQD1Ta2XnCpDaJ6-0) para garantir a melhor experiência do usuário (UX/UI).
 
 ## Foco em Mobile-First
 - O projeto é desenvolvido com foco no design responsivo e otimizado para dispositivos móveis com uma largura de tela mínima de 375px.
