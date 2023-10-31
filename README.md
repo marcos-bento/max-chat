@@ -18,7 +18,7 @@ O projeto está atualmente em: Desenvolvimento:
 
 **Progresso:** 20%
 
-[<font color="green">////</font>////////////////]
+[<span style="color: red;">////</span>////////////////]
 
 ## Funcionalidades Principais
 1. **Login e Registro de Usuário**:
