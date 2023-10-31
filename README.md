@@ -17,23 +17,7 @@ O projeto "Chat App" é uma aplicação web mobile-first desenvolvida com React 
 O projeto está atualmente em: Desenvolvimento:
 
 **Progresso:** 20%
-
-<progress max="100" value="20"></progress>
-
-<style>
-progress {
-  width: 100%;
-  height: 20px;
-}
-
-progress::-webkit-progress-value {
-  background: #4CAF50;
-}
-
-progress::-webkit-progress-bar {
-  background: #ccc;
-}
-</style>
+[<font color=green>////</font>////////////////]
 
 ## Funcionalidades Principais
 1. **Login e Registro de Usuário**:
