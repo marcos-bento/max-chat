@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("../../Common/CSS/style.module.css");
 .navbar {
   display: flex;
@@ -22,5 +23,36 @@
   -webkit-text-stroke: 1px var(--azul-secundario);
 }
 .navbar .svg {
-  -webkit-text-stroke: 1px var(--azul-secundario);
+  -webkit-text-stroke: 1px var(--azul-secundario); /* Para inserir uma borda azul no svg */
+}
+.navbar .modal_navbar {
+  position: fixed;
+  right: 0%;
+  top: 0%;
+  width: 160px;
+  height: auto;
+  background-color: var(--azul-secundario);
+  z-index: 999;
+  border: 1px solid var(--azul-principal);
+  border-radius: 0px 0px 0px 15px;
+  padding: 1rem;
+  transform: translateX(100%); /* Inicialmente, esconde o menu */
+  transition: transform 0.5s ease-in-out; /* Adiciona uma transição suave */
+}
+.navbar .modal_navbar.active {
+  transform: translateX(0); /* Quando o modal estiver ativo, traz o menu de volta para a tela */
+}
+.navbar .modal_navbar .modal_navbar_content {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 0.5rem;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid var(--cinza-principal);
+}
+.navbar .modal_navbar .modal_navbar_content:nth-child(3) {
+  border-bottom: none;
+}
+.navbar .modal_navbar .modal_navbar_content .modal_navbar_content_text {
+  color: white;
 }/*# sourceMappingURL=cabecalho.module.css.map */
