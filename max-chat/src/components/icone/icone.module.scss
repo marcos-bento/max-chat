@@ -5,11 +5,11 @@
     align-self: center;
 }
 
-.icone_cinza{
+.icone_foto{
     color: var(--cinza-secundario);
     align-self: center;
     position: relative;
-    top: 8px;
+    top: 6px;
 }
 
 .icone_branco{
@@ -26,4 +26,8 @@
 
 .icone_verde{
     color: var(--verde-secundario);
+}
+
+.icone_cinza{
+    color: var(--cinza-secundario);
 }

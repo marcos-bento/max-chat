@@ -18,6 +18,11 @@ function Icon({icon, cor = ""}: {icon: string, cor?: string}){
         case "cinza":
             cor = "icone_cinza";
             break;
+        case "icone-foto":
+            cor = "icone_foto";
+            break;
+
+            
         default:
             cor = "icone";
             break;

@@ -20,6 +20,10 @@
             align-items: center;
             padding: 1rem;
             text-align: center;
+            .modal_alert_content_double_button{
+                display: flex;
+                gap: 4rem;
+            }
         }
     }
     .conteudo{

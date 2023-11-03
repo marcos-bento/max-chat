@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import style from "./formulario.module.css";
 import stdStyle from "../../Common/CSS/conteudo.module.css"
 import Input from "./input/input";
@@ -7,8 +6,12 @@ import Botao from "../botao/botao";
 import validaLogin from "../../Services/validaLogin";
 import RegistraUsuario from "../../Services/registraUsuario";
 import Modal from "../modal/modal";
+import { useUser } from "../../Services/userContext";
+import { UsuarioLogado } from "../../Services/usuarioLogado";
+import { Link } from "react-router-dom";
 
-function Formulario({ type = "" }: { type?: string }) {
+
+function Formulario({type = "" }: { type?: string }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [nome, setNome] = useState("");
@@ -16,6 +19,8 @@ function Formulario({ type = "" }: { type?: string }) {
   const [modal, setModal] = useState(false);
   const [modalText, setModalText] = useState("");
   const [modalButton, setModalButton] = useState("");
+  const { usuarioLogado, setUsuarioLogado } = useUser(); // Use o contexto aqui
+
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const novoEmail = e.target.value;
@@ -38,29 +43,17 @@ function Formulario({ type = "" }: { type?: string }) {
 
   const handleModal = (text: string, corBotao: string) => {
     setModal(true)
-    handleModalText(text)
-    handleModalButton(corBotao)
-  };
-
-  const handleModalOk = () => {
-    setModal(false);
-    if (modalButton==="verde"){
-      window.location.href="/menu"
-    }
-  }
-
-  const handleModalText = (text: string) => {
     setModalText(text)
-  };
-
-  const handleModalButton = (corBotao: string) => {
     setModalButton(corBotao)
   };
-
-  const handleFormSubmit = async () => {
+  
+  const handleFormSubmit = async (event: Event) => {
+    event.preventDefault();
     // Valida o login
     if (emailValido) {
-      if (await validaLogin({ email, senha })){
+      let resposta = await validaLogin({ email, senha })
+      if (resposta.response){
+        setUsuarioLogado(new UsuarioLogado(resposta.id))
         handleModal('Usuário logado com sucesso!','verde');
       } else {
         handleModal('Dados inválidos! Tente novamente.','vermelho');
@@ -73,7 +66,7 @@ function Formulario({ type = "" }: { type?: string }) {
   const handleFormSubmitRegister = async () => {
     // Valida o registro
     if (emailValido) {
-      if (email != "" && senha != "" && nome != ""){
+      if (email !== "" && senha !== "" && nome !== ""){
         const resultado = await RegistraUsuario({ email, senha, nome })
         if (resultado.resul){
           handleModal(resultado.texto, 'verde');
@@ -90,13 +83,19 @@ function Formulario({ type = "" }: { type?: string }) {
 
   return (
     <div className={type === "" ? style.formulario : style.formulario_medio}>
-      
       {modal && <div className={stdStyle.modal_alert}>
         {/* Modal */}
         <Modal altura={0}>
           <div className={stdStyle.modal_alert_content}>
             <p>{modalText}</p>
-            <Botao texto ="Ok" cor={modalButton} onClick={handleModalOk}/>
+            {usuarioLogado && usuarioLogado.usuarioLogado ?
+              // Caso o Login dê certo:
+              <Link to="/menu">
+                <Botao texto ="Ok" cor={modalButton} />
+              </Link> : 
+              // Caso o Login dê errado:
+              <Botao texto ="Ok" cor={modalButton} onClick={() => {setModal(false)}}/>
+            }
           </div>
         </Modal>
       </div>}

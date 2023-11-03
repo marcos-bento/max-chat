@@ -7,10 +7,12 @@ import Formulario from '../../components/formulario/formulario';
 import Modal from '../../components/modal/modal';
 import Botao from '../../components/botao/botao';
 
+
 function Login() {
   const [modal, setModal] = useState(false);
   const [modalText, setModalText] = useState("");
   const [modalButton, setModalButton] = useState("");
+  const [usuarioLogado, setusuarioLogado] = useState();
   
   const handleModal = (text: string, corBotao: string) => {
     setModal(true)
@@ -48,7 +50,7 @@ function Login() {
       </div>}
       <section className={style.conteudo}>
         <h3 className={style.titulo}>Login</h3>
-        <Formulario />
+        <Formulario/>
         <p className={loginStyle.login_reset_password} onClick={handleOnClick}>esqueceu a senha?</p>
       </section>
       <Rodape />

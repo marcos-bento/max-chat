@@ -23,6 +23,10 @@
   padding: 1rem;
   text-align: center;
 }
+.pagina .modal_alert .modal_alert_content .modal_alert_content_double_button {
+  display: flex;
+  gap: 4rem;
+}
 .pagina .conteudo {
   background: linear-gradient(180deg, #FFF 0%, var(--azul-principal) 100%);
   width: 100%;

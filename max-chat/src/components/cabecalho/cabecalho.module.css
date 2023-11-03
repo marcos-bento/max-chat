@@ -50,7 +50,7 @@
   gap: 1rem;
   border-bottom: 1px solid var(--cinza-principal);
 }
-.navbar .modal_navbar .modal_navbar_content:nth-child(3) {
+.navbar .modal_navbar .modal_navbar_content:last-child {
   border-bottom: none;
 }
 .navbar .modal_navbar .modal_navbar_content .modal_navbar_content_text {

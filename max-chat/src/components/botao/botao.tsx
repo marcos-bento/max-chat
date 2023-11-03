@@ -4,7 +4,7 @@ import style from "./botao.module.css";
 interface Props {
   texto: string;
   cor?: string;
-  onClick: () => void; // Define a prop onClick como uma função sem parâmetros e sem valor de retorno.
+  onClick?: (event?: any) => void; // Define a prop onClick como uma função sem parâmetros e sem valor de retorno.
 }
 
 function Botao({ texto, cor="verde", onClick }: Props) {
