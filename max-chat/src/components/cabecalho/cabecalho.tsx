@@ -46,7 +46,7 @@ function Cabecalho() {
       </div>
         {/* Second element: Home Ícon */}
         <div>
-          <Link to={ (usuarioLogado && usuarioLogado.usuarioLogado ? "/menu" : "/")}>
+          <Link to={ (usuarioLogado && usuarioLogado.usuarioLogado ? "/menu" : "")}>
             <Icon icon = "fa-solid fa-house"/>
           </Link>
         </div>
