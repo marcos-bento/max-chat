@@ -34,7 +34,6 @@
   ],
   "chats": [
     {
-      "id": 1,
       "user_1_id": 1,
       "user_2_id": 2,
       "content": [
@@ -56,9 +55,10 @@
         {
           "user": "Fabio Albareli",
           "hora": "20:22",
-          "chat": "E voCê viu o último lançamento? Vai sair em Dezembro..."
+          "chat": "E você viu o último lançamento? Vai sair em Dezembro..."
         }
-      ]
+      ],
+      "id": 1
     },
     {
       "user_1_id": 1,
@@ -81,6 +81,50 @@
         }
       ],
       "id": 2
+    },
+    {
+      "user_1_id": 1,
+      "user_2_id": 2,
+      "content": [
+        {
+          "user": "Marcos",
+          "hora": "20:20",
+          "chat": "Tchau, cara de bau!"
+        },
+        {
+          "user": "Marcos",
+          "hora": "20:20",
+          "chat": "Nova mensagem 2"
+        },
+        {
+          "user": "Marcos",
+          "hora": "20:20",
+          "chat": "Nova mensagem 4"
+        }
+      ],
+      "id": 3
+    },
+    {
+      "user_1_id": 1,
+      "user_2_id": 2,
+      "content": [
+        {
+          "user": "Marcos",
+          "hora": "20:20",
+          "chat": "Tchau, cara de bau!"
+        },
+        {
+          "user": "Marcos",
+          "hora": "20:20",
+          "chat": "Nova mensagem 2"
+        },
+        {
+          "user": "Marcos",
+          "hora": "20:20",
+          "chat": "Nova mensagem 5"
+        }
+      ],
+      "id": 4
     }
   ]
 }

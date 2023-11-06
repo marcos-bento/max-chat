@@ -7,6 +7,7 @@ import Rodape from '../../components/rodape/rodape';
 import { conectApi } from '../../Services/conectaApi';
 import { Conversa } from '../../Interfaces/conversa';
 import { ConversaChat } from '../../Interfaces/conversaChat';
+import { UsuarioLogado } from '../../Services/usuarioLogado';
 
 function Index() {
   return (
@@ -50,7 +51,7 @@ function Index() {
 
         <div
           onClick={async () => {
-            const conversaAnterior = await conectApi.recuperaConversa(2);
+            const conversaAnterior = await conectApi.recuperaChat(2);
             const conteudoExistente = conversaAnterior.conexaoConvertida.content;
             const novasMensagens = [
               { user: "Marcos", hora: "20:20", chat: "Nova mensagem 3" },
@@ -67,6 +68,28 @@ function Index() {
           }}
         >
         <BotaoGrande icon="fa-solid fa-question" texto="Teste: Atualizar conversa" />
+        </div>
+
+        {/* ############################## */}
+
+        <div
+          onClick={async () => {
+            const todasConversas = await conectApi.recuperaConversa();
+            let conversasDoUsuario = [];
+            for (const iterator of todasConversas.conexaoConvertida) {
+              if (iterator.user_1_id === 1 || iterator.user_2_id === 1){
+                conversasDoUsuario.push(iterator.content[iterator.content.length-1].chat);
+                conversasDoUsuario.push((iterator.user_1_id === 1 ? iterator.user_2_id : iterator.user_1_id));
+              }
+            }
+            console.log(conversasDoUsuario)
+
+            const conversaAnterior = await conectApi.recuperaChat(2);
+            const conteudoExistente = conversaAnterior.conexaoConvertida.content;
+            // console.log(conteudoExistente[conteudoExistente.length-1].chat)
+          }}
+        >
+        <BotaoGrande icon="fa-solid fa-question" texto="Teste: Última conversa" />
         </div>
 
         {/* FIM DA ÁREA DE TESTES ## DELETAR ##*/}

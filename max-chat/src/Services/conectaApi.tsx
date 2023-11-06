@@ -40,12 +40,17 @@ async function atualizaConversa (id: number, conversa: Conversa){
     return { conexaoConvertida, statusConexao };
 };
 
-async function recuperaConversa (id: number){
-    const conexao = await fetch("http://localhost:3000/chats/"+id);
+async function recuperaConversa (){
+    const conexao = await fetch("http://localhost:3000/chats/");
     const conexaoConvertida = await conexao.json();
     return { conexaoConvertida, statusConexao: conexao.status };
 };
 
+async function recuperaChat (id: number){
+    const conexao = await fetch("http://localhost:3000/chats/"+id);
+    const conexaoConvertida = await conexao.json();
+    return { conexaoConvertida, statusConexao: conexao.status };
+};
 
 
 export const conectApi = {
@@ -53,5 +58,6 @@ export const conectApi = {
     cadastraUsuario,
     registraConversa,
     atualizaConversa,
-    recuperaConversa
+    recuperaConversa,
+    recuperaChat
 }
