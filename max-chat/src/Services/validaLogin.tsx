@@ -7,7 +7,7 @@ async function validaLogin({email, senha}: Login): Promise<any>{
     for (const element of dadosUsuario.conexaoConvertida) {
         if (element.email === email && seguranca.decriptador(element.senha) === senha) {
             // Login efetuado com sucesso!
-            return {response: true, id: element.id};
+            return {response: true, id: element.id, nome: element.nome};
         }
     }
     // Login falhou!

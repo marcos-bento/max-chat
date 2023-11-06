@@ -50,6 +50,12 @@
   gap: 1rem;
   border-bottom: 1px solid var(--cinza-principal);
 }
+.navbar .modal_navbar .modal_navbar_content .modal_navbar_link {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+}
 .navbar .modal_navbar .modal_navbar_content:last-child {
   border-bottom: none;
 }

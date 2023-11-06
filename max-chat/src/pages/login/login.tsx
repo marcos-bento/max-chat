@@ -12,7 +12,6 @@ function Login() {
   const [modal, setModal] = useState(false);
   const [modalText, setModalText] = useState("");
   const [modalButton, setModalButton] = useState("");
-  const [usuarioLogado, setusuarioLogado] = useState();
   
   const handleModal = (text: string, corBotao: string) => {
     setModal(true)

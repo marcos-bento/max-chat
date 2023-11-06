@@ -1,5 +1,4 @@
 import { Cadastro } from "../Interfaces/cadastro";
-import { User } from "../Interfaces/user";
 
 async function recuperaUsuario (){
     const conexao = await fetch("http://localhost:3000/user");

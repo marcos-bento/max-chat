@@ -2,7 +2,7 @@ import { Cadastro } from "../Interfaces/cadastro";
 import { conectApi } from "./conectaApi";
 import { seguranca } from "./encriptador";
 
-async function RegistraUsuario({email, senha, nome}: Cadastro){
+async function RegistraUsuario({email, senha, nome, imagem}: Cadastro){
     senha = seguranca.encriptador(senha);
     let dadosUsuario = await conectApi.recuperaUsuario();
     for (const element of dadosUsuario.conexaoConvertida) {
@@ -10,9 +10,9 @@ async function RegistraUsuario({email, senha, nome}: Cadastro){
             return {resul: false, texto: "Este e-mail já está cadastrado!"};
         }
     }
-    const resultado = await conectApi.cadastraUsuario({email, nome, senha});
+    const resultado = await conectApi.cadastraUsuario({email, nome, senha, imagem});
     if (resultado.statusConexao>199 && resultado.statusConexao<300){
-        return {resul: true, texto: "Registro efetuado com sucesso!"};
+        return {resul: true, texto: "Registro efetuado com sucesso!", id: resultado.conexaoConvertida.id};
     } else{
         return {resul: false, texto: "Erro no registro! Tente novamente mais tarde."}
     }

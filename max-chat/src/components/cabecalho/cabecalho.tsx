@@ -33,6 +33,7 @@ function Cabecalho() {
     if (usuarioLogado){
       usuarioLogado.usuarioId = "";
       usuarioLogado.usuarioLogado = false;
+      usuarioLogado.usuarioNome = "";
     }
   }
 
@@ -82,8 +83,10 @@ function Cabecalho() {
             <Icon icon={'fa-solid fa-x'}/>
           </div>
           <div className={style.modal_navbar_content}>
-            <p className={style.modal_navbar_content_text}>Editar Perfil</p>
-            <Icon icon={'fa-solid fa-user'} cor={usuarioLogado && usuarioLogado.usuarioLogado ? "" : "cinza"}/>
+          <Link to={usuarioLogado && usuarioLogado.usuarioLogado ? "/editarPerfil" : ""} className={style.modal_navbar_link}>
+              <p className={style.modal_navbar_content_text}>Editar Perfil</p>
+              <Icon icon={'fa-solid fa-user'} cor={usuarioLogado && usuarioLogado.usuarioLogado ? "" : "cinza"}/>
+            </Link>
           </div>
           <div className={style.modal_navbar_content} onClick={handleLogoff}>
             <p className={style.modal_navbar_content_text}>Logof (Sair)</p>

@@ -12,7 +12,8 @@ import EditarContato from './pages/editarContato/editarContato';
 import NovoContato from './pages/novoContato/novoContato';
 import NovoChat from './pages/novoChat/novoChat';
 import Chat from './pages/chat/chat';
-import { UserProvider } from "./Services/userContext"; // Importe o UserProvider
+import EditarPerfil from './pages/editarPerfil/editarPerfil';
+import { UserProvider } from "./Services/userContext";
 
 const root = document.getElementById('root') as HTMLElement;
 
@@ -31,6 +32,7 @@ ReactDOM.render(
         <Route path="/novoContato" element={<NovoContato />} />
         <Route path="/novoChat" element={<NovoChat />} />
         <Route path="/chat" element={<Chat />} />
+        <Route path="/editarPerfil" element={<EditarPerfil />} />
       </Routes>
     </BrowserRouter>
   </UserProvider>,

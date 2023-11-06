@@ -9,6 +9,7 @@ import Modal from "../modal/modal";
 import { useUser } from "../../Services/userContext";
 import { UsuarioLogado } from "../../Services/usuarioLogado";
 import { Link } from "react-router-dom";
+import { conectApi } from "../../Services/conectaApi";
 
 
 function Formulario({type = "" }: { type?: string }) {
@@ -53,7 +54,7 @@ function Formulario({type = "" }: { type?: string }) {
     if (emailValido) {
       let resposta = await validaLogin({ email, senha })
       if (resposta.response){
-        setUsuarioLogado(new UsuarioLogado(resposta.id))
+        setUsuarioLogado(new UsuarioLogado(resposta.id, resposta.nome))
         handleModal('Usuário logado com sucesso!','verde');
       } else {
         handleModal('Dados inválidos! Tente novamente.','vermelho');
@@ -67,8 +68,9 @@ function Formulario({type = "" }: { type?: string }) {
     // Valida o registro
     if (emailValido) {
       if (email !== "" && senha !== "" && nome !== ""){
-        const resultado = await RegistraUsuario({ email, senha, nome })
+        const resultado = await RegistraUsuario({ email, senha, nome, imagem:"" })
         if (resultado.resul){
+          setUsuarioLogado(new UsuarioLogado(resultado.id, nome))
           handleModal(resultado.texto, 'verde');
         } else {
           handleModal(resultado.texto,'vermelho');
