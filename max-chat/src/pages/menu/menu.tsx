@@ -6,7 +6,6 @@ import Rodape from "../../components/rodape/rodape";
 import Balao from "../../components/balao/balao";
 import BotaoGrande from "../../components/botaoGrande/botaoGrande";
 import { useUser } from "../../Services/userContext";
-import { conectApi } from "../../Services/conectaApi";
 import acessaMensagens from "../../Services/acessaMensagens";
 
 function Menu(){

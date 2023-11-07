@@ -1,8 +1,8 @@
 {
   "user": [
     {
-      "email": "fabio_albarelli@hotmail.com",
-      "nome": "Fabio Albarelli",
+      "email": "marcos.x.marcos@hotmail.com",
+      "nome": "Marcos Bento",
       "senha": "ssxyjjirf97",
       "imagem": "",
       "contatos": [
@@ -10,6 +10,11 @@
           "id": 1,
           "email": "pedro@gmail.com",
           "nome": "Pedrinho",
+          "apelido": ""
+        },{
+          "id": 2,
+          "email": "fabio_albarelli@hotmail.com",
+          "nome": "Fabio Albarelli",
           "apelido": ""
         }
       ],
@@ -33,12 +38,6 @@
           "id": 1,
           "email": "pedro@gmail.com",
           "nome": "Pedrinho",
-          "apelido": ""
-        },
-        {
-          "id": 2,
-          "email": "pedro@gmail.com",
-          "nome": "Jose",
           "apelido": ""
         }
       ],

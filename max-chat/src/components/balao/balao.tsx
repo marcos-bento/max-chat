@@ -12,9 +12,10 @@ interface BalaoProps {
   perfil?: number;
   autor?: string;
   mensagem?: string;
+  nomeDoContato?: string;
 }
 
-function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contato", perfil,autor, mensagem }: BalaoProps) {
+function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contato", perfil,autor, mensagem, nomeDoContato }: BalaoProps) {
   const renderContent = () => {
     switch (tipo) {
       case "chat":
@@ -38,7 +39,7 @@ function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contat
           <>
             <div className={style.botao_container}>
                 <Perfil/>
-                <p>Marcos</p>
+                <p>{nomeDoContato}</p>
             </div>
             <div className={style.botao_container}>
               <Link to="/editarContato">
