@@ -8,6 +8,7 @@ import { conectApi } from '../../Services/conectaApi';
 import { Conversa } from '../../Interfaces/conversa';
 import { ConversaChat } from '../../Interfaces/conversaChat';
 import { UsuarioLogado } from '../../Services/usuarioLogado';
+import { Cadastro } from '../../Interfaces/cadastro';
 
 function Index() {
   return (
@@ -74,22 +75,40 @@ function Index() {
 
         <div
           onClick={async () => {
-            const todasConversas = await conectApi.recuperaConversa();
-            let conversasDoUsuario = [];
-            for (const iterator of todasConversas.conexaoConvertida) {
-              if (iterator.user_1_id === 1 || iterator.user_2_id === 1){
-                conversasDoUsuario.push(iterator.content[iterator.content.length-1].chat);
-                conversasDoUsuario.push((iterator.user_1_id === 1 ? iterator.user_2_id : iterator.user_1_id));
+            const todosContatos = await conectApi.recuperaUsuarioPorID(3);
+            const contatosAntigos = todosContatos.conexaoConvertida.contatos;
+            // Recupera o valor do último ID (numeral)
+            const ultimoID = (contatosAntigos.length > 0 ? contatosAntigos[contatosAntigos.length-1].id : 0);
+            // Dados do novo contato
+            let novoContato = [
+              {
+                id: (ultimoID + 1),
+                email: "pedro@gmail.com", 
+                nome: "Jose", 
+                apelido: ""
+              }
+            ]
+            // Valida se o contato já existe na lista
+            for (const iterator of contatosAntigos) {
+              if (iterator.email === novoContato[0].email){
+                alert("O e-mail informado já existe no seu banco de dados!");
+                novoContato = []; // Se o contato já existir então zera-se o novo contato
+                break;
               }
             }
-            console.log(conversasDoUsuario)
+            const cadastroAtualizado: Cadastro = {
+              email: todosContatos.conexaoConvertida.email,
+              nome: todosContatos.conexaoConvertida.nome,
+              senha: todosContatos.conexaoConvertida.senha,
+              imagem: todosContatos.conexaoConvertida.imagem,
+              contatos: [...contatosAntigos, ...novoContato],
+            }
 
-            const conversaAnterior = await conectApi.recuperaChat(2);
-            const conteudoExistente = conversaAnterior.conexaoConvertida.content;
-            // console.log(conteudoExistente[conteudoExistente.length-1].chat)
+            const resultado = await conectApi.atualizaUsuario(3, cadastroAtualizado);
+            console.log(resultado.statusConexao);
           }}
         >
-        <BotaoGrande icon="fa-solid fa-question" texto="Teste: Última conversa" />
+        <BotaoGrande icon="fa-solid fa-question" texto="Teste: Atualiza Contatos" />
         </div>
 
         {/* FIM DA ÁREA DE TESTES ## DELETAR ##*/}

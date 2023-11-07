@@ -50,7 +50,7 @@ function Conversas(){
             </section>
             <Rodape />
         </div>
-    )
+    );
 };
 
 export default Conversas;

@@ -68,7 +68,7 @@ function Formulario({type = "" }: { type?: string }) {
     // Valida o registro
     if (emailValido) {
       if (email !== "" && senha !== "" && nome !== ""){
-        const resultado = await RegistraUsuario({ email, senha, nome, imagem:"" })
+        const resultado = await RegistraUsuario({ email, senha, nome, imagem:"", contatos:[] })
         if (resultado.resul){
           setUsuarioLogado(new UsuarioLogado(resultado.id, nome))
           handleModal(resultado.texto, 'verde');
