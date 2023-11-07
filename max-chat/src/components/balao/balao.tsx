@@ -13,9 +13,10 @@ interface BalaoProps {
   autor?: string;
   mensagem?: string;
   nomeDoContato?: string;
+  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
-function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contato", perfil,autor, mensagem, nomeDoContato }: BalaoProps) {
+function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contato", perfil,autor, mensagem, nomeDoContato, onClick }: BalaoProps) {
   const renderContent = () => {
     switch (tipo) {
       case "chat":
@@ -62,7 +63,7 @@ function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contat
 
       case "botao":
         return (
-          <div>
+          <div onClick={onClick}>
             <ElementoCirculo icon={icone} cor={cor}/>
             <p className={style.texto_botao}>{texto}</p>
           </div>

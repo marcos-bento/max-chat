@@ -13,7 +13,8 @@ function Menu(){
     const [conversasDoUsuario, setConversasDoUsuario] = useState<{ mensagem: string; autor: string, id: number }[]>([]);
     
     useEffect( () => {
-        if (!usuarioLogado.usuarioLogado){ // Se não estiver logado
+        if (!usuarioLogado || usuarioLogado.usuarioNome === null) {
+            // Se não estiver logado
             window.location.href="/" // Redireciona para tela de Login
         }
         const pegaMensagens = async () => {
@@ -31,7 +32,7 @@ function Menu(){
         <div className={style.pagina}>
             <Cabecalho />
             <section className={style.conteudo}>
-                <h2 className={style.titulo}>Seja bem vindo {usuarioLogado.usuarioNome}</h2>
+                <h2 className={style.titulo}>Seja bem vindo {usuarioLogado && usuarioLogado.usuarioNome}</h2>
                 <h3 className={style.titulo}>Últimas conversas:</h3>
                 <div className={style.conversas}>
                     {conversasDoUsuario && conversasDoUsuario.map((item, index) =>{

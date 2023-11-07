@@ -22,7 +22,6 @@ function Formulario({type = "" }: { type?: string }) {
   const [modalButton, setModalButton] = useState("");
   const { usuarioLogado, setUsuarioLogado } = useUser(); // Use o contexto aqui
 
-
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const novoEmail = e.target.value;
     setEmail(novoEmail);
@@ -54,7 +53,7 @@ function Formulario({type = "" }: { type?: string }) {
     if (emailValido) {
       let resposta = await validaLogin({ email, senha })
       if (resposta.response){
-        setUsuarioLogado(new UsuarioLogado(resposta.id, resposta.nome))
+        setUsuarioLogado(new UsuarioLogado(resposta.id, resposta.nome, email))
         handleModal('Usuário logado com sucesso!','verde');
       } else {
         handleModal('Dados inválidos! Tente novamente.','vermelho');
@@ -70,7 +69,7 @@ function Formulario({type = "" }: { type?: string }) {
       if (email !== "" && senha !== "" && nome !== ""){
         const resultado = await RegistraUsuario({ email, senha, nome, imagem:"", contatos:[] })
         if (resultado.resul){
-          setUsuarioLogado(new UsuarioLogado(resultado.id, nome))
+          setUsuarioLogado(new UsuarioLogado(resultado.id, nome, email))
           handleModal(resultado.texto, 'verde');
         } else {
           handleModal(resultado.texto,'vermelho');
