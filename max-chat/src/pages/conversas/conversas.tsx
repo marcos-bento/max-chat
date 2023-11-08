@@ -10,7 +10,7 @@ import acessaMensagens from "../../Services/acessaMensagens";
 
 function Conversas(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
-    const [conversasDoUsuario, setConversasDoUsuario] = useState<{ mensagem: string; autor: string, id: number }[]>([]);
+    const [conversasDoUsuario, setConversasDoUsuario] = useState<{ mensagem: string; autor: string, idDoUsuario: number, idDaConversa: number }[]>([]);
 
     useEffect( () => {
         if (!usuarioLogado.usuarioLogado){ // Se não estiver logado
@@ -31,7 +31,7 @@ function Conversas(){
                 <h3 className={style.titulo}>Todas conversas</h3>
                 <div className={style.conversas}>
                     {conversasDoUsuario && conversasDoUsuario.map((item,index) =>{
-                        return <Balao key={index} tipo={"chat"} perfil={item.id} autor={item.autor} mensagem={item.mensagem}/>
+                        return <Balao key={index} tipo={"chat"} perfil={item.idDoUsuario} autor={item.autor} mensagem={item.mensagem}/>
                     })}
 
                     {conversasDoUsuario.length === 0 && <p className={style.titulo}>você ainda não tem conversas!<br></br>Começe uma já!</p>}

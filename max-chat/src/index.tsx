@@ -15,28 +15,31 @@ import Chat from './pages/chat/chat';
 import EditarPerfil from './pages/editarPerfil/editarPerfil';
 import { UserProvider } from "./Services/userContext";
 import { ContatoProvider } from "./Services/contatoContext";
+import { ChatProvider } from './Services/chatContext';
 
 const root = document.getElementById('root') as HTMLElement;
 
 ReactDOM.render(
   <UserProvider>
     <ContatoProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/registrar" element={<Registrar />} />
-          <Route path="/sobre" element={<Sobre />} />
-          <Route path="/menu" element={<Menu />} />
-          <Route path="/conversas" element={<Conversas />} />
-          <Route path="/contatos" element={<Contatos />} />
-          <Route path="/editarContato" element={<EditarContato />} />
-          <Route path="/novoContato" element={<NovoContato />} />
-          <Route path="/novoChat" element={<NovoChat />} />
-          <Route path="/chat" element={<Chat />} />
-          <Route path="/editarPerfil" element={<EditarPerfil />} />
-        </Routes>
-      </BrowserRouter>
+      <ChatProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/registrar" element={<Registrar />} />
+            <Route path="/sobre" element={<Sobre />} />
+            <Route path="/menu" element={<Menu />} />
+            <Route path="/conversas" element={<Conversas />} />
+            <Route path="/contatos" element={<Contatos />} />
+            <Route path="/editarContato" element={<EditarContato />} />
+            <Route path="/novoContato" element={<NovoContato />} />
+            <Route path="/novoChat" element={<NovoChat />} />
+            <Route path="/chat" element={<Chat />} />
+            <Route path="/editarPerfil" element={<EditarPerfil />} />
+          </Routes>
+        </BrowserRouter>
+      </ChatProvider>
     </ContatoProvider>
   </UserProvider>,
   root

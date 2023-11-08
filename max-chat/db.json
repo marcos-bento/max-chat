@@ -89,10 +89,12 @@
   "chats": [
     {
       "user_1_id": 1,
+      "user_1_nome": "Marcos Bento",
       "user_2_id": 2,
+      "user_2_nome": "Fabio Albarelli",
       "content": [
         {
-          "user": "Fabio Albareli",
+          "user": "Fabio Albarelli",
           "hora": "20:18",
           "chat": "Você jogou aquele jogo da memória?"
         },
@@ -102,12 +104,12 @@
           "chat": "Joguei sim e curti bastante o jogo, meus sobrinhos também adoraram!"
         },
         {
-          "user": "Fabio Albareli",
+          "user": "Fabio Albarelli",
           "hora": "20:20",
           "chat": "Será que tem alguma novidade saindo?"
         },
         {
-          "user": "Fabio Albareli",
+          "user": "Fabio Albarelli",
           "hora": "20:22",
           "chat": "E você viu o último lançamento? Vai sair em Dezembro..."
         }
@@ -116,20 +118,22 @@
     },
     {
       "user_1_id": 1,
+      "user_1_nome": "Marcos Bento",
       "user_2_id": 2,
+      "user_2_nome": "Fabio Albarelli",
       "content": [
         {
-          "user": "Marcos",
+          "user": "Marcos Bento",
           "hora": "20:20",
           "chat": "Tchau, cara de bau!"
         },
         {
-          "user": "Marcos",
+          "user": "Marcos Bento",
           "hora": "20:20",
           "chat": "Nova mensagem 2"
         },
         {
-          "user": "Marcos",
+          "user": "Marcos Bento",
           "hora": "20:20",
           "chat": "Nova mensagem 3"
         }
@@ -138,42 +142,22 @@
     },
     {
       "user_1_id": 1,
+      "user_1_nome": "Marcos Bento",
       "user_2_id": 2,
+      "user_2_nome": "Fabio Albarelli",
       "content": [
         {
-          "user": "Marcos",
+          "user": "Marcos Bento",
           "hora": "20:20",
           "chat": "Tchau, cara de bau!"
         },
         {
-          "user": "Marcos",
+          "user": "Marcos Bento",
           "hora": "20:20",
           "chat": "Nova mensagem 2"
         },
         {
-          "user": "Marcos",
-          "hora": "20:20",
-          "chat": "Nova mensagem 4"
-        }
-      ],
-      "id": 3
-    },
-    {
-      "user_1_id": 1,
-      "user_2_id": 2,
-      "content": [
-        {
-          "user": "Marcos",
-          "hora": "20:20",
-          "chat": "Tchau, cara de bau!"
-        },
-        {
-          "user": "Marcos",
-          "hora": "20:20",
-          "chat": "Nova mensagem 2"
-        },
-        {
-          "user": "Marcos",
+          "user": "Marcos Bento",
           "hora": "20:20",
           "chat": "Nova mensagem 5"
         }

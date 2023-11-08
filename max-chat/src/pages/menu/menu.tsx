@@ -7,10 +7,12 @@ import Balao from "../../components/balao/balao";
 import BotaoGrande from "../../components/botaoGrande/botaoGrande";
 import { useUser } from "../../Services/userContext";
 import acessaMensagens from "../../Services/acessaMensagens";
+import { useChat } from "../../Services/chatContext";
 
 function Menu(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
-    const [conversasDoUsuario, setConversasDoUsuario] = useState<{ mensagem: string; autor: string, id: number }[]>([]);
+    const { chat, setChat } = useChat();
+    const [conversasDoUsuario, setConversasDoUsuario] = useState<{ mensagem: string; autor: string, idDoUsuario: number, idDaConversa: number }[]>([]);
     
     useEffect( () => {
         if (!usuarioLogado || usuarioLogado.usuarioNome === null) {
@@ -36,7 +38,7 @@ function Menu(){
                 <h3 className={style.titulo}>Últimas conversas:</h3>
                 <div className={style.conversas}>
                     {conversasDoUsuario && conversasDoUsuario.map((item, index) =>{
-                        return <Balao key={index} tipo={"chat"} perfil={item.id} autor={item.autor} mensagem={item.mensagem}/>
+                        return <Link key={index} to="/chat" onClick={() => setChat(item.idDaConversa)}><Balao key={index} tipo={"chat"} perfil={item.idDoUsuario} autor={item.autor} mensagem={item.mensagem}/></Link>
                     })}
 
                     {conversasDoUsuario.length === 0 && <p className={style.titulo}>você ainda não tem conversas!<br></br>Começe uma já!</p>}

@@ -32,7 +32,9 @@ function Index() {
           onClick={async () => {
             const novaConversa: Conversa = {
               user_1_id: 1,
+              user_1_nome: "Marcos Bento",
               user_2_id: 2,
+              user_2_nome: "Fabio Albarelli",
               content: [
                 {
                   user: "Marcos",
@@ -60,7 +62,9 @@ function Index() {
             const novoConteudo = [...conteudoExistente, ...novasMensagens];
             const novaConversa: Conversa = {
               user_1_id: conversaAnterior.conexaoConvertida.user_1_id,
+              user_1_nome: conversaAnterior.conexaoConvertida.user_1_nome,
               user_2_id: conversaAnterior.conexaoConvertida.user_2_id,
+              user_2_nome: conversaAnterior.conexaoConvertida.user_2_nome,
               content: novoConteudo,
             };
 
