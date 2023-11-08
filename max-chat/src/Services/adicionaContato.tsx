@@ -16,7 +16,7 @@ export default async function adicionaContato(idUsuarioLogado: number, usuarioEm
 
     if (contatoNome === ""){
         // Email não encontrado OU email digitado === email do proprio usuario;
-        return {retorno: false, texto:"Usuario não existe na base de dados!"};
+        return {retorno: false, texto:"Contato incorreto ou já existente"};
     }
     const todosContatos = await conectApi.recuperaUsuarioPorID(idUsuarioLogado);
     const contatosAntigos = todosContatos.conexaoConvertida.contatos;
@@ -51,4 +51,4 @@ export default async function adicionaContato(idUsuarioLogado: number, usuarioEm
     } else {
         return {retorno: false, texto:"Erro ao tentar adicionar registro"};
     }
-}
+};

@@ -20,6 +20,8 @@ function NovoContato(){
     const [modal, setModal] = useState(false);
     const [modalText, setModalText] = useState("");
     const [modalButton, setModalButton] = useState("");  
+    const [contatoAdicionado, setContatoAdicionado] = useState(false);
+
 
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const novoEmail = e.target.value;
@@ -49,12 +51,13 @@ function NovoContato(){
             if (!resultado.retorno){
                 handleModal(resultado.texto, "vermelho");
             } else {
+                setContatoAdicionado(true);
                 handleModal(resultado.texto, "verde");
             }
         } else {
-            handleModal("Digite um e-mail válido!", "vermelho");
-        }
-    }
+            handleModal("Contato incorreto ou já existente", "vermelho");
+        };
+    };
 
     return(
         <div className={style.pagina}>
@@ -65,7 +68,13 @@ function NovoContato(){
                     <Modal altura={0}>
                     <div className={style.modal_alert_content}>
                         <p>{modalText}</p>
-                        <Botao texto ="Ok" cor={modalButton} onClick={() => {setModal(false)}}/>
+                        {!contatoAdicionado ?  
+                            <Botao texto ="Ok" cor={modalButton} onClick={() => {setModal(false)}}/>
+                        :
+                            <Link to="/contatos">
+                                <Botao texto ="Ok" cor={modalButton}/>
+                            </Link>
+                        }
                     </div>
                     </Modal>
                 </div>}

@@ -20,7 +20,7 @@ function Formulario({type = "" }: { type?: string }) {
   const [modal, setModal] = useState(false);
   const [modalText, setModalText] = useState("");
   const [modalButton, setModalButton] = useState("");
-  const { usuarioLogado, setUsuarioLogado } = useUser(); // Use o contexto aqui
+  const { usuarioLogado, setUsuarioLogado } = useUser();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const novoEmail = e.target.value;

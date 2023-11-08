@@ -23,6 +23,18 @@
           "email": "dobene02@hotmail.com",
           "nome": "Benedito",
           "apelido": ""
+        },
+        {
+          "id": 4,
+          "email": "kmatos364@gmail.com",
+          "nome": "Kamila",
+          "apelido": "Amor"
+        },
+        {
+          "id": 5,
+          "email": "a@a.com",
+          "nome": "Aron",
+          "apelido": ""
         }
       ],
       "id": 1
@@ -64,6 +76,14 @@
         }
       ],
       "id": 4
+    },
+    {
+      "email": "a@a.com",
+      "nome": "Aron",
+      "senha": "geg",
+      "imagem": "",
+      "contatos": [],
+      "id": 5
     }
   ],
   "chats": [

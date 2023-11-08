@@ -77,8 +77,6 @@ async function recuperaChat (id: number){
     return { conexaoConvertida, statusConexao: conexao.status };
 };
 
-
-
 export const conectApi = {
     recuperaUsuario,
     cadastraUsuario,

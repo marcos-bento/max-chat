@@ -32,7 +32,7 @@ function Contatos(){
                 <h3 className={style.titulo}>Todos contatos</h3>
                 <div className={style.conversas}>
                 {contatos && contatos.map((item, index) =>{
-                        return <Balao key={index} tipo={"contato"} nomeDoContato={ (item.apelido !== "" ? item.apelido : item.nome) }/>
+                        return <Balao key={index} tipo={"contato"} nomeDoContato={ (item.apelido !== "" ? item.apelido : item.nome)} emailDoContato={item.email}/>
                     })}
                     <Link to="/novoContato">
                         <Balao tipo={"botao"}/>

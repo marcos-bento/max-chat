@@ -3,6 +3,7 @@ import style from './balao.module.css'
 import { Link } from 'react-router-dom';
 import Perfil from "../imagemDePerfil/perfil";
 import ElementoCirculo from "./elementoCirculo/elementoCirculo";
+import { useContatoEmFoco } from "../../Services/contatoContext";
 
 interface BalaoProps {
   tipo: "chat" | "contato" | "botao";
@@ -13,10 +14,13 @@ interface BalaoProps {
   autor?: string;
   mensagem?: string;
   nomeDoContato?: string;
+  emailDoContato?: string;
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
-function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contato", perfil,autor, mensagem, nomeDoContato, onClick }: BalaoProps) {
+function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contato", perfil,autor, mensagem, nomeDoContato, emailDoContato, onClick }: BalaoProps) {
+  const { contatoEmFoco, setContatoEmFoco } = useContatoEmFoco();
+  
   const renderContent = () => {
     switch (tipo) {
       case "chat":
@@ -36,6 +40,7 @@ function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contat
         );
 
       case "contato":
+        
         return (
           <>
             <div className={style.botao_container}>
@@ -43,17 +48,13 @@ function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contat
                 <p>{nomeDoContato}</p>
             </div>
             <div className={style.botao_container}>
-              <Link to="/editarContato">
+              <Link to="/editarContato" onClick={setContatoEmFoco(emailDoContato)}>
                 <ElementoCirculo icon={"fa-solid fa-pen-to-square"} cor={"azul"}/>
                 <p>Editar</p>
               </Link>
             </div>
             <div className={style.botao_container}>
-                <ElementoCirculo icon={"fa-solid fa-x"} cor={"vermelho"}/>
-                <p>Apagar</p>
-            </div>
-            <div className={style.botao_container}>
-              <Link to="/chat">
+              <Link to="/chat" onClick={setContatoEmFoco(emailDoContato)}>
                 <ElementoCirculo icon={"fa-solid fa-comment-dots"} cor={"verde"}/>
                 <p>Chat</p>
               </Link>
