@@ -38,7 +38,7 @@ function Menu(){
                 <h3 className={style.titulo}>Últimas conversas:</h3>
                 <div className={style.conversas}>
                     {conversasDoUsuario && conversasDoUsuario.map((item, index) =>{
-                        return <Link key={index} to="/chat" onClick={() => setChat(item.idDaConversa)}><Balao key={index} tipo={"chat"} perfil={item.idDoUsuario} autor={item.autor} mensagem={item.mensagem}/></Link>
+                        return <Link key={index} to="/chat" onClick={() => setChat(item.idDaConversa)}><Balao key={index} tipo={"chat"} perfilID={item.idDoUsuario} autor={item.autor} mensagem={item.mensagem}/></Link>
                     })}
 
                     {conversasDoUsuario.length === 0 && <p className={style.titulo}>você ainda não tem conversas!<br></br>Começe uma já!</p>}

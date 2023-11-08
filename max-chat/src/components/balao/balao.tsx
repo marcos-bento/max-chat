@@ -10,7 +10,7 @@ interface BalaoProps {
   icone?: string;
   cor?: string;
   texto?: string;
-  perfil?: number;
+  perfilID?: number;
   autor?: string;
   mensagem?: string;
   nomeDoContato?: string;
@@ -18,7 +18,7 @@ interface BalaoProps {
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
-function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contato", perfil,autor, mensagem, nomeDoContato, emailDoContato, onClick }: BalaoProps) {
+function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contato", perfilID ,autor, mensagem, nomeDoContato, emailDoContato, onClick }: BalaoProps) {
   const { contatoEmFoco, setContatoEmFoco } = useContatoEmFoco();
   
   const renderContent = () => {
@@ -26,7 +26,7 @@ function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contat
       case "chat":
         return (
           <div>
-            <Perfil/>
+            <Perfil idDoUsuario={perfilID  || 0} />
             <svg width="238" height="65" viewBox="0 0 238 65" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g>
                     <path d="M16 32.5C16 14.5507 30.5507 0 48.5 0H205.5C223.449 0 238 14.5507 238 32.5C238 50.4493 223.449 65 205.5 65H48.5C30.5507 65 16 50.4493 16 32.5Z" fill="#FFFFFF"/>
@@ -44,7 +44,7 @@ function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contat
         return (
           <>
             <div className={style.botao_container}>
-                <Perfil/>
+                <Perfil emailDoUsuario={emailDoContato}/>
                 <p>{nomeDoContato}</p>
             </div>
             <div className={style.botao_container}>

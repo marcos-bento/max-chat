@@ -10,7 +10,7 @@ import { conectApi } from "../../Services/conectaApi";
 
 function Contatos(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
-    const [contatos, setContatos] = useState<{ id: number; email: string, nome: string, apelido: string }[]>([]);
+    const [contatos, setContatos] = useState<{ idInternoDoContato: number; email: string, nome: string, apelido: string }[]>([]);
 
     useEffect( () => {
         if (!usuarioLogado.usuarioLogado){ // Se não estiver logado

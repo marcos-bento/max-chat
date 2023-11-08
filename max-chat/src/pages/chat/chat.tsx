@@ -16,7 +16,7 @@ function Chat(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
     const { chat, setChat } = useChat();
     const [destinatario, setDestinatario] = useState("");
-    const [chatEmFoco, setChatEmFoco] = useState<{ user: string; hora: string, chat: string}[]>([]);
+    const [chatEmFoco, setChatEmFoco] = useState<{ user: string; user_id: number, hora: string, chat: string}[]>([]);
 
     useEffect( () => {
         if (!usuarioLogado.usuarioLogado){ // Se não estiver logado
@@ -46,7 +46,7 @@ function Chat(){
                                     <div key={index} className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income : chatStyle.chat_outcome)}>
                                     <p className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income_text : chatStyle.chat_outcome_text)}>{item.user} disse as {item.hora}</p>  
                                     <div className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income_balao : chatStyle.chat_outcome_balao)}>
-                                        <Perfil/>
+                                        <Perfil idDoUsuario={item.user_id}/>
                                         <p className={chatStyle.chat_content}>{item.chat}</p>
                                     </div>                              
                                 </div>

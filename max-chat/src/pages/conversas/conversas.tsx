@@ -31,7 +31,7 @@ function Conversas(){
                 <h3 className={style.titulo}>Todas conversas</h3>
                 <div className={style.conversas}>
                     {conversasDoUsuario && conversasDoUsuario.map((item,index) =>{
-                        return <Balao key={index} tipo={"chat"} perfil={item.idDoUsuario} autor={item.autor} mensagem={item.mensagem}/>
+                        return <Balao key={index} tipo={"chat"} perfilID={item.idDoUsuario} autor={item.autor} mensagem={item.mensagem}/>
                     })}
 
                     {conversasDoUsuario.length === 0 && <p className={style.titulo}>você ainda não tem conversas!<br></br>Começe uma já!</p>}

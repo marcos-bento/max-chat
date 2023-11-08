@@ -15,6 +15,13 @@ async function recuperaUsuarioPorID (id: number){
     return { conexaoConvertida, statusConexao: conexao.status };
 };
 
+// Retorna um usuario específico por EMAIL
+async function recuperaUsuarioPorEmail(email: string) {
+    const conexao = await fetch("http://localhost:3000/user?email=" + email);
+    const conexaoConvertida = await conexao.json();
+    return { conexaoConvertida, statusConexao: conexao.status };
+}
+
 // Atualiza um usuario especifico por ID
 async function atualizaUsuario (id: number, cadastro: Cadastro){
     const conexao = await fetch("http://localhost:3000/user/"+id, {
@@ -85,5 +92,6 @@ export const conectApi = {
     recuperaConversa,
     recuperaChat,
     recuperaUsuarioPorID,
+    recuperaUsuarioPorEmail,
     atualizaUsuario
 }

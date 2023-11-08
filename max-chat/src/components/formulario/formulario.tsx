@@ -53,7 +53,7 @@ function Formulario({type = "" }: { type?: string }) {
     if (emailValido) {
       let resposta = await validaLogin({ email, senha })
       if (resposta.response){
-        setUsuarioLogado(new UsuarioLogado(resposta.id, resposta.nome, email))
+        setUsuarioLogado(new UsuarioLogado(resposta.id, resposta.nome, email, resposta.imagem ))
         handleModal('Usuário logado com sucesso!','verde');
       } else {
         handleModal('Dados inválidos! Tente novamente.','vermelho');
@@ -69,7 +69,7 @@ function Formulario({type = "" }: { type?: string }) {
       if (email !== "" && senha !== "" && nome !== ""){
         const resultado = await RegistraUsuario({ email, senha, nome, imagem:"", contatos:[] })
         if (resultado.resul){
-          setUsuarioLogado(new UsuarioLogado(resultado.id, nome, email))
+          setUsuarioLogado(new UsuarioLogado(resultado.id, nome, email, ""))
           handleModal(resultado.texto, 'verde');
         } else {
           handleModal(resultado.texto,'vermelho');

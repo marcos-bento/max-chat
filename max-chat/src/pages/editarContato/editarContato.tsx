@@ -150,7 +150,7 @@ function EditarContato(){
                                     <p>conhecido como:</p>
                                 </div>
                                 <div>
-                                    <Perfil/>
+                                    <Perfil idDoUsuario={dadosDoContato?.id || 0}/>
                                 </div>
                             </div>
                             <Input placeholder={(dadosDoContato?.apelido ? dadosDoContato.apelido : "Digite o apelido para o contato") } onChange={handleApelidoChange}/>

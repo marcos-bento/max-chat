@@ -38,6 +38,7 @@ function Index() {
               content: [
                 {
                   user: "Marcos",
+                  user_id: 1,
                   hora: "20:20",
                   chat: "Oi, cara de boi!",
                 },
