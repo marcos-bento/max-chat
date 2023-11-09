@@ -7,12 +7,8 @@
   },
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "api/server.js"
-    },
-    {
       "source": "/(.*)",
-      "destination": "build/$1"
+      "destination": "api/server.js"
     }
   ]
 }
