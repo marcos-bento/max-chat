@@ -3,7 +3,7 @@
 .pagina {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Garante que o conteúdo ocupe pelo menos a altura da tela visível */
+  min-height: 100vh;
 }
 .pagina .modal_alert {
   width: 100%;
@@ -30,7 +30,7 @@
 .pagina .conteudo {
   background: linear-gradient(180deg, #FFF 0%, var(--azul-principal) 100%);
   width: 100%;
-  height: 100%;
+  flex-grow: 1; /* Isso permite que o conteúdo cresça para preencher o espaço disponível */
   padding-bottom: 1rem;
 }
 .pagina .conteudo .titulo {

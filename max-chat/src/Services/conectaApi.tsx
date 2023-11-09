@@ -1,5 +1,6 @@
 import { Cadastro } from "../Interfaces/cadastro";
 import { Conversa } from "../Interfaces/conversa";
+import { ConversaChat } from "../Interfaces/conversaChat";
 
 // Retorna todos usuários
 async function recuperaUsuario (){

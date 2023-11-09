@@ -1,60 +1,149 @@
 import React, { useEffect, useState } from "react";
 import style from "../../Common/CSS/conteudo.module.css"
+import inputStyle from "../../components/formulario/input/input.module.css"
 import chatStyle from "./chat.module.css"
 import { Link } from 'react-router-dom';
 import Cabecalho from "../../components/cabecalho/cabecalho";
 import Rodape from "../../components/rodape/rodape";
 import BotaoGrande from "../../components/botaoGrande/botaoGrande";
 import Modal from "../../components/modal/modal";
-import Input from "../../components/formulario/input/input";
 import Perfil from "../../components/imagemDePerfil/perfil";
 import { useUser } from "../../Services/userContext";
 import { useChat } from "../../Services/chatContext";
 import { conectApi } from "../../Services/conectaApi";
 import { useContatoEmFoco } from "../../Services/contatoContext";
+import Botao from "../../components/botao/botao";
+import { Conversa } from "../../Interfaces/conversa";
+import { ConversaChat } from "../../Interfaces/conversaChat";
 
 function Chat(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
     const { chat, setChat } = useChat();
     const { contatoEmFoco, setContatoEmFoco } = useContatoEmFoco();
-    const [texto, setTexto] = useState("");
-    const [destinatario, setDestinatario] = useState("");
-    const [chatEmFoco, setChatEmFoco] = useState<{ user: string; user_id: number, hora: string, chat: string}[]>([]);
+    const [destinatario, setDestinatario] = useState<{nome: string, email: string, id: number}>();
+    const [chatEmFoco, setChatEmFoco] = useState<ConversaChat[]>([]);
+    const [modal, setModal] = useState(false);
+    const [modalText, setModalText] = useState("");
+    const [modalButton, setModalButton] = useState("");
+    const [campoValor, setCampoValor] = useState("");
 
-    useEffect( () => {
+    useEffect(() => {
         if (!usuarioLogado){ // Se não estiver logado
             window.location.href="/" // Redireciona para tela de Login
         }
-        const pegaMensagens = async () => { // Função que acessa o BD e retorna as mensagens
-            if (chat){ // Se o usuário veio direto de uma conversa existente
-                const conversa = await conectApi.recuperaChat(chat);
-                setDestinatario((conversa.conexaoConvertida.user_1_id === usuarioLogado.usuarioId ? conversa.conexaoConvertida.user_2_nome : conversa.conexaoConvertida.user_1_nome))
-                const mensagens = conversa.conexaoConvertida.content;
-                setChatEmFoco(mensagens);
-            } else { // Se não vamos criar uma conversa do zero:
-                console.log("contato em foco: ",contatoEmFoco);
-                const usuarioDestino = await conectApi.recuperaUsuarioPorEmail(contatoEmFoco);
-                setDestinatario(usuarioDestino.conexaoConvertida[0].nome);
-            };
-        };
-
-        pegaMensagens();
+        const interval = setInterval(() => {
+          pegaMensagens();
+        }, 5000); // Verifique a cada 5 segundos
+      
+        return () => clearInterval(interval);
     }, []);
 
-    const handleTextoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setTexto(event.target.value);
+
+    const pegaMensagens = async () => { // Função que acessa o BD e retorna as mensagens
+        if (chat){ // Se o usuário veio direto de uma conversa existente
+            const conversa = await conectApi.recuperaChat(chat);
+            const dadosDaConversa = conversa.conexaoConvertida;
+            setDestinatario({
+                nome: dadosDaConversa.user_1_id === usuarioLogado.usuarioId ? dadosDaConversa.user_2_nome : dadosDaConversa.user_1_nome,
+                email: "",
+                id: 0
+            });
+            const mensagens = dadosDaConversa.content;
+            setChatEmFoco(mensagens);
+        } else { // Se não vamos criar uma conversa do zero:
+            const usuarioDestino = await conectApi.recuperaUsuarioPorEmail(contatoEmFoco);
+            setDestinatario({
+                nome: usuarioDestino.conexaoConvertida[0].nome,
+                email: usuarioDestino.conexaoConvertida[0].email,
+                id: usuarioDestino.conexaoConvertida[0].id
+            });       
+        };
+    };
+
+    const pegaHora = () => {
+        const carimbo = new Date().getTime() / 1000; // Obtém o carimbo Unix
+        const data = new Date(carimbo * 1000); // Converte o carimbo para milissegundos e cria um objeto Date
+        const horas = data.getHours().toString().padStart(2, '0'); // Obtém as horas no formato 00
+        const minutos = data.getMinutes().toString().padStart(2, '0'); // Obtém os minutos no formato 00
+        const horaFormatada = `${horas}:${minutos}`; // Formata a hora e os minutos
+        return horaFormatada
+    };
+
+    const handleTextoSubmit = async () => {
+        if (!campoValor){
+            handleModal("Escreva alguma mensagem primeiro!","vermelho");
+        } else {
+            const todasMensagens = chatEmFoco ? chatEmFoco : [];
+            const novaMensagem = ({
+                user: usuarioLogado.usuarioNome,
+                user_id: usuarioLogado.usuarioId,
+                hora: pegaHora(),
+                chat: campoValor,
+            });
+            setCampoValor(""); // Limpe o valor do campo
+            todasMensagens.push(novaMensagem);
+            if (!chat){ // Se é a peimreira mensagem da conversa
+                registraConversa(); // Então registra no BD
+            } else {
+                const conversaAtual = await conectApi.recuperaChat(chat);
+                const conversaAtualizada: Conversa = ({
+                    ...conversaAtual.conexaoConvertida,
+                    content: [...todasMensagens]
+                });
+                conectApi.atualizaConversa(chat, conversaAtualizada) // Senão, apenas atualiza a lista de mensagens
+            };
+            pegaMensagens();
+        }
+    };
+
+    const registraConversa = async () => {
+        const novaConversa: Conversa = {
+            user_1_id: usuarioLogado.usuarioId,
+            user_1_nome: usuarioLogado.usuarioNome,
+            user_2_id: destinatario?.id || 0,
+            user_2_nome: destinatario?.nome || "",
+            content: [
+                {
+                user: usuarioLogado.usuarioNome,
+                user_id: usuarioLogado.usuarioId,
+                hora: pegaHora(),
+                chat: campoValor,
+                },
+            ],
+        };
+        const resultado = await conectApi.registraConversa(novaConversa);
+        if (resultado.statusConexao < 199 || resultado.statusConexao > 300){
+            handleModal("Houve um erro ao enviar sua mensagem", "vermleho");   
+        } else {
+            setChat(resultado.conexaoConvertida.id);
+        }
+    };
+
+    const handleModal = (text: string, corBotao: string) => {
+        setModal(true)
+        setModalText(text)
+        setModalButton(corBotao)
     };
 
     return(
         <div className={style.pagina}>
             <Cabecalho />
             <section className={style.conteudo}>
+                {modal && <div className={style.modal_alert}>
+                    {/* Modal */}
+                    <Modal altura={0}>
+                        <div className={style.modal_alert_content}>
+                            <p>{modalText}</p>
+                            <Botao texto ="Ok" cor={modalButton} onClick={() => {setModal(false)}}/>
+                        </div>
+                    </Modal>
+                </div>}
                 <h3 className={style.titulo}>Max Chat</h3>
                 <div className={style.conversas}>
                     <Modal altura={0}> {/* Quando enviar 0 o componente insere "height: auto" */}
                         <div className={chatStyle.chat_container}>
-                            <p className={chatStyle.chat_titulo}>Conversa com: {destinatario}</p>
-                            {chatEmFoco.length === 0 && <p className={chatStyle.chat_titulo}>Ainda sem mensagens, mande a primeira!</p>}
+                            <p className={chatStyle.chat_titulo}>Conversa com: {destinatario?.nome}</p>
+                            {chatEmFoco && chatEmFoco.length === 0 && <p className={chatStyle.chat_titulo}>Ainda sem mensagens, mande a primeira!</p>}
                             {chatEmFoco && chatEmFoco.map((item, index) =>{
                                 return (
                                     <div key={index} className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income : chatStyle.chat_outcome)}>
@@ -68,10 +157,18 @@ function Chat(){
                             })}
                         </div>
                         <div  className={chatStyle.chat_submit}>
-                            <Input placeholder={"Digite sua mensagem"} onChange={handleTextoChange}/>
-                            <div className={chatStyle.chat_submit_botao}>
+                            <input
+                                className={inputStyle.input}
+                                type="text"
+                                placeholder="Digite sua mensagem"
+                                value={campoValor}
+                                onChange={(e) => setCampoValor(e.target.value)}
+                            />
+                            {destinatario?.nome  ? <div className={chatStyle.chat_submit_botao} onClick={handleTextoSubmit}>
                                 <p className={chatStyle.chat_submit_botao_texto}>Enviar mensagem</p>
                             </div>
+                            :
+                            <p>Aguarde! Carregando...</p>}
                         </div>
                     </Modal>
                 </div>

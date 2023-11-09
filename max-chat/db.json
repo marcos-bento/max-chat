@@ -59,6 +59,12 @@
           "email": "a@a.com",
           "nome": "Aron",
           "apelido": ""
+        },
+        {
+          "id": 2,
+          "email": "pedro@gmail.com",
+          "nome": "Jose",
+          "apelido": ""
         }
       ],
       "id": 3
@@ -117,6 +123,30 @@
           "user_id": 2,
           "hora": "20:22",
           "chat": "E você viu o último lançamento? Vai sair em Dezembro..."
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "15:03",
+          "chat": "Que ótimo! Vou ficar no aguardo."
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "15:04",
+          "chat": "Mas ouvi dizer que ainda está em adaptação"
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "15:24",
+          "chat": "beleza ?"
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "16:58",
+          "chat": "Até que enfim na reta final!"
         }
       ],
       "id": 1
@@ -144,6 +174,18 @@
           "user_id": 1,
           "hora": "20:20",
           "chat": "Nova mensagem 3"
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "15:03",
+          "chat": "Nova mensagem 5"
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "15:04",
+          "chat": "Nova mensagem 7"
         }
       ],
       "id": 2
@@ -174,6 +216,81 @@
         }
       ],
       "id": 4
+    },
+    {
+      "user_1_id": 1,
+      "user_1_nome": "Marcos Bento",
+      "user_2_id": 3,
+      "user_2_nome": "Benedito",
+      "content": [
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "14:41",
+          "chat": "Haha"
+        }
+      ],
+      "id": 5
+    },
+    {
+      "user_1_id": 1,
+      "user_1_nome": "Marcos Bento",
+      "user_2_id": 4,
+      "user_2_nome": "Kamila",
+      "content": [
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "14:47",
+          "chat": "Oi amor!"
+        }
+      ],
+      "id": 6
+    },
+    {
+      "user_1_id": 1,
+      "user_1_nome": "Marcos Bento",
+      "user_2_id": 2,
+      "user_2_nome": "Fabio Albarelli",
+      "content": [
+        {
+          "user": "Marcos",
+          "user_id": 1,
+          "hora": "20:20",
+          "chat": "Oi, cara de boi!"
+        }
+      ],
+      "id": 7
+    },
+    {
+      "user_1_id": 1,
+      "user_1_nome": "Marcos Bento",
+      "user_2_id": 2,
+      "user_2_nome": "Fabio Albarelli",
+      "content": [
+        {
+          "user": "Marcos",
+          "user_id": 1,
+          "hora": "20:20",
+          "chat": "Oi, cara de boi!"
+        }
+      ],
+      "id": 8
+    },
+    {
+      "user_1_id": 2,
+      "user_1_nome": "Fabio Albarelli",
+      "user_2_id": 0,
+      "user_2_nome": "",
+      "content": [
+        {
+          "user": "Fabio Albarelli",
+          "user_id": 2,
+          "hora": "16:09",
+          "chat": "ue"
+        }
+      ],
+      "id": 9
     }
   ]
 }

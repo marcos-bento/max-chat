@@ -35,6 +35,7 @@ function Formulario({type = "" }: { type?: string }) {
 
   const handleNomeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNome(event.target.value);
+
   };
 
   const handleSenhaChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,7 +102,7 @@ function Formulario({type = "" }: { type?: string }) {
         </Modal>
       </div>}
       <p className={style.formulario_texto}>Login:</p>
-      <Input placeholder={"Digite seu e-mail"} onChange={handleEmailChange} />
+      <Input placeholder={"Digite seu e-mail"} onChange={handleEmailChange}/>
       {!emailValido && <p className={style.alerta_erro} style={{ color: "salmon" }}>Email inválido</p>}
       <p className={style.formulario_texto}>Senha:</p>
       <Input placeholder={"Digite sua senha"} type={"password"} onChange={handleSenhaChange}/>

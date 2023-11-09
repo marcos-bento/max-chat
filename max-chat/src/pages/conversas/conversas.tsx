@@ -7,10 +7,13 @@ import Balao from "../../components/balao/balao";
 import BotaoGrande from "../../components/botaoGrande/botaoGrande";
 import { useUser } from "../../Services/userContext";
 import acessaMensagens from "../../Services/acessaMensagens";
+import { useChat } from "../../Services/chatContext";
 
 function Conversas(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
     const [conversasDoUsuario, setConversasDoUsuario] = useState<{ mensagem: string; autor: string, idDoUsuario: number, idDaConversa: number }[]>([]);
+    const { chat, setChat } = useChat();
+
 
     useEffect( () => {
         if (!usuarioLogado.usuarioLogado){ // Se não estiver logado
@@ -31,7 +34,7 @@ function Conversas(){
                 <h3 className={style.titulo}>Todas conversas</h3>
                 <div className={style.conversas}>
                     {conversasDoUsuario && conversasDoUsuario.map((item,index) =>{
-                        return <Balao key={index} tipo={"chat"} perfilID={item.idDoUsuario} autor={item.autor} mensagem={item.mensagem}/>
+                        return <Link key={index} to="/chat" onClick={() => setChat(item.idDaConversa)}><Balao key={index} tipo={"chat"} perfilID={item.idDoUsuario} autor={item.autor} mensagem={item.mensagem}/></Link>
                     })}
 
                     {conversasDoUsuario.length === 0 && <p className={style.titulo}>você ainda não tem conversas!<br></br>Começe uma já!</p>}
