@@ -20,7 +20,6 @@ function NovoChat(){
         if (!usuarioLogado){ // Se não estiver logado
             window.location.href="/" // Redireciona para tela de Login
         }
-        console.log("contato em foco: ",contatoEmFoco);
 
     }, []);
     

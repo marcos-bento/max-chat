@@ -3,7 +3,7 @@ import Style from './select.module.css';
 import { useUser } from "../../../Services/userContext";
 import { useContatoEmFoco } from "../../../Services/contatoContext";
 import { conectApi } from "../../../Services/conectaApi";
-import { getValue } from "@testing-library/user-event/dist/utils";
+import { useChat } from "../../../Services/chatContext";
 
 interface Props{
     placeholder: string
@@ -11,6 +11,7 @@ interface Props{
 
 function Select({placeholder}:Props){
     const { usuarioLogado, setUsuarioLogado } = useUser();
+    const { chat, setChat } = useChat();
     const { contatoEmFoco, setContatoEmFoco } = useContatoEmFoco();
     const [contatoSelecionado, setContatoSelecionado] = useState<{ emailDoContato: string; nomeDoContato: string, apelidoDoContato: string }[]>([])
 
@@ -29,27 +30,27 @@ function Select({placeholder}:Props){
                     apelidoDoContato: contato.apelido,
                 })
             })
+            if (contatos.length > 0 && !contatoEmFoco){
+                setContatoEmFoco(contatos[0].emailDoContato);
+            };
+            setChat("");
             setContatoSelecionado(contatos);
-            console.log(contatoEmFoco);
         };
-
         recuperaContatos();
     }, []);
 
     const handleOnSelect = (event: { target: { value: string; }; }) => {
         const selectedEmail = event.target.value;
-        setContatoEmFoco(selectedEmail)
+        setContatoEmFoco(selectedEmail);
     };
     
     return (
-        <select className={Style.input} placeholder={placeholder} onChange={handleOnSelect}>
-            {contatoSelecionado && contatoSelecionado.map((contato, index) => {
-                return (
-                    <option selected={contatoEmFoco === contato.emailDoContato} key={index} value={contato.emailDoContato}>
-                        {(contato.apelidoDoContato ? contato.apelidoDoContato : contato.nomeDoContato)}
-                    </option>
-                );
-            })}
+        <select className={Style.input} placeholder={placeholder} {...(contatoEmFoco && { value: contatoEmFoco })} onChange={handleOnSelect}>
+            {contatoSelecionado && contatoSelecionado.map((contato, index) => {return (
+                <option key={index} value={contato.emailDoContato}>
+                    {(contato.apelidoDoContato ? contato.apelidoDoContato : contato.nomeDoContato)}
+                </option>)}
+            )}
         </select>
     );
 }

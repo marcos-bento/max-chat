@@ -11,28 +11,39 @@ import Perfil from "../../components/imagemDePerfil/perfil";
 import { useUser } from "../../Services/userContext";
 import { useChat } from "../../Services/chatContext";
 import { conectApi } from "../../Services/conectaApi";
+import { useContatoEmFoco } from "../../Services/contatoContext";
 
 function Chat(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
     const { chat, setChat } = useChat();
+    const { contatoEmFoco, setContatoEmFoco } = useContatoEmFoco();
+    const [texto, setTexto] = useState("");
     const [destinatario, setDestinatario] = useState("");
     const [chatEmFoco, setChatEmFoco] = useState<{ user: string; user_id: number, hora: string, chat: string}[]>([]);
 
     useEffect( () => {
-        if (!usuarioLogado.usuarioLogado){ // Se não estiver logado
+        if (!usuarioLogado){ // Se não estiver logado
             window.location.href="/" // Redireciona para tela de Login
         }
         const pegaMensagens = async () => { // Função que acessa o BD e retorna as mensagens
-            console.log(chat)
-            const conversa = await conectApi.recuperaChat(chat);
-            setDestinatario((conversa.conexaoConvertida.user_1_id === usuarioLogado.usuarioId ? conversa.conexaoConvertida.user_2_nome : conversa.conexaoConvertida.user_1_nome))
-            const mensagens = conversa.conexaoConvertida.content;
-            setChatEmFoco(mensagens);
-            console.log(mensagens);
+            if (chat){ // Se o usuário veio direto de uma conversa existente
+                const conversa = await conectApi.recuperaChat(chat);
+                setDestinatario((conversa.conexaoConvertida.user_1_id === usuarioLogado.usuarioId ? conversa.conexaoConvertida.user_2_nome : conversa.conexaoConvertida.user_1_nome))
+                const mensagens = conversa.conexaoConvertida.content;
+                setChatEmFoco(mensagens);
+            } else { // Se não vamos criar uma conversa do zero:
+                console.log("contato em foco: ",contatoEmFoco);
+                const usuarioDestino = await conectApi.recuperaUsuarioPorEmail(contatoEmFoco);
+                setDestinatario(usuarioDestino.conexaoConvertida[0].nome);
+            };
         };
 
         pegaMensagens();
     }, []);
+
+    const handleTextoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setTexto(event.target.value);
+    };
 
     return(
         <div className={style.pagina}>
@@ -43,6 +54,7 @@ function Chat(){
                     <Modal altura={0}> {/* Quando enviar 0 o componente insere "height: auto" */}
                         <div className={chatStyle.chat_container}>
                             <p className={chatStyle.chat_titulo}>Conversa com: {destinatario}</p>
+                            {chatEmFoco.length === 0 && <p className={chatStyle.chat_titulo}>Ainda sem mensagens, mande a primeira!</p>}
                             {chatEmFoco && chatEmFoco.map((item, index) =>{
                                 return (
                                     <div key={index} className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income : chatStyle.chat_outcome)}>
@@ -56,7 +68,7 @@ function Chat(){
                             })}
                         </div>
                         <div  className={chatStyle.chat_submit}>
-                            {/* <Input placeholder={"Digite sua mensagem"}/> */}
+                            <Input placeholder={"Digite sua mensagem"} onChange={handleTextoChange}/>
                             <div className={chatStyle.chat_submit_botao}>
                                 <p className={chatStyle.chat_submit_botao_texto}>Enviar mensagem</p>
                             </div>
