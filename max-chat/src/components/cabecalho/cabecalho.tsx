@@ -35,6 +35,7 @@ function Cabecalho() {
       usuarioLogado.usuarioId = "";
       usuarioLogado.usuarioLogado = false;
       usuarioLogado.usuarioNome = "";
+      usuarioLogado.usuarioImagem = "";
     }
   }
 

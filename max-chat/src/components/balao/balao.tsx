@@ -48,13 +48,13 @@ function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contat
                 <p>{nomeDoContato}</p>
             </div>
             <div className={style.botao_container}>
-              <Link to="/editarContato" onClick={setContatoEmFoco(emailDoContato)}>
+              <Link to="/editarContato" onClick={() =>setContatoEmFoco(emailDoContato)}>
                 <ElementoCirculo icon={"fa-solid fa-pen-to-square"} cor={"azul"}/>
                 <p>Editar</p>
               </Link>
             </div>
             <div className={style.botao_container}>
-              <Link to="/chat" onClick={setContatoEmFoco(emailDoContato)}>
+              <Link to="/novochat" onClick={() =>setContatoEmFoco(emailDoContato)}>
                 <ElementoCirculo icon={"fa-solid fa-comment-dots"} cor={"verde"}/>
                 <p>Chat</p>
               </Link>

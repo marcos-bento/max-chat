@@ -66,6 +66,7 @@ function EditarPerfil(){
         const resultado = await conectApi.atualizaUsuario(usuarioLogado.usuarioId, novosDados);
         if (resultado.statusConexao > 199 && resultado.statusConexao < 299){
             usuarioLogado.usuarioNome = novosDados.nome;
+            usuarioLogado.usuarioImagem = novosDados.imagem;
             handleModal("Cadastro atualizado com sucesso!", "verde");
         } else {
             handleModal("Erro ao tentar atualizar cadastro.", "vermelho")

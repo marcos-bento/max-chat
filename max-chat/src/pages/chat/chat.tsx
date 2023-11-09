@@ -23,10 +23,12 @@ function Chat(){
             window.location.href="/" // Redireciona para tela de Login
         }
         const pegaMensagens = async () => { // Função que acessa o BD e retorna as mensagens
+            console.log(chat)
             const conversa = await conectApi.recuperaChat(chat);
             setDestinatario((conversa.conexaoConvertida.user_1_id === usuarioLogado.usuarioId ? conversa.conexaoConvertida.user_2_nome : conversa.conexaoConvertida.user_1_nome))
             const mensagens = conversa.conexaoConvertida.content;
             setChatEmFoco(mensagens);
+            console.log(mensagens);
         };
 
         pegaMensagens();
@@ -41,7 +43,7 @@ function Chat(){
                     <Modal altura={0}> {/* Quando enviar 0 o componente insere "height: auto" */}
                         <div className={chatStyle.chat_container}>
                             <p className={chatStyle.chat_titulo}>Conversa com: {destinatario}</p>
-                            {chatEmFoco.map((item, index) =>{
+                            {chatEmFoco && chatEmFoco.map((item, index) =>{
                                 return (
                                     <div key={index} className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income : chatStyle.chat_outcome)}>
                                     <p className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income_text : chatStyle.chat_outcome_text)}>{item.user} disse as {item.hora}</p>  
