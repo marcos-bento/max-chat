@@ -1,6 +1,8 @@
 {
   "name": "max-chat",
   "version": "0.1.0",
+  "description": "Projeto para aperfeiçoar habilidades em React Typescript, objeto: Site de Conversas",
+  "main": "api/server.js",
   "private": true,
   "devDependencies": {
     "concurrently": "^8.2.2",
@@ -26,8 +28,8 @@
   "scripts": {
     "start-react": "set PORT=3001 && react-scripts --openssl-legacy-provider start node json-server --watch db.json",
     "start-json-server": "json-server --watch db.json",
-    "start": "concurrently \"npm run start-react\" \"npm run start-json-server\"",
-    "build": "react-scripts build",
+    "start": "node api/server.js",
+    "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
