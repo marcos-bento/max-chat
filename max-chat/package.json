@@ -29,7 +29,7 @@
     "start-react": "set PORT=3001 && react-scripts --openssl-legacy-provider start node json-server --watch db.json",
     "start-json-server": "json-server --watch db.json",
     "start": "node api/server.js",
-    "build": "react-scripts --openssl-legacy-provider build",
+    "build": "node api/server.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
