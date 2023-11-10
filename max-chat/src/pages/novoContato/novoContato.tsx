@@ -22,6 +22,11 @@ function NovoContato(){
     const [modalButton, setModalButton] = useState("");  
     const [contatoAdicionado, setContatoAdicionado] = useState(false);
 
+    useEffect(() =>{
+        if (!usuarioLogado){ // Se não estiver logado
+            window.location.href="/" // Redireciona para tela de Login
+        };
+    },[]);
 
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const novoEmail = e.target.value;
@@ -113,3 +118,7 @@ function NovoContato(){
 };
 
 export default NovoContato;
+
+function useEffect(arg0: () => void, arg1: never[]) {
+    throw new Error("Function not implemented.");
+}

@@ -13,7 +13,7 @@ function Contatos(){
     const [contatos, setContatos] = useState<{ idInternoDoContato: number; email: string, nome: string, apelido: string }[]>([]);
 
     useEffect( () => {
-        if (!usuarioLogado.usuarioLogado){ // Se não estiver logado
+        if (!usuarioLogado){ // Se não estiver logado
             window.location.href="/" // Redireciona para tela de Login
         }
         const pegaContatos = async () => {

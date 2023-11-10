@@ -30,7 +30,7 @@ function EditarContato(){
 
     //Função para buscar os dados do contato que será editado
     useEffect(() =>{
-        if (!usuarioLogado.usuarioLogado){ // Se não estiver logado
+        if (!usuarioLogado){ // Se não estiver logado
             window.location.href="/" // Redireciona para tela de Login
         };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "../../Common/CSS/conteudo.module.css"
 import editarPerfilStyle from "./editarPerfil.module.css"
 import { Link } from 'react-router-dom';
@@ -23,7 +23,13 @@ function EditarPerfil(){
     const [modalText, setModalText] = useState("");
     const [modalButton, setModalButton] = useState("");
     const [botaoValida, setBotaoValida] = useState(false);
-
+    
+    useEffect(() =>{
+        if (!usuarioLogado){ // Se não estiver logado
+            window.location.href="/" // Redireciona para tela de Login
+        };
+    },[]);
+    
     const handleModal = (text: string, corBotao: string) => {
         setModal(true)
         setModalText(text)

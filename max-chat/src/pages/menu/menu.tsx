@@ -15,7 +15,7 @@ function Menu(){
     const [conversasDoUsuario, setConversasDoUsuario] = useState<{ mensagem: string; autor: string, idDoUsuario: number, idDaConversa: number }[]>([]);
     
     useEffect( () => {
-        if (!usuarioLogado || usuarioLogado.usuarioNome === null) {
+        if (!usuarioLogado) {
             // Se não estiver logado
             window.location.href="/" // Redireciona para tela de Login
         }

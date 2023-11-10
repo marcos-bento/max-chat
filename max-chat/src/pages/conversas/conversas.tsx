@@ -16,7 +16,7 @@ function Conversas(){
 
 
     useEffect( () => {
-        if (!usuarioLogado.usuarioLogado){ // Se não estiver logado
+        if (!usuarioLogado){ // Se não estiver logado
             window.location.href="/" // Redireciona para tela de Login
         }
         const pegaMensagens = async () => { // Função que acessa o BD e retorna as mensagens
