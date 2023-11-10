@@ -1,0 +1,296 @@
+{
+  "user": [
+    {
+      "email": "marcos.x.marcos@hotmail.com",
+      "nome": "Marcos Bento",
+      "senha": "ssxyjjirf97",
+      "imagem": "./img/marcos.PNG",
+      "contatos": [
+        {
+          "id": 1,
+          "email": "fabio_albarelli@hotmail.com",
+          "nome": "Fabio Albarelli",
+          "apelido": ""
+        },
+        {
+          "id": 2,
+          "email": "dobene02@hotmail.com",
+          "nome": "Benedito",
+          "apelido": ""
+        },
+        {
+          "id": 3,
+          "email": "kmatos364@gmail.com",
+          "nome": "Kamila",
+          "apelido": "Amor"
+        },
+        {
+          "id": 4,
+          "email": "a@a.com",
+          "nome": "Aron",
+          "apelido": ""
+        }
+      ],
+      "id": 1
+    },
+    {
+      "email": "fabio_albarelli@hotmail.com",
+      "nome": "Fabio Albarelli",
+      "senha": "ssxyjjirf97",
+      "imagem": "https://scontent.fbjp4-1.fna.fbcdn.net/v/t39.30808-6/279258410_5647416575272755_7833960552814184909_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFO7lB4zI92yY-vsB5AGTKVqhF5T6EEbTaqEXlPoQRtNlUT9DWM-HZk4ykx2OJ4iIqXxV3D9ql4DtebQ1jpk7t9&_nc_ohc=JZXkcXNTcvIAX-Icmvc&_nc_ht=scontent.fbjp4-1.fna&oh=00_AfCQGmUtKx8r-j2gfbtqYpcNuxPQD-Ofw9kas5Fh0q2KZA&oe=655145F1",
+      "contatos": [
+        {
+          "id": 1,
+          "email": "marcos.x.marcos@hotmail.com",
+          "nome": "Marcos Bento",
+          "apelido": ""
+        }
+      ],
+      "id": 2
+    },
+    {
+      "email": "dobene02@hotmail.com",
+      "nome": "Benedito",
+      "senha": "ssxyjjirf97",
+      "imagem": "https://scontent.fbjp4-1.fna.fbcdn.net/v/t1.6435-9/46670118_2118355761554647_6164413332695547904_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=be3454&_nc_eui2=AeFZW4H3u9rmvllCQiXZdq8KAxfmnyi2MTEDF-afKLYxMS0h8qBPQgLaNEKJyXpUHOcIkr0QLZ9N_R7Jmd9tIpwH&_nc_ohc=J2gteuvdve0AX8AnbDQ&_nc_ht=scontent.fbjp4-1.fna&oh=00_AfCmG9Ot6E4xDqteu_4VKgTov7UJ3RY5AszjolWLcFVXZQ&oe=65744D2B",
+      "contatos": [
+        {
+          "id": 1,
+          "email": "a@a.com",
+          "nome": "Aron",
+          "apelido": ""
+        },
+        {
+          "id": 2,
+          "email": "pedro@gmail.com",
+          "nome": "Jose",
+          "apelido": ""
+        }
+      ],
+      "id": 3
+    },
+    {
+      "email": "kmatos364@gmail.com",
+      "nome": "Kamila",
+      "senha": "gquwvky",
+      "imagem": "",
+      "contatos": [
+        {
+          "id": 1,
+          "email": "marcos.x.marcos@hotmail.com",
+          "nome": "Marcos Bento",
+          "apelido": "Amor"
+        }
+      ],
+      "id": 4
+    },
+    {
+      "email": "a@a.com",
+      "nome": "Aron",
+      "senha": "geg",
+      "imagem": "",
+      "contatos": [],
+      "id": 5
+    }
+  ],
+  "chats": [
+    {
+      "user_1_id": 1,
+      "user_1_nome": "Marcos Bento",
+      "user_2_id": 2,
+      "user_2_nome": "Fabio Albarelli",
+      "content": [
+        {
+          "user": "Fabio Albarelli",
+          "user_id": 2,
+          "hora": "20:18",
+          "chat": "Você jogou aquele jogo da memória?"
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "20:20",
+          "chat": "Joguei sim e curti bastante o jogo, meus sobrinhos também adoraram!"
+        },
+        {
+          "user": "Fabio Albarelli",
+          "user_id": 2,
+          "hora": "20:20",
+          "chat": "Será que tem alguma novidade saindo?"
+        },
+        {
+          "user": "Fabio Albarelli",
+          "user_id": 2,
+          "hora": "20:22",
+          "chat": "E você viu o último lançamento? Vai sair em Dezembro..."
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "15:03",
+          "chat": "Que ótimo! Vou ficar no aguardo."
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "15:04",
+          "chat": "Mas ouvi dizer que ainda está em adaptação"
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "15:24",
+          "chat": "beleza ?"
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "16:58",
+          "chat": "Até que enfim na reta final!"
+        }
+      ],
+      "id": 1
+    },
+    {
+      "user_1_id": 1,
+      "user_1_nome": "Marcos Bento",
+      "user_2_id": 2,
+      "user_2_nome": "Fabio Albarelli",
+      "content": [
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "20:20",
+          "chat": "Tchau, cara de bau!"
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "20:20",
+          "chat": "Nova mensagem 2"
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "20:20",
+          "chat": "Nova mensagem 3"
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "15:03",
+          "chat": "Nova mensagem 5"
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "15:04",
+          "chat": "Nova mensagem 7"
+        }
+      ],
+      "id": 2
+    },
+    {
+      "user_1_id": 1,
+      "user_1_nome": "Marcos Bento",
+      "user_2_id": 2,
+      "user_2_nome": "Fabio Albarelli",
+      "content": [
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "20:20",
+          "chat": "Tchau, cara de bau!"
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "20:20",
+          "chat": "Nova mensagem 2"
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "20:20",
+          "chat": "Nova mensagem 5"
+        }
+      ],
+      "id": 4
+    },
+    {
+      "user_1_id": 1,
+      "user_1_nome": "Marcos Bento",
+      "user_2_id": 3,
+      "user_2_nome": "Benedito",
+      "content": [
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "14:41",
+          "chat": "Haha"
+        }
+      ],
+      "id": 5
+    },
+    {
+      "user_1_id": 1,
+      "user_1_nome": "Marcos Bento",
+      "user_2_id": 4,
+      "user_2_nome": "Kamila",
+      "content": [
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "14:47",
+          "chat": "Oi amor!"
+        }
+      ],
+      "id": 6
+    },
+    {
+      "user_1_id": 1,
+      "user_1_nome": "Marcos Bento",
+      "user_2_id": 2,
+      "user_2_nome": "Fabio Albarelli",
+      "content": [
+        {
+          "user": "Marcos",
+          "user_id": 1,
+          "hora": "20:20",
+          "chat": "Oi, cara de boi!"
+        }
+      ],
+      "id": 7
+    },
+    {
+      "user_1_id": 1,
+      "user_1_nome": "Marcos Bento",
+      "user_2_id": 2,
+      "user_2_nome": "Fabio Albarelli",
+      "content": [
+        {
+          "user": "Marcos",
+          "user_id": 1,
+          "hora": "20:20",
+          "chat": "Oi, cara de boi!"
+        }
+      ],
+      "id": 8
+    },
+    {
+      "user_1_id": 2,
+      "user_1_nome": "Fabio Albarelli",
+      "user_2_id": 0,
+      "user_2_nome": "",
+      "content": [
+        {
+          "user": "Fabio Albarelli",
+          "user_id": 2,
+          "hora": "16:09",
+          "chat": "ue"
+        }
+      ],
+      "id": 9
+    }
+  ]
+}

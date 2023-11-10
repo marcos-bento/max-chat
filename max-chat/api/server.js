@@ -6,7 +6,9 @@ const server = jsonServer.create()
 // Uncomment to allow write operations
 const fs = require('fs');
 const path = require('path');
-const filePath = path.join('./db.json');
+const filePath = path.resolve(__dirname, './db.json');
+console.log('Diretório de trabalho atual:', process.cwd());
+
 if (!fs.existsSync(filePath)) {
   console.error('O arquivo db.json não foi encontrado.');
   process.exit(1);
