@@ -1,39 +1,27 @@
-// See https://github.com/typicode/json-server#module
-const jsonServer = require('json-server')
-
-const server = jsonServer.create()
-
-// Uncomment to allow write operations
-const fs = require('fs');
+const jsonServer = require('json-server');
 const path = require('path');
-const filePath = path.resolve(__dirname, './db.json');
-console.log('Diretório de trabalho atual:', process.cwd());
 
-if (!fs.existsSync(filePath)) {
-  console.error('O arquivo db.json não foi encontrado.');
-  process.exit(1);
-}
-const data = fs.readFileSync(filePath, 'utf-8');
-const db = JSON.parse(data);
-const router = jsonServer.router(db)
-console.log('Caminho absoluto do db.json:', filePath);
-console.log('Conteúdo do db.json:', data);
+const server = jsonServer.create();
 
-// Comment out to allow write operations
-// const router = jsonServer.router('db.json')
+// Construa o caminho absoluto para db.json com base no diretório de trabalho atual
+const dbPath = path.join(process.cwd(), 'db.json');
 
-const middlewares = jsonServer.defaults()
+// Leia o conteúdo do arquivo db.json
+const data = require(dbPath);
 
-server.use(middlewares)
-// Add this before server.use(router)
+const router = jsonServer.router(data);
+const middlewares = jsonServer.defaults();
+
+server.use(middlewares);
 server.use(jsonServer.rewriter({
     '/api/*': '/$1',
     '/blog/:resource/:id/show': '/:resource/:id'
-}))
-server.use(router)
-server.listen(3000, () => {
-    console.log('JSON Server is running')
-})
+}));
+server.use(router);
 
-// Export the Server API
-module.exports = server
+server.listen(3000, () => {
+    console.log('JSON Server is running');
+});
+
+// Exporte a API do servidor
+module.exports = server;
