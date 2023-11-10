@@ -11,7 +11,7 @@ function Sobre() {
       <Cabecalho />
       <section className={style.conteudo}>
         <h3 className={style.titulo}>Sobre</h3>
-        <Modal altura={500}>
+        <Modal altura={0}>
           <div className={sobreStyle.titulo__container}>
             <h1 className={sobreStyle.titulo}>Max</h1>
             <h2 className={sobreStyle.titulo}>Chat</h2>
