@@ -23,11 +23,15 @@ function NovoChat(){
         }
         const pegaContatos = async () => {
             const usuario = await conectApi.recuperaUsuarioPorID(usuarioLogado.usuarioId);
-            const contatos = usuario.conexaoConvertida.contatos;
-            if (contatos.length < 1){
-                setListaEmBranco(true);
+            if (usuario.conexaoConvertida && usuario.conexaoConvertida.contatos){
+                const contatos = usuario.conexaoConvertida.contatos;
+                if (contatos.length < 1){
+                    setListaEmBranco(true);
+                } else {
+                    setListaEmBranco(false);
+                };
             } else {
-                setListaEmBranco(false);
+                alert("Erro ao carregar os dados do usuário!");
             };
         };
 

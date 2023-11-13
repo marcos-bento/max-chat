@@ -104,37 +104,49 @@
           "user": "Fabio Albarelli",
           "user_id": 2,
           "hora": "20:18",
-          "chat": "Você jogou aquele jogo da memória?"
+          "chat": "Você jogou aquele jogo da memória?",
+          "data": "2023-11-12",
+          "lido": true
         },
         {
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "20:20",
-          "chat": "Joguei sim e curti bastante o jogo, meus sobrinhos também adoraram!"
+          "chat": "Joguei sim e curti bastante o jogo, meus sobrinhos também adoraram!",
+          "data": "2023-11-12",
+          "lido": true
         },
         {
           "user": "Fabio Albarelli",
           "user_id": 2,
           "hora": "20:20",
-          "chat": "Será que tem alguma novidade saindo?"
+          "chat": "Será que tem alguma novidade saindo?",
+          "data": "2023-11-12",
+          "lido": true
         },
         {
           "user": "Fabio Albarelli",
           "user_id": 2,
           "hora": "20:22",
-          "chat": "E você viu o último lançamento? Vai sair em Dezembro..."
+          "chat": "E você viu o último lançamento? Vai sair em Dezembro...",
+          "data": "2023-11-12",
+          "lido": true
         },
         {
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "15:03",
-          "chat": "Que ótimo! Vou ficar no aguardo."
+          "chat": "Que ótimo! Vou ficar no aguardo.",
+          "data": "2023-11-12",
+          "lido": true
         },
         {
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "15:04",
-          "chat": "Mas ouvi dizer que ainda está em adaptação"
+          "chat": "Mas ouvi dizer que ainda está em adaptação",
+          "data": "2023-11-12",
+          "lido": true
         },
         {
           "user": "Marcos Bento",
@@ -146,7 +158,9 @@
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "16:58",
-          "chat": "Até que enfim na reta final!"
+          "chat": "Até que enfim na reta final!",
+          "data": "2023-11-12",
+          "lido": true
         }
       ],
       "id": 1
@@ -161,31 +175,41 @@
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "20:20",
-          "chat": "Tchau, cara de bau!"
+          "chat": "Tchau, cara de bau!",
+          "data": "2023-11-12",
+          "lido": true
         },
         {
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "20:20",
-          "chat": "Nova mensagem 2"
+          "chat": "Nova mensagem 2",
+          "data": "2023-11-12",
+          "lido": true
         },
         {
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "20:20",
-          "chat": "Nova mensagem 3"
+          "chat": "Nova mensagem 3",
+          "data": "2023-11-12",
+          "lido": true
         },
         {
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "15:03",
-          "chat": "Nova mensagem 5"
+          "chat": "Nova mensagem 5",
+          "data": "2023-11-12",
+          "lido": true
         },
         {
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "15:04",
-          "chat": "Nova mensagem 7"
+          "chat": "Nova mensagem 7",
+          "data": "2023-11-12",
+          "lido": true
         }
       ],
       "id": 2
@@ -200,19 +224,25 @@
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "20:20",
-          "chat": "Tchau, cara de bau!"
+          "chat": "Tchau, cara de bau!",
+          "data": "2023-11-12",
+          "lido": true
         },
         {
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "20:20",
-          "chat": "Nova mensagem 2"
+          "chat": "Nova mensagem 2",
+          "data": "2023-11-12",
+          "lido": true
         },
         {
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "20:20",
-          "chat": "Nova mensagem 5"
+          "chat": "Nova mensagem 5",
+          "data": "2023-11-12",
+          "lido": true
         }
       ],
       "id": 4
@@ -227,7 +257,9 @@
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "14:41",
-          "chat": "Haha"
+          "chat": "Haha",
+          "data": "2023-11-12",
+          "lido": true
         }
       ],
       "id": 5
@@ -242,7 +274,9 @@
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "14:47",
-          "chat": "Oi amor!"
+          "chat": "Oi amor!",
+          "data": "2023-11-12",
+          "lido": true
         }
       ],
       "id": 6
@@ -257,7 +291,9 @@
           "user": "Marcos",
           "user_id": 1,
           "hora": "20:20",
-          "chat": "Oi, cara de boi!"
+          "chat": "Oi, cara de boi!",
+          "data": "2023-11-12",
+          "lido": true
         }
       ],
       "id": 7
@@ -272,7 +308,9 @@
           "user": "Marcos",
           "user_id": 1,
           "hora": "20:20",
-          "chat": "Oi, cara de boi!"
+          "chat": "Oi, cara de boi!",
+          "data": "2023-11-12",
+          "lido": true
         }
       ],
       "id": 8
@@ -287,7 +325,9 @@
           "user": "Fabio Albarelli",
           "user_id": 2,
           "hora": "16:09",
-          "chat": "ue"
+          "chat": "ue",
+          "data": "2023-11-12",
+          "lido": true
         }
       ],
       "id": 9

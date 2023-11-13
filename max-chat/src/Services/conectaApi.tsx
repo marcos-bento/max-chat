@@ -84,6 +84,17 @@ async function recuperaChat (id: number){
     return { conexaoConvertida, statusConexao: conexao.status };
 };
 
+// Atualiza o campo "lido" de false para true das mensagens de uma conversa especifica por ID
+async function atualizaConversaLeitura (id: number, conversa: Conversa){
+    const conexao = await fetch("https://max-chat-json-server.vercel.app/chats/"+id, {
+        method: "PATCH",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(conversa)
+    });
+    const conexaoConvertida = await conexao.json();
+    return { conexaoConvertida, statusConexao: conexao.status };
+};
+
 export const conectApi = {
     recuperaUsuario,
     cadastraUsuario,
@@ -93,5 +104,6 @@ export const conectApi = {
     recuperaChat,
     recuperaUsuarioPorID,
     recuperaUsuarioPorEmail,
-    atualizaUsuario
+    atualizaUsuario,
+    atualizaConversaLeitura
 }

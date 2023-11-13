@@ -38,7 +38,6 @@ function Chat(){
         return () => clearInterval(interval);
     }, []);
 
-
     const pegaMensagens = async () => { // Função que acessa o BD e retorna as mensagens
         if (chat){ // Se o usuário veio direto de uma conversa existente
             const conversa = await conectApi.recuperaChat(chat);
@@ -50,13 +49,42 @@ function Chat(){
             });
             const mensagens = dadosDaConversa.content;
             setChatEmFoco(mensagens);
+            atualizaLeitura(chat, dadosDaConversa);
         } else { // Se não vamos criar uma conversa do zero:
             const usuarioDestino = await conectApi.recuperaUsuarioPorEmail(contatoEmFoco);
             setDestinatario({
                 nome: usuarioDestino.conexaoConvertida[0].nome,
                 email: usuarioDestino.conexaoConvertida[0].email,
-                id: usuarioDestino.conexaoConvertida[0].id
+                id: usuarioDestino.conexaoConvertida[0].id,
             });       
+        };
+    };
+
+    const atualizaLeitura = async (idDoChat: number, conversa: Conversa) =>{
+        //Verifique se há alguma mensagem não lida para o usuário atual
+        const temMensagemNaoLida = conversa.content.some((mensagem: ConversaChat) => {
+            return mensagem.user_id !== usuarioLogado.usuarioId && !mensagem.lido;
+        });
+
+        console.log(temMensagemNaoLida);
+
+        // Se houver, atualize as mensagens como lidas
+        if (temMensagemNaoLida) {
+            const contentAtualizado  = conversa.content.map((mensagem: ConversaChat) => {
+                if (mensagem.user_id === usuarioLogado.usuarioId){
+                    return {...mensagem};
+                }else{
+                    return {...mensagem, lido: true}; // Primeiro altero todas mensagens para true
+                };
+            });
+    
+            const conversaAtualizada = { ...conversa, content: contentAtualizado };
+            const resultado = await conectApi.atualizaConversaLeitura(idDoChat, conversaAtualizada);
+            if (resultado.statusConexao < 199 && resultado.statusConexao > 300){
+                alert(`Erro: ${resultado.statusConexao}!`);
+            } else {
+                console.log('Sucesso');
+            };
         };
     };
 
@@ -69,6 +97,16 @@ function Chat(){
         return horaFormatada
     };
 
+    const pegaData = () => {
+        const carimbo = new Date().getTime() / 1000; // Obtém o carimbo Unix
+        const data = new Date(carimbo * 1000); // Converte o carimbo para milissegundos
+        const dia = data.getUTCDay();
+        const mes = data.getUTCMonth();
+        const ano = data.getUTCFullYear();
+        const dataCompleta = `${ano}-${mes}-${dia}`;
+        return dataCompleta;
+    }
+
     const handleTextoSubmit = async () => {
         if (!campoValor){
             handleModal("Escreva alguma mensagem primeiro!","vermelho");
@@ -79,11 +117,13 @@ function Chat(){
                 user_id: usuarioLogado.usuarioId,
                 hora: pegaHora(),
                 chat: campoValor,
+                data: pegaData(),
+                lido: false,
             });
             setCampoValor(""); // Limpe o valor do campo
             todasMensagens.push(novaMensagem);
-            if (!chat){ // Se é a peimreira mensagem da conversa
-                registraConversa(); // Então registra no BD
+            if (!chat){ // Se é a primeira mensagem da conversa
+                registraConversa(todasMensagens[0]); // Então registra no BD
             } else {
                 const conversaAtual = await conectApi.recuperaChat(chat);
                 const conversaAtualizada: Conversa = ({
@@ -96,33 +136,26 @@ function Chat(){
         }
     };
 
-    const registraConversa = async () => {
+    const registraConversa = async (todasMensagens: ConversaChat) => {
         const novaConversa: Conversa = {
             user_1_id: usuarioLogado.usuarioId,
             user_1_nome: usuarioLogado.usuarioNome,
             user_2_id: destinatario?.id || 0,
             user_2_nome: destinatario?.nome || "",
-            content: [
-                {
-                user: usuarioLogado.usuarioNome,
-                user_id: usuarioLogado.usuarioId,
-                hora: pegaHora(),
-                chat: campoValor,
-                },
-            ],
+            content: [todasMensagens],
         };
         const resultado = await conectApi.registraConversa(novaConversa);
         if (resultado.statusConexao < 199 || resultado.statusConexao > 300){
-            handleModal("Houve um erro ao enviar sua mensagem", "vermleho");   
+            handleModal("Houve um erro ao enviar sua mensagem", "vermelho");   
         } else {
             setChat(resultado.conexaoConvertida.id);
-        }
+        };
     };
 
     const handleModal = (text: string, corBotao: string) => {
-        setModal(true)
-        setModalText(text)
-        setModalButton(corBotao)
+        setModal(true);
+        setModalText(text);
+        setModalButton(corBotao);
     };
 
     return(

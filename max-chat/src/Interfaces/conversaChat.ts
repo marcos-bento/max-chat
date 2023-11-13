@@ -3,4 +3,6 @@ export interface ConversaChat {
     user_id: number;
     hora: string;
     chat: string;
+    data: string;
+    lido: boolean;
 };
