@@ -13,7 +13,6 @@ import Botao from "../../components/botao/botao";
 import { conectApi } from "../../Services/conectaApi";
 import { Cadastro } from "../../Interfaces/cadastro";
 
-
 function EditarPerfil(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
     const [imagem, setImagem] = useState("");

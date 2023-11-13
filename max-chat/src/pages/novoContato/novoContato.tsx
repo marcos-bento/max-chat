@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "../../Common/CSS/conteudo.module.css"
 import novoContatoStyle from "./novoContato.module.css"
 import { Link } from 'react-router-dom';
@@ -88,10 +88,10 @@ function NovoContato(){
                 <div className={style.conversas}>
                     <Modal altura={0}>
                         <div className={novoContatoStyle.novoContato}>
-                            <p>Digite o e-mail</p>
+                            <p>Digite o e-mail:</p>
                             <Input placeholder={"Digite o e-mail do contato"} onChange={handleEmailChange}/>
                             {!emailValido && <p className={style.alerta_erro} style={{ color: "salmon" }}>Email inválido</p>}
-                            <p>Conhecido como:</p>
+                            <p>Conhecido como (opcional):</p>
                             <Input placeholder={"Digite o apelido para o contato"} onChange={handleApelidoChange}/> 
                         </div>
                     </Modal>
@@ -119,6 +119,3 @@ function NovoContato(){
 
 export default NovoContato;
 
-function useEffect(arg0: () => void, arg1: never[]) {
-    throw new Error("Function not implemented.");
-}
