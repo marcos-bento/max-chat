@@ -25,7 +25,7 @@ async function recuperaUsuarioPorEmail(email: string) {
 // Atualiza um usuario especifico por ID
 async function atualizaUsuario (id: number, cadastro: Cadastro){
     const conexao = await fetch("https://max-chat-json-server.vercel.app/user/"+id, {
-        method: "PUT",
+        method: "PATCH",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(cadastro)
     });
@@ -61,7 +61,7 @@ async function registraConversa (conversa: Conversa){
 // Atualiza uma conversa existente por ID
 async function atualizaConversa (id: number, conversa: Conversa){
     const conexao = await fetch("https://max-chat-json-server.vercel.app/chats/"+id, {
-        method: "PUT",
+        method: "PATCH",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(conversa)
     });
