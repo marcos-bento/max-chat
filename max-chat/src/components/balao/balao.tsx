@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Perfil from "../imagemDePerfil/perfil";
 import ElementoCirculo from "./elementoCirculo/elementoCirculo";
 import { useContatoEmFoco } from "../../Services/contatoContext";
+import { useUser } from "../../Services/userContext";
 
 interface BalaoProps {
   tipo: "chat" | "contato" | "botao";
@@ -20,6 +21,8 @@ interface BalaoProps {
 
 function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contato", perfilID ,autor, mensagem, nomeDoContato, emailDoContato, onClick }: BalaoProps) {
   const { contatoEmFoco, setContatoEmFoco } = useContatoEmFoco();
+  const { usuarioLogado, setUsuarioLogado } = useUser();
+
   
   const renderContent = () => {
     switch (tipo) {
@@ -27,15 +30,20 @@ function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contat
         return (
           <div>
             <Perfil idDoUsuario={perfilID  || 0} />
-            <svg width="238" height="65" viewBox="0 0 238 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="190" height="75" viewBox="0 0 172 75">
                 <g>
-                    <path d="M16 32.5C16 14.5507 30.5507 0 48.5 0H205.5C223.449 0 238 14.5507 238 32.5C238 50.4493 223.449 65 205.5 65H48.5C30.5507 65 16 50.4493 16 32.5Z" fill="#FFFFFF"/>
-                    <path d="M29.8564 19L29.8564 46.7128L5.85641 32.8564L29.8564 19Z" fill="#FFFFFF"/>
-                    <foreignObject x="30" y="-5" width="187" height="75">
-                        <p>{autor} diz: {mensagem}</p>
+                <rect width="169.102439" height="70.266926" rx="35.13" ry="35.13" transform="translate(2.897562 2.366537)" fill="#ffffff"/>
+                {(autor !== usuarioLogado.usuarioNome ? 
+                <polygon points="0.917372,-14.730946 12.603735,7.27677 -12.603735,7.27677 0.917372,-14.730946" transform="matrix(-.007959-.826668 0.802301-.007725 8.990246 37.47121)" fill="#ffffff"/>
+                :
+                <polygon points="0.917372,-14.730946 12.603735,7.27677 -12.603735,7.27677 0.917372,-14.730946" transform="matrix(.007959 0.826668-.802301 0.007725 167.110072 37.52879)" fill="#ffffff"/>
+                )}
+                    <foreignObject x="10" y="-5" width="150" height="75">
+                        <p style={{textAlign:"center"}}>{autor} diz: {mensagem}</p>
                     </foreignObject>
                 </g>
             </svg>
+            <Perfil idDoUsuario={usuarioLogado.usuarioId} />
           </div>
         );
 

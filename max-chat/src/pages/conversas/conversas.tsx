@@ -11,7 +11,7 @@ import { useChat } from "../../Services/chatContext";
 
 function Conversas(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
-    const [conversasDoUsuario, setConversasDoUsuario] = useState<{ mensagem: string; autor: string, idDoUsuario: number, idDaConversa: number }[]>([]);
+    const [conversasDoUsuario, setConversasDoUsuario] = useState<{ mensagem: string; autor: string, idDoUsuario: number, idDaConversa: number, destinatario: string }[]>([]);
     const { chat, setChat } = useChat();
 
 
@@ -34,9 +34,11 @@ function Conversas(){
                 <h3 className={style.titulo}>Todas conversas</h3>
                 <div className={style.conversas}>
                     {conversasDoUsuario && conversasDoUsuario.map((item,index) =>{
-                        return <Link key={index} to="/chat" onClick={() => setChat(item.idDaConversa)}><Balao key={index} tipo={"chat"} perfilID={item.idDoUsuario} autor={item.autor} mensagem={item.mensagem}/></Link>
+                        return <Link key={index} to="/chat" onClick={() => setChat(item.idDaConversa)}>
+                        <p className={style.conversas_destinatario}>Conversa com: {item.destinatario}</p>
+                        <Balao key={index} tipo={"chat"} perfilID={item.idDoUsuario} autor={item.autor} mensagem={item.mensagem}/>
+                        </Link>
                     })}
-
                     {conversasDoUsuario.length === 0 && <p className={style.titulo}>você ainda não tem conversas!<br></br>Começe uma já!</p>}
                 </div>
             </section>

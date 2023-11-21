@@ -59,6 +59,13 @@
   margin: 0 2rem;
   border-bottom: 1px solid var(--cinza-principal);
 }
+.pagina .conteudo .conversas .conversas_destinatario {
+  color: var(--cinza-secundario);
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+}
 .pagina .containerDeBotoes {
   display: flex;
   justify-content: center;

@@ -123,10 +123,9 @@ function Chat(){
     };
 
     const pegaData = () => {
-        const carimbo = new Date().getTime() / 1000; // Obtém o carimbo Unix
-        const data = new Date(carimbo * 1000); // Converte o carimbo para milissegundos
-        const dia = data.getUTCDay();
-        const mes = data.getUTCMonth();
+        const data = new Date();
+        const dia = data.getDate().toString().padStart(2, '0');
+        const mes = (data.getMonth() + 1).toString().padStart(2, '0');
         const ano = data.getUTCFullYear();
         const dataCompleta = `${ano}-${mes}-${dia}`;
         return dataCompleta;
