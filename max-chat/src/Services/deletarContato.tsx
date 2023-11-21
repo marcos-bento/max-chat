@@ -21,6 +21,7 @@ export default async function deletarContato(idUsuarioLogado: number, contatoEma
         nome: usuario.conexaoConvertida.nome,
         senha: usuario.conexaoConvertida.senha,
         imagem: usuario.conexaoConvertida.imagem,
+        gravatar: usuario.conexaoConvertida.gravatar,
         contatos: outrosContatos,
     }
 

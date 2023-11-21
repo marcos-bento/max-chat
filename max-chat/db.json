@@ -5,6 +5,7 @@
       "nome": "Marcos Bento",
       "senha": "ssxyjjirf97",
       "imagem": "./img/marcos.PNG",
+      "gravatar": false,
       "contatos": [
         {
           "id": 1,
@@ -38,6 +39,7 @@
       "nome": "Fabio Albarelli",
       "senha": "ssxyjjirf97",
       "imagem": "https://scontent.fbjp4-1.fna.fbcdn.net/v/t39.30808-6/279258410_5647416575272755_7833960552814184909_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFO7lB4zI92yY-vsB5AGTKVqhF5T6EEbTaqEXlPoQRtNlUT9DWM-HZk4ykx2OJ4iIqXxV3D9ql4DtebQ1jpk7t9&_nc_ohc=JZXkcXNTcvIAX-Icmvc&_nc_ht=scontent.fbjp4-1.fna&oh=00_AfCQGmUtKx8r-j2gfbtqYpcNuxPQD-Ofw9kas5Fh0q2KZA&oe=655145F1",
+      "gravatar": true,
       "contatos": [
         {
           "id": 1,
@@ -53,6 +55,7 @@
       "nome": "Benedito",
       "senha": "ssxyjjirf97",
       "imagem": "https://scontent.fbjp4-1.fna.fbcdn.net/v/t1.6435-9/46670118_2118355761554647_6164413332695547904_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=be3454&_nc_eui2=AeFZW4H3u9rmvllCQiXZdq8KAxfmnyi2MTEDF-afKLYxMS0h8qBPQgLaNEKJyXpUHOcIkr0QLZ9N_R7Jmd9tIpwH&_nc_ohc=J2gteuvdve0AX8AnbDQ&_nc_ht=scontent.fbjp4-1.fna&oh=00_AfCmG9Ot6E4xDqteu_4VKgTov7UJ3RY5AszjolWLcFVXZQ&oe=65744D2B",
+      "gravatar": false,
       "contatos": [
         {
           "id": 1,
@@ -74,6 +77,7 @@
       "nome": "Kamila",
       "senha": "gquwvky",
       "imagem": "",
+      "gravatar": false,
       "contatos": [
         {
           "id": 1,
@@ -89,6 +93,7 @@
       "nome": "Aron",
       "senha": "geg",
       "imagem": "",
+      "gravatar": false,
       "contatos": [],
       "id": 5
     }
@@ -123,214 +128,9 @@
           "chat": "Será que tem alguma novidade saindo?",
           "data": "2023-11-12",
           "lido": true
-        },
-        {
-          "user": "Fabio Albarelli",
-          "user_id": 2,
-          "hora": "20:22",
-          "chat": "E você viu o último lançamento? Vai sair em Dezembro...",
-          "data": "2023-11-12",
-          "lido": true
-        },
-        {
-          "user": "Marcos Bento",
-          "user_id": 1,
-          "hora": "15:03",
-          "chat": "Que ótimo! Vou ficar no aguardo.",
-          "data": "2023-11-12",
-          "lido": true
-        },
-        {
-          "user": "Marcos Bento",
-          "user_id": 1,
-          "hora": "15:04",
-          "chat": "Mas ouvi dizer que ainda está em adaptação",
-          "data": "2023-11-12",
-          "lido": true
-        },
-        {
-          "user": "Marcos Bento",
-          "user_id": 1,
-          "hora": "15:24",
-          "chat": "beleza ?"
-        },
-        {
-          "user": "Marcos Bento",
-          "user_id": 1,
-          "hora": "16:58",
-          "chat": "Até que enfim na reta final!",
-          "data": "2023-11-12",
-          "lido": true
         }
       ],
       "id": 1
-    },
-    {
-      "user_1_id": 1,
-      "user_1_nome": "Marcos Bento",
-      "user_2_id": 2,
-      "user_2_nome": "Fabio Albarelli",
-      "content": [
-        {
-          "user": "Marcos Bento",
-          "user_id": 1,
-          "hora": "20:20",
-          "chat": "Tchau, cara de bau!",
-          "data": "2023-11-12",
-          "lido": true
-        },
-        {
-          "user": "Marcos Bento",
-          "user_id": 1,
-          "hora": "20:20",
-          "chat": "Nova mensagem 2",
-          "data": "2023-11-12",
-          "lido": true
-        },
-        {
-          "user": "Marcos Bento",
-          "user_id": 1,
-          "hora": "20:20",
-          "chat": "Nova mensagem 3",
-          "data": "2023-11-12",
-          "lido": true
-        },
-        {
-          "user": "Marcos Bento",
-          "user_id": 1,
-          "hora": "15:03",
-          "chat": "Nova mensagem 5",
-          "data": "2023-11-12",
-          "lido": true
-        },
-        {
-          "user": "Marcos Bento",
-          "user_id": 1,
-          "hora": "15:04",
-          "chat": "Nova mensagem 7",
-          "data": "2023-11-12",
-          "lido": true
-        }
-      ],
-      "id": 2
-    },
-    {
-      "user_1_id": 1,
-      "user_1_nome": "Marcos Bento",
-      "user_2_id": 2,
-      "user_2_nome": "Fabio Albarelli",
-      "content": [
-        {
-          "user": "Marcos Bento",
-          "user_id": 1,
-          "hora": "20:20",
-          "chat": "Tchau, cara de bau!",
-          "data": "2023-11-12",
-          "lido": true
-        },
-        {
-          "user": "Marcos Bento",
-          "user_id": 1,
-          "hora": "20:20",
-          "chat": "Nova mensagem 2",
-          "data": "2023-11-12",
-          "lido": true
-        },
-        {
-          "user": "Marcos Bento",
-          "user_id": 1,
-          "hora": "20:20",
-          "chat": "Nova mensagem 5",
-          "data": "2023-11-12",
-          "lido": true
-        }
-      ],
-      "id": 4
-    },
-    {
-      "user_1_id": 1,
-      "user_1_nome": "Marcos Bento",
-      "user_2_id": 3,
-      "user_2_nome": "Benedito",
-      "content": [
-        {
-          "user": "Marcos Bento",
-          "user_id": 1,
-          "hora": "14:41",
-          "chat": "Haha",
-          "data": "2023-11-12",
-          "lido": true
-        }
-      ],
-      "id": 5
-    },
-    {
-      "user_1_id": 1,
-      "user_1_nome": "Marcos Bento",
-      "user_2_id": 4,
-      "user_2_nome": "Kamila",
-      "content": [
-        {
-          "user": "Marcos Bento",
-          "user_id": 1,
-          "hora": "14:47",
-          "chat": "Oi amor!",
-          "data": "2023-11-12",
-          "lido": true
-        }
-      ],
-      "id": 6
-    },
-    {
-      "user_1_id": 1,
-      "user_1_nome": "Marcos Bento",
-      "user_2_id": 2,
-      "user_2_nome": "Fabio Albarelli",
-      "content": [
-        {
-          "user": "Marcos",
-          "user_id": 1,
-          "hora": "20:20",
-          "chat": "Oi, cara de boi!",
-          "data": "2023-11-12",
-          "lido": true
-        }
-      ],
-      "id": 7
-    },
-    {
-      "user_1_id": 1,
-      "user_1_nome": "Marcos Bento",
-      "user_2_id": 2,
-      "user_2_nome": "Fabio Albarelli",
-      "content": [
-        {
-          "user": "Marcos",
-          "user_id": 1,
-          "hora": "20:20",
-          "chat": "Oi, cara de boi!",
-          "data": "2023-11-12",
-          "lido": true
-        }
-      ],
-      "id": 8
-    },
-    {
-      "user_1_id": 2,
-      "user_1_nome": "Fabio Albarelli",
-      "user_2_id": 0,
-      "user_2_nome": "",
-      "content": [
-        {
-          "user": "Fabio Albarelli",
-          "user_id": 2,
-          "hora": "16:09",
-          "chat": "ue",
-          "data": "2023-11-12",
-          "lido": true
-        }
-      ],
-      "id": 9
     }
   ]
 }

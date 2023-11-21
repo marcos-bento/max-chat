@@ -42,6 +42,7 @@ export default async function adicionaContato(idUsuarioLogado: number, usuarioEm
         nome: todosContatos.conexaoConvertida.nome,
         senha: todosContatos.conexaoConvertida.senha,
         imagem: todosContatos.conexaoConvertida.imagem,
+        gravatar: todosContatos.conexaoConvertida.gravatar,
         contatos: [...contatosAntigos, ...novoContato],
     }
 

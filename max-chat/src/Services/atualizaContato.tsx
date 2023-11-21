@@ -29,6 +29,7 @@ export default async function atualizaContato(idUsuarioLogado: number, contatoEm
         nome: usuario.conexaoConvertida.nome,
         senha: usuario.conexaoConvertida.senha,
         imagem: usuario.conexaoConvertida.imagem,
+        gravatar: usuario.conexaoConvertida.gravatar,
         contatos: outrosContatos,
     }
 

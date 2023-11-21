@@ -18,6 +18,8 @@ function EditarPerfil(){
     const [imagem, setImagem] = useState("");
     const [senha, setSenha] = useState("");
     const [nome, setNome] = useState("");
+    const [gravatarInput, setGravatarInput] = useState(false);
+    const [gravatarBancoDados, setGravatarBancoDados] = useState(false);
     const [modal, setModal] = useState(false);
     const [modalText, setModalText] = useState("");
     const [modalButton, setModalButton] = useState("");
@@ -27,6 +29,17 @@ function EditarPerfil(){
         if (!usuarioLogado){ // Se não estiver logado
             window.location.href="/" // Redireciona para tela de Login
         };
+
+        const  consultaGravatar = async () =>{
+            const usuario = await conectApi.recuperaUsuarioPorID(usuarioLogado.usuarioId);
+            if (usuario.conexaoConvertida.gravatar){
+                setGravatarInput(true);
+                setGravatarBancoDados(true);
+            };
+        };
+
+        consultaGravatar();
+
     },[]);
     
     const handleModal = (text: string, corBotao: string) => {
@@ -49,13 +62,21 @@ function EditarPerfil(){
 
     const handleSubmit = () => {
         setBotaoValida(false);
-        if (!imagem && !senha && !nome){
+        if (!imagem && !senha && !nome && gravatarInput === gravatarBancoDados){
             handleModal("Você precisa preencher algum campo!", "vermelho");
         } else {
             setBotaoValida(true);
-            handleModal("Tem certeza que deseja alterar o perfil?", "vermelho");
+            handleModal("Tem certeza que deseja alterar o perfil?", "verde");
         }
     };
+
+    const handleGravatarChange = () => {
+        if (gravatarInput){
+            setGravatarInput(false);
+        } else {
+            setGravatarInput(true);
+        }
+    }
 
     const handleAlterarPerfil = async () => {
         setBotaoValida(false);
@@ -66,6 +87,7 @@ function EditarPerfil(){
             nome: (nome || nome !== "" ? nome : dadosDoUsuario.nome),
             senha: (senha || senha !== "" ? senha : dadosDoUsuario.senha),
             imagem: (imagem || imagem !== "" ? imagem : dadosDoUsuario.imagem),
+            gravatar: gravatarInput, 
             contatos: dadosDoUsuario.contatos
         };
         const resultado = await conectApi.atualizaUsuario(usuarioLogado.usuarioId, novosDados);
@@ -108,7 +130,10 @@ function EditarPerfil(){
                             <Input placeholder={`Atual: ${usuarioLogado.usuarioNome}`} onChange={handleNomeChange}/>
                             <p>Altere sua senha:</p>
                             <Input placeholder={"*****"} onChange={handleSenhaChange}/>
-                            <p>Altere sua imagem:</p>
+                            <p>Desejo vincular a imagem de perfil do meu <a style={{color:"lightblue", textDecoration:"underline"}} target="_blank" href="https://br.gravatar.com/">Gravatar</a>:</p>
+                            <label htmlFor="gravatar" style={{color:"lightgray"}}>Sim (vinculado ao e-mail)</label>
+                            <input id="gravatar" type="checkbox" checked={gravatarInput} onChange={handleGravatarChange}/>
+                            <p>Ou altere sua imagem:</p>
                             <Input placeholder={"Insira a URL da sua imagem"} onChange={handleImagemChange}/> 
                         </div>
                     </Modal>

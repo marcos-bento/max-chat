@@ -6,33 +6,46 @@ import Icon from "../icone/icone";
 interface Props{
     idDoUsuario?: number;
     emailDoUsuario?: string;
-}
+};
 
 function Perfil({idDoUsuario, emailDoUsuario}: Props){
-    const [fotoPerfil, setfotoPerfil] = useState("")
+    const [fotoPerfil, setfotoPerfil] = useState("");
+    const [gravatarURL, setGravatarURL] = useState("");
 
     useEffect( () => {
         const carregaPerfil = async () => {
             if (idDoUsuario){
                 const usuario = await conectApi.recuperaUsuarioPorID(idDoUsuario);
                 const url = usuario.conexaoConvertida.imagem;
-                setfotoPerfil(url);
+                if (usuario.conexaoConvertida.gravatar){
+                    getGravatar(usuario.conexaoConvertida.email);
+                } else {
+                    setfotoPerfil(url);
+                };
             };
             if (emailDoUsuario){
                 const usuario = await conectApi.recuperaUsuarioPorEmail(emailDoUsuario);
                 const url = usuario.conexaoConvertida[0].imagem;
-                setfotoPerfil(url)
+                if (usuario.conexaoConvertida[0].gravatar){
+                    getGravatar(usuario.conexaoConvertida[0].email);
+                } else {
+                    setfotoPerfil(url);
+                };
             };
         };
-
         carregaPerfil();
     }, []);
 
+    const getGravatar = (email: string) =>{
+        var gravatar = require('gravatar');
+        setGravatarURL(gravatar.url(email));
+    }
+
     return (
         <>
-            {(fotoPerfil === "" ? 
+            {(fotoPerfil === "" && gravatarURL === "" ? 
                 <div style={{height: "50px", width: "50px"}}><Icon icon = "fa-solid fa-user" cor={"icone-foto"}/></div> :
-                <img className={style.imagem} src={fotoPerfil} alt="Imagem de perfil" />
+                <img className={style.imagem} src={ gravatarURL !== "" ? gravatarURL : fotoPerfil } alt="Imagem de perfil" />
             )}
         </>
     )

@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Index from './pages/index/Index';
 import Login from './pages/login/login';
@@ -18,8 +18,9 @@ import { ContatoProvider } from "./Services/contatoContext";
 import { ChatProvider } from './Services/chatContext';
 
 const root = document.getElementById('root') as HTMLElement;
+const rootElement = createRoot(root);
 
-ReactDOM.render(
+rootElement.render(
   <UserProvider>
     <ContatoProvider>
       <ChatProvider>
@@ -41,6 +42,5 @@ ReactDOM.render(
         </BrowserRouter>
       </ChatProvider>
     </ContatoProvider>
-  </UserProvider>,
-  root
+  </UserProvider>
 );

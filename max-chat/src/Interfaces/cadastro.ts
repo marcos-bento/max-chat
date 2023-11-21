@@ -5,5 +5,6 @@ export interface Cadastro {
     nome: string;
     senha: string;
     imagem: string;
+    gravatar: boolean;
     contatos: Contatos[];
 }
