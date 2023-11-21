@@ -2,6 +2,8 @@
 .chat_container {
   display: flex;
   flex-direction: column;
+  max-height: 500px;
+  overflow-y: scroll;
 }
 .chat_container .chat_titulo {
   padding: 1rem 0 0 1rem;
@@ -21,15 +23,24 @@
   margin: auto;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  border: 1px solid var(--azul-secundario);
-  background: var(--azul-principal);
+  border: 1px solid var(--azul-principal);
+  background-image: linear-gradient(var(--azul-secundario), var(--azul-principal));
   border-radius: 15px;
   padding: 0 0.3rem;
 }
 .chat_container .chat_income .chat_income_balao .chat_content {
   color: white;
   padding: 1rem;
+}
+.chat_container .chat_income .chat_income_balao .chat_lido {
+  justify-self: end;
+  text-align: center;
+}
+.chat_container .chat_income .chat_income_balao .chat_lido .chat_lido_texto {
+  font-size: 12px;
+  color: white;
 }
 .chat_container .chat_outcome {
   display: flex;
@@ -48,14 +59,34 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  border: 1px solid var(--azul-secundario);
-  background: var(--verde-secundario);
+  border: 1px solid var(--verde-secundario);
+  background-image: linear-gradient(var(--verde-secundario), var(--verde-principal));
   border-radius: 15px;
   padding: 0 0.3rem;
 }
 .chat_container .chat_outcome .chat_outcome_balao .chat_content {
   color: white;
   padding: 1rem;
+}
+.chat_container .chat_container_scroll_button {
+  display: flex;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0.3rem;
+  height: auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  animation: botaoSaltitante 0.5s infinite;
+  background-image: linear-gradient(var(--azul-principal), var(--azul-secundario));
+  border: 1px solid var(--azul-principal);
+  border-radius: 15px;
+}
+@keyframes botaoSaltitante {
+  50% {
+    transform: translateY(5px);
+  }
 }
 
 .chat_submit {

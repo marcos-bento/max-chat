@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import style from "../../Common/CSS/conteudo.module.css"
 import inputStyle from "../../components/formulario/input/input.module.css"
 import chatStyle from "./chat.module.css"
@@ -15,6 +15,7 @@ import { useContatoEmFoco } from "../../Services/contatoContext";
 import Botao from "../../components/botao/botao";
 import { Conversa } from "../../Interfaces/conversa";
 import { ConversaChat } from "../../Interfaces/conversaChat";
+import Icone from "../../components/icone/icone";
 
 function Chat(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
@@ -26,7 +27,10 @@ function Chat(){
     const [modalText, setModalText] = useState("");
     const [modalButton, setModalButton] = useState("");
     const [campoValor, setCampoValor] = useState("");
+    const chatDivScroll: any = useRef(null);
+    const [botaoScroll, setBotaoScroll] = useState(false);
 
+    // useEffect principal, valida usuário logado e consulta DB com polling
     useEffect(() => {
         if (!usuarioLogado){ // Se não estiver logado
             window.location.href="/" // Redireciona para tela de Login
@@ -36,8 +40,33 @@ function Chat(){
         }, 5000); // Verifique a cada 5 segundos
       
         return () => clearInterval(interval);
+    },[]);
+
+    // useEffect dedicado a lógica de controle do botão flutuante de scroll
+    useEffect(() => {
+        const handleScroll = () => {
+          const { scrollTop, clientHeight, scrollHeight } = chatDivScroll.current;
+          setBotaoScroll(scrollTop + clientHeight < scrollHeight);
+        };
+    
+        const chatDiv = chatDivScroll.current;
+    
+        if (chatDiv) {
+          chatDiv.addEventListener('scroll', handleScroll);
+        };
+    
+        return () => {
+          if (chatDiv) {
+            chatDiv.removeEventListener('scroll', handleScroll);
+          }
+        };
     }, []);
 
+    // useEffect dedicado a scrollar a mensagem ao final quando a mesma for carregada
+    useEffect(() => {
+        chatDivScroll.current.scrollTop = chatDivScroll.current.scrollHeight;
+    }, [destinatario?.nome]);
+    
     const pegaMensagens = async () => { // Função que acessa o BD e retorna as mensagens
         if (chat){ // Se o usuário veio direto de uma conversa existente
             const conversa = await conectApi.recuperaChat(chat);
@@ -65,11 +94,9 @@ function Chat(){
         const temMensagemNaoLida = conversa.content.some((mensagem: ConversaChat) => {
             return mensagem.user_id !== usuarioLogado.usuarioId && !mensagem.lido;
         });
-
-        console.log(temMensagemNaoLida);
-
         // Se houver, atualize as mensagens como lidas
         if (temMensagemNaoLida) {
+            chatDivScroll.current.scrollTop = chatDivScroll.current.scrollHeight; // Envia o scroll até o final
             const contentAtualizado  = conversa.content.map((mensagem: ConversaChat) => {
                 if (mensagem.user_id === usuarioLogado.usuarioId){
                     return {...mensagem};
@@ -82,8 +109,6 @@ function Chat(){
             const resultado = await conectApi.atualizaConversaLeitura(idDoChat, conversaAtualizada);
             if (resultado.statusConexao < 199 && resultado.statusConexao > 300){
                 alert(`Erro: ${resultado.statusConexao}!`);
-            } else {
-                console.log('Sucesso');
             };
         };
     };
@@ -106,6 +131,10 @@ function Chat(){
         const dataCompleta = `${ano}-${mes}-${dia}`;
         return dataCompleta;
     }
+
+    const scrollToBottom = () => {
+        chatDivScroll.current.scrollTop = chatDivScroll.current.scrollHeight;
+    };
 
     const handleTextoSubmit = async () => {
         if (!campoValor){
@@ -132,8 +161,9 @@ function Chat(){
                 });
                 conectApi.atualizaConversa(chat, conversaAtualizada) // Senão, apenas atualiza a lista de mensagens
             };
-            pegaMensagens();
-        }
+            chatDivScroll.current.scrollTop = chatDivScroll.current.scrollHeight;
+            setChatEmFoco(todasMensagens);
+        };
     };
 
     const registraConversa = async (todasMensagens: ConversaChat) => {
@@ -173,8 +203,21 @@ function Chat(){
                 </div>}
                 <h3 className={style.titulo}>Max Chat</h3>
                 <div className={style.conversas}>
+
+                    {/* Modal de carregamento de mensagem */}
+                    {!destinatario?.nome && <div className={style.modal_alert}>
+                        <Modal altura={0}>
+                            <div className={style.modal_alert_content}>
+                                <p>Carregando, por favor aguarde.</p>
+                                <div className={style.modal_alert_content_loading}>
+                                    <Icone icon={"fa-solid fa-spinner"}/>
+                                </div>
+                            </div>
+                        </Modal>
+                    </div>}
+                
                     <Modal altura={0}> {/* Quando enviar 0 o componente insere "height: auto" */}
-                        <div className={chatStyle.chat_container}>
+                        <div ref={chatDivScroll} className={chatStyle.chat_container}>
                             <p className={chatStyle.chat_titulo}>Conversa com: {destinatario?.nome}</p>
                             {chatEmFoco && chatEmFoco.length === 0 && <p className={chatStyle.chat_titulo}>Ainda sem mensagens, mande a primeira!</p>}
                             {chatEmFoco && chatEmFoco.map((item, index) =>{
@@ -184,10 +227,23 @@ function Chat(){
                                     <div className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income_balao : chatStyle.chat_outcome_balao)}>
                                         <Perfil idDoUsuario={item.user_id}/>
                                         <p className={chatStyle.chat_content}>{item.chat}</p>
+                                        {item.lido && item.user === usuarioLogado.usuarioNome ? <div className={chatStyle.chat_lido}>
+                                            <Icone icon={"fa-regular fa-circle-check"} cor={"branco"} tamanho={"fa-2xs"}/>
+                                        </div>:
+                                        <p> </p>
+                                        }
+                                        
                                     </div>                              
                                 </div>
                                 )
                             })}
+                            {botaoScroll && (
+                                <div className={chatStyle.chat_container_scroll_button} onClick={scrollToBottom} style={{ position: 'fixed', bottom: '150px', right: '10px' }}>
+                                    <Icone icon={"fa-solid fa-circle-arrow-down"} cor={"branco"}/>
+                                    <p>ir para o final</p>
+                                </div>
+                            )}
+                            <hr style={{width:"90%"}}/>
                         </div>
                         <div  className={chatStyle.chat_submit}>
                             <input

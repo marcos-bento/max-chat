@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./icone.module.css"
 
-function Icon({icon, cor = ""}: {icon: string, cor?: string}){
+function Icon({icon, cor = "", tamanho="fa-2xl"}: {icon: string, cor?: string, tamanho?: string}){
     switch (cor) {
         case "branco":
             cor = "icone_branco";
@@ -28,7 +28,7 @@ function Icon({icon, cor = ""}: {icon: string, cor?: string}){
             break;
     }
     return (
-        <i className={`fa-2xl ${icon} ${style[cor || 'icone']}`}></i>
+        <i className={`${tamanho} ${icon} ${style[cor || 'icone']}`}></i>
     )
 }
 

@@ -128,9 +128,130 @@
           "chat": "Será que tem alguma novidade saindo?",
           "data": "2023-11-12",
           "lido": true
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "13:37",
+          "chat": "Olá!",
+          "data": "2023-10-2",
+          "lido": true
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "13:37",
+          "chat": "Aqui dá certo...",
+          "data": "2023-10-2",
+          "lido": true
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "14:13",
+          "chat": "Hehe",
+          "data": "2023-10-2",
+          "lido": true
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "14:13",
+          "chat": "Opa!",
+          "data": "2023-10-2",
+          "lido": true
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "14:24",
+          "chat": "Vamo lá",
+          "data": "2023-10-2",
+          "lido": true
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "14:24",
+          "chat": "Acho que é isso",
+          "data": "2023-10-2",
+          "lido": true
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "14:30",
+          "chat": "Ae",
+          "data": "2023-10-2",
+          "lido": true
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "15:46",
+          "chat": "Pois é",
+          "data": "2023-10-2",
+          "lido": true
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "15:47",
+          "chat": "Arram!",
+          "data": "2023-10-2",
+          "lido": true
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "16:02",
+          "chat": "hehe",
+          "data": "2023-10-2",
+          "lido": true
+        },
+        {
+          "user": "Fabio Albarelli",
+          "user_id": 2,
+          "hora": "16:12",
+          "chat": "Aee",
+          "data": "2023-10-2",
+          "lido": true
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "16:12",
+          "chat": "aee",
+          "data": "2023-10-2",
+          "lido": true
         }
       ],
       "id": 1
+    },
+    {
+      "user_1_id": 1,
+      "user_1_nome": "Marcos Bento",
+      "user_2_id": 4,
+      "user_2_nome": "Kamila",
+      "content": [
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "14:25",
+          "chat": "Oi amor!",
+          "data": "2023-10-2",
+          "lido": false
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "14:29",
+          "chat": "hehe",
+          "data": "2023-10-2",
+          "lido": false
+        }
+      ],
+      "id": 2
     }
   ]
 }

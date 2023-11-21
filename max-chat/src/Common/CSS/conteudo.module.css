@@ -27,6 +27,18 @@
   display: flex;
   gap: 4rem;
 }
+.pagina .modal_alert .modal_alert_content .modal_alert_content_loading {
+  margin-top: 2rem;
+  animation: loading 2s infinite;
+}
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .pagina .conteudo {
   background: linear-gradient(180deg, #FFF 0%, var(--azul-principal) 100%);
   width: 100%;

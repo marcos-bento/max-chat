@@ -24,6 +24,19 @@
                 display: flex;
                 gap: 4rem;
             }
+            .modal_alert_content_loading{
+                margin-top: 2rem;
+                animation: loading 2s infinite;
+            }
+
+            @keyframes loading { 
+                0% {
+                  transform: rotate(0deg);
+                }
+                100% {
+                  transform: rotate(360deg);
+                }
+            }
         }
     }
     .conteudo{
