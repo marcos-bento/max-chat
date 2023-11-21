@@ -32,9 +32,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start-react": "set PORT=3001 && react-scripts --openssl-legacy-provider start node json-server --watch db.json",
+    "start-react": "set PORT=3001 && react-scripts --openssl-legacy-provider start",
     "start-json-server": "json-server --watch db.json",
-    "start": "react-scripts --openssl-legacy-provider start",
+    "start": "concurrently \"npm run start-react\" \"npm run start-json-server\"",
     "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -4,13 +4,9 @@ import Cabecalho from '../../components/cabecalho/cabecalho';
 import BotaoGrande from '../../components/botaoGrande/botaoGrande';
 import style from '../../Common/CSS/conteudo.module.css';
 import Rodape from '../../components/rodape/rodape';
-import { conectApi } from '../../Services/conectaApi';
-import { Conversa } from '../../Interfaces/conversa';
-import { ConversaChat } from '../../Interfaces/conversaChat';
-import { UsuarioLogado } from '../../Services/usuarioLogado';
-import { Cadastro } from '../../Interfaces/cadastro';
 
 function Index() {
+
   return (
     <div className={style.pagina}>
       <Cabecalho />
@@ -25,6 +21,11 @@ function Index() {
         <Link to="/sobre">
           <BotaoGrande icon="fa-solid fa-question" texto="Dúvidas | Sobre" />
         </Link>
+
+        {/* ÁREA DE TESTE DE DESENVOLVIMENTO! DELETAR! */}
+        
+
+
       </section>
       <Rodape />
     </div>
