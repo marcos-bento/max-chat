@@ -18,6 +18,7 @@ function EditarPerfil(){
     const [imagem, setImagem] = useState("");
     const [senha, setSenha] = useState("");
     const [nome, setNome] = useState("");
+    const [possuiImagem, setPossuiImagem] = useState(false);
     const [gravatarInput, setGravatarInput] = useState(false);
     const [gravatarBancoDados, setGravatarBancoDados] = useState(false);
     const [modal, setModal] = useState(false);
@@ -38,8 +39,15 @@ function EditarPerfil(){
             };
         };
 
+        const consultaImagem = async () => {
+            const usuario = await conectApi.recuperaUsuarioPorID(usuarioLogado.usuarioId);
+            if (usuario.conexaoConvertida.imagem){
+                setPossuiImagem(true);
+                setImagem(usuario.conexaoConvertida.imagem);
+            };
+        };
         consultaGravatar();
-
+        consultaImagem();
     },[]);
     
     const handleModal = (text: string, corBotao: string) => {
@@ -70,12 +78,20 @@ function EditarPerfil(){
         }
     };
 
+    // Função que gerencia o alternar do checkbox do Gravatar
     const handleGravatarChange = () => {
         if (gravatarInput){
             setGravatarInput(false);
         } else {
             setGravatarInput(true);
-        }
+        };
+    }
+
+    // Função que deleta o endereço da imagem do banco de dados
+    const handleDeletImage = async () =>{
+        setImagem("");
+        setBotaoValida(true);
+        handleModal("Tem certeza que deseja deletar a imagem atual de perfil? Isso é irreversível!", "verde");
     }
 
     const handleAlterarPerfil = async () => {
@@ -86,7 +102,7 @@ function EditarPerfil(){
             email: dadosDoUsuario.email,
             nome: (nome || nome !== "" ? nome : dadosDoUsuario.nome),
             senha: (senha || senha !== "" ? senha : dadosDoUsuario.senha),
-            imagem: (imagem || imagem !== "" ? imagem : dadosDoUsuario.imagem),
+            imagem: (imagem  || imagem !== "" ? imagem : possuiImagem ? imagem : dadosDoUsuario.imagem),
             gravatar: gravatarInput, 
             contatos: dadosDoUsuario.contatos
         };
@@ -122,7 +138,7 @@ function EditarPerfil(){
                     </div>
                     </Modal>
                 </div>}
-                <h3 className={style.titulo}>Perfil de: {usuarioLogado.usuarioNome}</h3>
+                <h3 className={style.titulo}>Perfil de: {usuarioLogado && usuarioLogado.usuarioNome}</h3>
                 <div className={style.conversas}>
                     <Modal altura={0}>
                         <div className={editarPerfilStyle.editar_perfil}>
@@ -134,7 +150,8 @@ function EditarPerfil(){
                             <label htmlFor="gravatar" style={{color:"lightgray"}}>Sim (vinculado ao e-mail)</label>
                             <input id="gravatar" type="checkbox" checked={gravatarInput} onChange={handleGravatarChange}/>
                             <p>Ou altere sua imagem:</p>
-                            <Input placeholder={"Insira a URL da sua imagem"} onChange={handleImagemChange}/> 
+                            <Input placeholder={`Endereço: ${imagem}` || "Insira a URL da sua imagem"} onChange={handleImagemChange}/> 
+                            {possuiImagem && <Botao texto={"Deletar imagem"} cor={"vermelho"} onClick={handleDeletImage}/>}
                         </div>
                     </Modal>
                     <Balao tipo={"botao"} icone={"fa-solid fa-check"} cor={"verde"} texto={"Atualizar Perfil"} onClick={handleSubmit}/>

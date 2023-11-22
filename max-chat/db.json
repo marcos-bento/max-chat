@@ -192,7 +192,7 @@
           "hora": "17:04",
           "chat": "Salve Benedito!",
           "data": "2023-10-02",
-          "lido": false
+          "lido": true
         },
         {
           "user": "Marcos Bento",
@@ -200,7 +200,7 @@
           "hora": "17:04",
           "chat": "Tudo beleza meu querido?",
           "data": "2023-10-02",
-          "lido": false
+          "lido": true
         },
         {
           "user": "Marcos Bento",
@@ -208,7 +208,7 @@
           "hora": "19:22",
           "chat": "aoba!",
           "data": "2023-11-21",
-          "lido": false
+          "lido": true
         }
       ],
       "id": 3
