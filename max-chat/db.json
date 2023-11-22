@@ -111,7 +111,7 @@
       "user_1_nome": "Marcos Bento",
       "user_2_id": 2,
       "user_2_nome": "Fabio Albarelli",
-      "deletado": true,
+      "deletado": false,
       "content": [
         {
           "user": "Fabio Albarelli",
@@ -169,7 +169,7 @@
       "user_1_nome": "Marcos Bento",
       "user_2_id": 4,
       "user_2_nome": "Kamila",
-      "deletado": true,
+      "deletado": false,
       "content": [
         {
           "user": "Marcos Bento",
@@ -305,7 +305,7 @@
       "user_1_nome": "Marcos Bento",
       "user_2_id": 4,
       "user_2_nome": "Kamila",
-      "deletado": false,
+      "deletado": true,
       "content": [
         {
           "user": "Marcos Bento",
@@ -314,6 +314,14 @@
           "chat": "Oi amor!",
           "data": "2023-11-22",
           "lido": false
+        },
+        {
+          "user": "Kamila",
+          "user_id": 4,
+          "hora": "11:16",
+          "chat": "Oie!!",
+          "data": "2023-11-22",
+          "lido": true
         }
       ],
       "id": 6

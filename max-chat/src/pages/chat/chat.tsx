@@ -81,8 +81,13 @@ function Chat(){
                 id: 0
             });
             const mensagens = dadosDaConversa.content;
-            setChatEmFoco(mensagens);
-            atualizaLeitura(chat, dadosDaConversa);
+            if (dadosDaConversa.deletado){
+                setConversaDeletada(true);
+                handleModal("Essa conversa foi deletada!", "vermelho");
+            } else {
+                setChatEmFoco(mensagens);
+                atualizaLeitura(chat, dadosDaConversa);
+            }
         } else { // Se não vamos criar uma conversa do zero:
             const usuarioDestino = await conectApi.recuperaUsuarioPorEmail(contatoEmFoco);
             setDestinatario({

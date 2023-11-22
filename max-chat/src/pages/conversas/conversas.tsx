@@ -11,7 +11,7 @@ import { useChat } from "../../Services/chatContext";
 
 function Conversas(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
-    const [conversasDoUsuario, setConversasDoUsuario] = useState<{ mensagem: string; autor: string, idDoUsuario: number, idDaConversa: number, destinatario: string, horaMensagem: string}[]>([]);
+    const [conversasDoUsuario, setConversasDoUsuario] = useState<{ mensagem: string; autor: string, idDoUsuario: number, idDaConversa: number, destinatario: string, dataMensagem: string, horaMensagem: string}[]>([]);
     const { chat, setChat } = useChat();
 
 
@@ -36,7 +36,7 @@ function Conversas(){
                     {conversasDoUsuario && conversasDoUsuario.map((item,index) =>{
                         return <Link key={index} to="/chat" onClick={() => setChat(item.idDaConversa)}>
                         <p className={style.conversas_destinatario}>Conversa com: {item.destinatario}</p>
-                        <Balao key={index} tipo={"chat"} perfilID={item.idDoUsuario} autor={item.autor} mensagem={item.mensagem} hora={item.horaMensagem}/>
+                        <Balao key={index} tipo={"chat"} perfilID={item.idDoUsuario} autor={item.autor} mensagem={item.mensagem} dataDaMensagem={item.dataMensagem} horaDaMensagem={item.horaMensagem}/>
                         </Link>
                     })}
                     {conversasDoUsuario.length === 0 && <p className={style.titulo}>você ainda não tem conversas!<br></br>Começe uma já!</p>}

@@ -16,11 +16,12 @@ interface BalaoProps {
   mensagem?: string;
   nomeDoContato?: string;
   emailDoContato?: string;
-  hora?: string;
+  horaDaMensagem?: string;
+  dataDaMensagem?: string;
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
-function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contato", perfilID ,autor, mensagem, nomeDoContato, emailDoContato, onClick , hora="00:00"}: BalaoProps) {
+function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contato", perfilID ,autor, mensagem, nomeDoContato, emailDoContato, onClick , horaDaMensagem="00:00", dataDaMensagem=""}: BalaoProps) {
   const { contatoEmFoco, setContatoEmFoco } = useContatoEmFoco();
   const { usuarioLogado, setUsuarioLogado } = useUser();
 
@@ -33,10 +34,34 @@ function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contat
     }
   }, [textRef]);
 
+  // Função que calcula a altura para exibir a prévia de texto
   const calculateDy = () => {
     const dy = (75 / 2 - 40);
     return dy;
   };
+
+  // Função que valida quando a mensagem foi enviada para retornar "hoje", "ontem" ou "dd/mm"
+  const validaData = (data: any) => {
+    const dataMensagem = new Date(data);
+    const hoje = new Date();
+    const ontem = new Date(hoje);
+    ontem.setDate(hoje.getDate() - 1);
+
+    // Ajusta para a mesma hora, minutos, segundos e milissegundos
+    hoje.setUTCHours(0, 0, 0, 0);
+    ontem.setUTCHours(0, 0, 0, 0);
+    dataMensagem.setUTCHours(0, 0, 0, 0);
+
+    if (dataMensagem.getTime() === hoje.getTime()) {
+        return 'hoje';
+    } else if (dataMensagem.getTime() === ontem.getTime()) {
+        return 'ontem';
+    } else {
+        const dd = String(dataMensagem.getDate()).padStart(2, '0');
+        const mm = String(dataMensagem.getUTCMonth() + 1).padStart(2, '0');
+        return `${dd}/${mm}`;
+    }
+  };    
   
   const renderContent = () => {
     switch (tipo) {
@@ -55,7 +80,7 @@ function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contat
                 <foreignObject className={style.chat_container_foreign} x="10" y="-5" width="150" height="75">
                   <p className={style.chat_container_foreign_text_1}>{autor} diz: </p>
                   <p ref={textRef} className={style.chat_container_foreign_text_2}>{mensagem}</p>
-                  <p className={style.chat_container_foreign_text_3}>às: {hora}</p>
+                  <p className={style.chat_container_foreign_text_3}>{validaData(dataDaMensagem)} às: {horaDaMensagem}</p>
                 </foreignObject>
               </g>
             </svg>

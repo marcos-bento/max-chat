@@ -12,7 +12,7 @@ import { useChat } from "../../Services/chatContext";
 function Menu(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
     const { chat, setChat } = useChat();
-    const [conversasDoUsuario, setConversasDoUsuario] = useState<{ mensagem: string; autor: string, idDoUsuario: number, idDaConversa: number, destinatario: string, horaMensagem: string }[]>([]);
+    const [conversasDoUsuario, setConversasDoUsuario] = useState<{ mensagem: string; autor: string, idDoUsuario: number, idDaConversa: number, destinatario: string, dataMensagem: string, horaMensagem: string }[]>([]);
     
     useEffect( () => {
         if (!usuarioLogado) {
@@ -37,7 +37,7 @@ function Menu(){
                     {conversasDoUsuario && conversasDoUsuario.map((item, index) =>{
                         return <Link key={index} to="/chat" onClick={() => setChat(item.idDaConversa)}>
                             <p className={style.conversas_destinatario}>Conversa com: {item.destinatario}</p>
-                            <Balao key={index} tipo={"chat"} perfilID={item.idDoUsuario} autor={item.autor} mensagem={item.mensagem} hora={item.horaMensagem}/>
+                            <Balao key={index} tipo={"chat"} perfilID={item.idDoUsuario} autor={item.autor} mensagem={item.mensagem} dataDaMensagem={item.dataMensagem} horaDaMensagem={item.horaMensagem}/>
                         </Link>
                     })}
 
