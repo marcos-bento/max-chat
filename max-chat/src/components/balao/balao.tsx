@@ -67,9 +67,9 @@ function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contat
         
         return (
           <>
-            <div className={style.botao_container}>
+            <div className={`${style.botao_container}`}>
                 <Perfil emailDoUsuario={emailDoContato}/>
-                <p>{nomeDoContato}</p>
+                <p className={style.botao_container_nome_contato}>{nomeDoContato}</p>
             </div>
             <div className={style.botao_container}>
               <Link to="/editarContato" onClick={() =>setContatoEmFoco(emailDoContato)}>

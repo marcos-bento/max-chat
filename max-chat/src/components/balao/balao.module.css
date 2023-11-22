@@ -30,12 +30,12 @@
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  padding: 0 5px;
+  padding: 0px 5px;
 }
-.balao .botao_container p {
+.balao .botao_container .botao_container_nome_contato, .balao .botao_container p {
   text-align: center;
   margin: 0;
-  padding: 0;
+  padding-top: 0;
 }
 
 .chat_container .chat_container_svg .chat_container_foreign .chat_container_foreign_text_1 {

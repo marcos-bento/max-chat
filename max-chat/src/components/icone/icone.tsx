@@ -21,8 +21,9 @@ function Icon({icon, cor = "", tamanho="fa-2xl"}: {icon: string, cor?: string, t
         case "icone-foto":
             cor = "icone_foto";
             break;
-
-            
+        case "chat":
+            cor = "chat";
+            break;
         default:
             cor = "icone";
             break;

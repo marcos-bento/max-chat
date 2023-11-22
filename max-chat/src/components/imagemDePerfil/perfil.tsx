@@ -7,9 +7,10 @@ interface Props{
     idDoUsuario?: number;
     emailDoUsuario?: string;
     proCabecalho?: boolean;
+    proChat?:boolean;
 };
 
-function Perfil({idDoUsuario, emailDoUsuario, proCabecalho = false}: Props){
+function Perfil({idDoUsuario, emailDoUsuario, proCabecalho = false, proChat=false}: Props){
     const [fotoPerfil, setfotoPerfil] = useState("");
     const [gravatarURL, setGravatarURL] = useState("");
 
@@ -26,11 +27,13 @@ function Perfil({idDoUsuario, emailDoUsuario, proCabecalho = false}: Props){
             };
             if (emailDoUsuario){
                 const usuario = await conectApi.recuperaUsuarioPorEmail(emailDoUsuario);
-                const url = usuario.conexaoConvertida[0].imagem;
-                if (usuario.conexaoConvertida[0].gravatar){
-                    getGravatar(usuario.conexaoConvertida[0].email);
-                } else {
-                    setfotoPerfil(url);
+                if (usuario.conexaoConvertida[0]){
+                    const url = usuario.conexaoConvertida[0].imagem;
+                    if (usuario.conexaoConvertida[0].gravatar){
+                        getGravatar(usuario.conexaoConvertida[0].email);
+                    } else {
+                        setfotoPerfil(url);
+                    };
                 };
             };
         };
@@ -45,7 +48,7 @@ function Perfil({idDoUsuario, emailDoUsuario, proCabecalho = false}: Props){
     return (
         <>
             {(fotoPerfil === "" && gravatarURL === "" ? 
-                <div style={{height: "auto", width: "50px"}}><Icon icon = "fa-solid fa-user" cor={(proCabecalho ? "icone-foto" : "cinza")}/></div> :
+                <div className={style.container_icone}><Icon icon = "fa-solid fa-user" cor={(proCabecalho ? "icone-foto" : proChat ? "chat" : "cinza")}/></div> :
                 <img className={style.imagem} src={ gravatarURL !== "" ? gravatarURL : fotoPerfil } alt="Imagem de perfil" />
             )}
         </>
