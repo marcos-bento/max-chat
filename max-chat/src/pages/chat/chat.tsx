@@ -124,12 +124,13 @@ function Chat(){
 
     const pegaData = () => {
         const data = new Date();
-        const dia = data.getDate().toString().padStart(2, '0');
-        const mes = (data.getMonth() + 1).toString().padStart(2, '0');
+        const dia = data.getUTCDate().toString().padStart(2, '0');
+        const mes = (data.getUTCMonth() + 1).toString().padStart(2, '0');
         const ano = data.getUTCFullYear();
         const dataCompleta = `${ano}-${mes}-${dia}`;
         return dataCompleta;
-    }
+    };
+
 
     const scrollToBottom = () => {
         chatDivScroll.current.scrollTop = chatDivScroll.current.scrollHeight;
@@ -188,29 +189,27 @@ function Chat(){
     };
 
     // Função que valida quando a mensagem foi enviada para retornar "hoje", "ontem" ou "dd/mm"
-    const validaData = (item: any) =>{
+    const validaData = (item: any) => {
         const dataMensagem = new Date(item.data);
         const hoje = new Date();
-        const ontem = new Date();
+        const ontem = new Date(hoje);
         ontem.setDate(hoje.getDate() - 1);
-        if (
-            dataMensagem.getDate() === hoje.getDate() &&
-            dataMensagem.getMonth() === hoje.getMonth() &&
-            dataMensagem.getFullYear() === hoje.getFullYear()
-        ) {
+    
+        // Ajusta para a mesma hora, minutos, segundos e milissegundos
+        hoje.setUTCHours(0, 0, 0, 0);
+        ontem.setUTCHours(0, 0, 0, 0);
+        dataMensagem.setUTCHours(0, 0, 0, 0);
+    
+        if (dataMensagem.getTime() === hoje.getTime()) {
             return 'hoje';
-        } else if (
-            dataMensagem.getDate() === ontem.getDate() &&
-            dataMensagem.getMonth() === ontem.getMonth() &&
-            dataMensagem.getFullYear() === ontem.getFullYear()
-        ) {
+        } else if (dataMensagem.getTime() === ontem.getTime()) {
             return 'ontem';
         } else {
             const dd = String(dataMensagem.getDate()).padStart(2, '0');
-            const mm = String(dataMensagem.getMonth() + 1).padStart(2, '0');
+            const mm = String(dataMensagem.getUTCMonth() + 1).padStart(2, '0');
             return `${dd}/${mm}`;
         }
-    };
+    };    
 
     return(
         <div className={style.pagina}>

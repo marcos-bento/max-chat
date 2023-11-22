@@ -94,7 +94,14 @@
       "senha": "geg",
       "imagem": "",
       "gravatar": false,
-      "contatos": [],
+      "contatos": [
+        {
+          "id": 1,
+          "email": "dobene02@hotmail.com",
+          "nome": "Benedito",
+          "apelido": ""
+        }
+      ],
       "id": 5
     }
   ],
@@ -151,7 +158,7 @@
           "user_id": 1,
           "hora": "14:25",
           "chat": "Oi amor!",
-          "data": "2023-10-2",
+          "data": "2023-10-02",
           "lido": false
         },
         {
@@ -159,7 +166,7 @@
           "user_id": 1,
           "hora": "14:29",
           "chat": "hehe",
-          "data": "2023-10-2",
+          "data": "2023-10-02",
           "lido": false
         },
         {
@@ -184,7 +191,7 @@
           "user_id": 1,
           "hora": "17:04",
           "chat": "Salve Benedito!",
-          "data": "2023-10-2",
+          "data": "2023-10-02",
           "lido": false
         },
         {
@@ -192,7 +199,7 @@
           "user_id": 1,
           "hora": "17:04",
           "chat": "Tudo beleza meu querido?",
-          "data": "2023-10-2",
+          "data": "2023-10-02",
           "lido": false
         },
         {
@@ -217,24 +224,24 @@
           "user_id": 1,
           "hora": "17:08",
           "chat": "Eai Aron!",
-          "data": "2023-10-2",
-          "lido": false
+          "data": "2023-10-02",
+          "lido": true
         },
         {
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "17:08",
           "chat": "Me salva",
-          "data": "2023-10-2",
-          "lido": false
+          "data": "2023-10-02",
+          "lido": true
         },
         {
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "17:08",
           "chat": "kk",
-          "data": "2023-10-2",
-          "lido": false
+          "data": "2023-10-02",
+          "lido": true
         },
         {
           "user": "Marcos Bento",
@@ -242,10 +249,35 @@
           "hora": "19:28",
           "chat": "Testando data/hora",
           "data": "2023-11-21",
-          "lido": false
+          "lido": true
+        },
+        {
+          "user": "Aron",
+          "user_id": 5,
+          "hora": "01:07",
+          "chat": "Teste perfeito!",
+          "data": "2023-11-22",
+          "lido": true
         }
       ],
       "id": 4
+    },
+    {
+      "user_1_id": 5,
+      "user_1_nome": "Aron",
+      "user_2_id": 3,
+      "user_2_nome": "Benedito",
+      "content": [
+        {
+          "user": "Aron",
+          "user_id": 5,
+          "hora": "01:10",
+          "chat": "Oi !",
+          "data": "2023-11-22",
+          "lido": false
+        }
+      ],
+      "id": 5
     }
   ]
 }

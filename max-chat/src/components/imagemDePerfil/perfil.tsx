@@ -45,7 +45,7 @@ function Perfil({idDoUsuario, emailDoUsuario, proCabecalho = false}: Props){
     return (
         <>
             {(fotoPerfil === "" && gravatarURL === "" ? 
-                <div style={{height: "50px", width: "50px"}}><Icon icon = "fa-solid fa-user" cor={(proCabecalho ? "icone-foto" : "cinza")}/></div> :
+                <div style={{height: "auto", width: "50px"}}><Icon icon = "fa-solid fa-user" cor={(proCabecalho ? "icone-foto" : "cinza")}/></div> :
                 <img className={style.imagem} src={ gravatarURL !== "" ? gravatarURL : fotoPerfil } alt="Imagem de perfil" />
             )}
         </>
