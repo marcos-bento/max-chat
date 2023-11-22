@@ -61,7 +61,7 @@
   justify-content: space-between;
   align-items: center;
   border: 1px solid var(--azul-principal);
-  background-image: linear-gradient(var(--azul-secundario), var(--azul-principal));
+  background-image: linear-gradient(var(--cinza-secundario), var(--cinza-principal), var(--cinza-secundario));
   border-radius: 15px;
   padding: 0 0.3rem;
 }
@@ -94,14 +94,34 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  border: 1px solid var(--verde-secundario);
-  background-image: linear-gradient(var(--verde-secundario), var(--verde-principal));
+  justify-content: space-between;
+  border: 1px solid var(--azul-principal);
+  background-image: linear-gradient(var(--azul-principal), var(--azul-secundario));
   border-radius: 15px;
   padding: 0 0.3rem;
 }
 .chat_container .chat_outcome .chat_outcome_balao .chat_content {
   color: white;
   padding: 1rem;
+}
+.chat_container .chat_outcome .chat_outcome_balao .chat_content_deletado {
+  color: var(--cinza-principal);
+  font-size: 12px;
+  font-style: italic;
+}
+.chat_container .chat_outcome .chat_outcome_balao .chat_deletar_mensagem_container {
+  padding: 1rem;
+}
+.chat_container .chat_outcome .chat_outcome_balao .chat_deletar_mensagem_container .chat_deletar_mensagem {
+  cursor: pointer;
+  margin: 1rem;
+  font-size: 12px;
+  text-align: center;
+}
+.chat_container .chat_outcome .chat_outcome_balao .chat_deletar_mensagem_container .chat_deletar_mensagem_buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
 }
 .chat_container .chat_container_scroll_button {
   display: flex;

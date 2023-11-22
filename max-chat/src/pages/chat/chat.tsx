@@ -32,6 +32,7 @@ function Chat(){
     const [botaoScroll, setBotaoScroll] = useState(false);
     const [deletarConversa, setDeletarConversa] = useState(false);
     const [conversaDeletada, setConversaDeletada] = useState(false);
+    const [mensagemParaExcluir, setMensagemParaExcluir] = useState<number | null>(null);
 
     // useEffect principal, valida usuário logado e consulta DB com polling
     useEffect(() => {
@@ -80,7 +81,16 @@ function Chat(){
                 email: "",
                 id: 0
             });
-            const mensagens = dadosDaConversa.content;
+            const conversaFiltrada:any = [];
+            dadosDaConversa.content.map((mensagem :{deletado: boolean})=>{
+                if (!mensagem.deletado){
+                    conversaFiltrada.push(mensagem);
+                } else {
+                    conversaFiltrada.push(mensagem);
+                    conversaFiltrada[conversaFiltrada.length-1].chat = "Mensagem apagada";
+                };
+            });
+            const mensagens = conversaFiltrada;
             if (dadosDaConversa.deletado){
                 setConversaDeletada(true);
                 handleModal("Essa conversa foi deletada!", "vermelho");
@@ -147,6 +157,15 @@ function Chat(){
         chatDivScroll.current.scrollTop = chatDivScroll.current.scrollHeight;
     };
 
+    // Função que pega o ID da ultima mensagem para registrar a próxima
+    const idDaUltimaMensagem = () =>{
+        if (!chat){
+            return 0;
+        } else {
+            return chatEmFoco[chatEmFoco.length - 1].id;
+        }
+    };
+
     // Função que lida o click no botão enviar mensagem
     const handleTextoSubmit = async () => {
         if (!campoValor){
@@ -154,12 +173,14 @@ function Chat(){
         } else {
             const todasMensagens = chatEmFoco ? chatEmFoco : [];
             const novaMensagem = ({
+                deletado: false,
                 user: usuarioLogado.usuarioNome,
                 user_id: usuarioLogado.usuarioId,
                 hora: pegaHora(),
                 chat: campoValor,
                 data: pegaData(),
                 lido: false,
+                id: idDaUltimaMensagem() + 1,
             });
             setCampoValor(""); // Limpe o valor do campo
             todasMensagens.push(novaMensagem);
@@ -199,7 +220,7 @@ function Chat(){
     // Função que gerencia o click nos 3 pontinhos acima do chat e abre as opções
     const handleOptionsClick = () =>{
         setExibeOpcoes(true);
-    }
+    };
 
     // Função que gerencia o modal de informações e avisos
     const handleModal = (text: string, corBotao: string) => {
@@ -235,7 +256,7 @@ function Chat(){
     const handleDeletChat = () =>{
         setDeletarConversa(true);
         handleModal(`Tem certeza que deseja deletar a conversa com ${ destinatario && destinatario.nome} ?`, "vermelho");
-    }
+    };
 
     // Função que registra o chat como "Deletado: true" no banco de dados
     const apagarConversa = async () =>{
@@ -258,7 +279,35 @@ function Chat(){
         } else {
             handleModal("Não é possível deletar uma conversa que nunca foi iniciada!", "vermelho");
         };
-    }
+    };
+
+    // Função que gerencia o estado da mensagem para ser excluída
+    const handleDeletMessageClick = (id: number) => {
+        setMensagemParaExcluir(id);
+    };
+
+    // Função que registra a propriedade "deletado" como true no banco de dados;
+    const handleDeletarConfirm = async (id: number) => {
+        const conversaAtual = await conectApi.recuperaChat(chat);
+        const todasMensagens = conversaAtual.conexaoConvertida.content;
+        todasMensagens.map((mensagem: { id: number; deletado: boolean; }) =>{
+            if (mensagem.id === id){
+                mensagem.deletado = true;
+            };
+        });
+        const conversaAtualizada: Conversa = ({
+            ...conversaAtual.conexaoConvertida,
+            content: [...todasMensagens]
+        });
+        const resul = await conectApi.atualizaConversa(chat, conversaAtualizada);
+        setMensagemParaExcluir(0);
+        if (resul.statusConexao > 199 && resul.statusConexao < 299){
+            handleModal("Mensagem deletada com sucesso!", "verde");
+            pegaMensagens();
+        } else {
+            handleModal("Erro ao deletar mensagem! Contate o administrador!","vermelho");
+        };
+    };
 
     // Conteúdo principal (JSX) do component React
     return(
@@ -273,8 +322,8 @@ function Chat(){
                             {deletarConversa ? 
                                 <div style={{display:"flex",gap:"3rem"}}>
                                     <Botao texto ="Não" cor={"vermelho"} onClick={() => {
-                                        setModal(false);
-                                        setExibeOpcoes(false);
+                                            setModal(false);
+                                            setExibeOpcoes(false);
                                         }}/>
                                     <Botao texto ="Sim" cor={"verde"} onClick={apagarConversa}/>
                                 </div>
@@ -320,27 +369,54 @@ function Chat(){
                             </div>
                         </div>
 
+                        {/* Modal de opções para deletar uma mensagem */}
+                        <div className={`${chatStyle.chat_options_window} ${exibeOpcoes && `${chatStyle.active}`}`}>
+                            <div className={chatStyle.chat_options_container} onClick={()=>{setExibeOpcoes(false)}}>
+                                <p>Fechar</p>
+                                <Icone icon={"fa-solid fa-x"}/>
+                            </div>
+                            <div className={chatStyle.chat_options_container} onClick={handleDeletChat}>
+                                <p>Deletar a conversa</p>
+                                <Icone icon={"fa-solid fa-trash-can"} cor={"vermelho"}/>
+                            </div>
+                        </div>
+
                         <div onClick={handleOptionsClick} className={chatStyle.chat_options}><Icone icon={"fa-solid fa-ellipsis"} cor={"branco"}/></div>
                         <div ref={chatDivScroll} className={chatStyle.chat_container}>
                             <p className={chatStyle.chat_titulo}>Conversa com: {destinatario?.nome}</p>
                             {chatEmFoco && chatEmFoco.length === 0 && <p className={chatStyle.chat_titulo}>Ainda sem mensagens, mande a primeira!</p>}
-                            {chatEmFoco && chatEmFoco.map((item, index) =>{
-                                return (
-                                    <div key={index} className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income : chatStyle.chat_outcome)}>
-                                    <p className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income_text : chatStyle.chat_outcome_text)}>{item.user} disse {validaData(item)} às {item.hora}</p>  
-                                    <div className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income_balao : chatStyle.chat_outcome_balao)}>
-                                        <Perfil idDoUsuario={item.user_id} proChat={true}/>
-                                        <p className={chatStyle.chat_content}>{item.chat}</p>
-                                        {item.lido && item.user === usuarioLogado.usuarioNome ? <div className={chatStyle.chat_lido}>
-                                            <Icone icon={"fa-regular fa-circle-check"} cor={"branco"} tamanho={"fa-2xs"}/>
-                                        </div>:
-                                        <p> </p>
-                                        }
-                                        
-                                    </div>                              
+                            {chatEmFoco && chatEmFoco.map((item, index) => {
+                            return (
+                                <div onClick={()=> mensagemParaExcluir !== item.id && !item.deletado && handleDeletMessageClick(item.id)} key={index} className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_outcome : chatStyle.chat_income)}>
+                                    <p className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_outcome_text : chatStyle.chat_income_text)}>
+                                        {item.user} disse {validaData(item)} às {item.hora}
+                                    </p>
+                                    <div className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_outcome_balao : chatStyle.chat_income_balao)}>
+                                        <Perfil idDoUsuario={item.user_id} proChat={true} />
+                                        {mensagemParaExcluir === item.id && usuarioLogado.usuarioId === item.user_id ? (
+                                            // Renderiza a mensagem de confirmação aqui
+                                            <div className={chatStyle.chat_deletar_mensagem_container}>
+                                                <p className={chatStyle.chat_deletar_mensagem}>Deletar mensagem?</p>
+                                                <div className={chatStyle.chat_deletar_mensagem_buttons}>
+                                                    <Botao texto={"Não"} cor={"vermelho"} onClick={()=>handleDeletMessageClick(0)}/>
+                                                    <Botao texto={"Sim"} cor={"verde"} onClick={()=>handleDeletarConfirm(item.id)}/>
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            // Renderiza a mensagem normal aqui
+                                            <p className={`${chatStyle.chat_content} ${item.deletado && chatStyle.chat_content_deletado}`}>{item.chat}</p>
+                                        )}
+                                        {item.lido && item.user === usuarioLogado.usuarioNome ? (
+                                            <div className={chatStyle.chat_lido}>
+                                                <Icone icon={"fa-regular fa-circle-check"} cor={"branco"} tamanho={"fa-2xs"} />
+                                            </div>
+                                        ) : (
+                                            <p> </p>
+                                        )}
+                                    </div>
                                 </div>
-                                )
-                            })}
+                            )
+                        })}
                             {/* Botão flutuante para ancorar ao final da conversa (quando há scroll) */}
                             {botaoScroll && (
                                 <div className={chatStyle.chat_container_scroll_button} onClick={scrollToBottom} style={{ position: 'fixed', bottom: '150px', right: '10px' }}>

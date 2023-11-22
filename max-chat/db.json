@@ -114,52 +114,104 @@
       "deletado": false,
       "content": [
         {
+          "deletado": false,
           "user": "Fabio Albarelli",
           "user_id": 2,
           "hora": "20:18",
           "chat": "Você jogou aquele jogo da memória?",
           "data": "2023-11-12",
-          "lido": true
+          "lido": true,
+          "id": 1
         },
         {
+          "deletado": false,
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "20:20",
           "chat": "Joguei sim e curti bastante o jogo, meus sobrinhos também adoraram!",
           "data": "2023-11-12",
-          "lido": true
+          "lido": true,
+          "id": 2
         },
         {
+          "deletado": false,
           "user": "Fabio Albarelli",
           "user_id": 2,
           "hora": "20:20",
           "chat": "Será que tem alguma novidade saindo?",
           "data": "2023-11-12",
-          "lido": true
+          "lido": true,
+          "id": 3
         },
         {
+          "deletado": false,
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "00:10",
           "chat": "Com certeza terá! E pode esperar",
           "data": "2023-11-22",
-          "lido": false
+          "lido": true,
+          "id": 4
         },
         {
+          "deletado": false,
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "09:54",
           "chat": "Estou chegando nos finalmentes!",
           "data": "2023-11-22",
-          "lido": false
+          "lido": true,
+          "id": 5
         },
         {
+          "deletado": false,
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "09:54",
           "chat": "Isso me deixa animado rsrs",
           "data": "2023-11-22",
-          "lido": false
+          "lido": true,
+          "id": 6
+        },
+        {
+          "deletado": true,
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "11:46",
+          "chat": "Mensagem apagada",
+          "data": "2023-11-22",
+          "lido": true,
+          "id": 7
+        },
+        {
+          "deletado": true,
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "11:46",
+          "chat": "Mensagem apagada",
+          "data": "2023-11-22",
+          "lido": true,
+          "id": 8
+        },
+        {
+          "deletado": false,
+          "user": "Fabio Albarelli",
+          "user_id": 2,
+          "hora": "17:10",
+          "chat": "Que se apagou ai danadinho",
+          "data": "2023-11-22",
+          "lido": true,
+          "id": 9
+        },
+        {
+          "deletado": false,
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "17:45",
+          "chat": "hehe",
+          "data": "2023-11-22",
+          "lido": true,
+          "id": 10
         }
       ],
       "id": 1
@@ -172,28 +224,34 @@
       "deletado": false,
       "content": [
         {
+          "deletado": false,
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "14:25",
           "chat": "Oi amor!",
           "data": "2023-10-02",
-          "lido": false
+          "lido": false,
+          "id": 1
         },
         {
+          "deletado": false,
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "14:29",
           "chat": "hehe",
           "data": "2023-10-02",
-          "lido": false
+          "lido": false,
+          "id": 2
         },
         {
+          "deletado": false,
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "19:21",
           "chat": "oi",
           "data": "2023-11-21",
-          "lido": false
+          "lido": false,
+          "id": 3
         }
       ],
       "id": 2
@@ -206,28 +264,34 @@
       "deletado": false,
       "content": [
         {
+          "deletado": false,
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "17:04",
           "chat": "Salve Benedito!",
           "data": "2023-10-02",
-          "lido": true
+          "lido": true,
+          "id": 1
         },
         {
+          "deletado": true,
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "17:04",
           "chat": "Tudo beleza meu querido?",
           "data": "2023-10-02",
-          "lido": true
+          "lido": true,
+          "id": 2
         },
         {
+          "deletado": false,
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "19:22",
           "chat": "aoba!",
           "data": "2023-11-21",
-          "lido": true
+          "lido": true,
+          "id": 3
         }
       ],
       "id": 3
@@ -240,44 +304,54 @@
       "deletado": false,
       "content": [
         {
+          "deletado": false,
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "17:08",
           "chat": "Eai Aron!",
           "data": "2023-10-02",
-          "lido": true
+          "lido": true,
+          "id": 1
         },
         {
+          "deletado": false,
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "17:08",
           "chat": "Me salva",
           "data": "2023-10-02",
-          "lido": true
+          "lido": true,
+          "id": 2
         },
         {
+          "deletado": false,
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "17:08",
           "chat": "kk",
           "data": "2023-10-02",
-          "lido": true
+          "lido": true,
+          "id": 3
         },
         {
+          "deletado": false,
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "19:28",
           "chat": "Testando data/hora",
           "data": "2023-11-21",
-          "lido": true
+          "lido": true,
+          "id": 4
         },
         {
+          "deletado": false,
           "user": "Aron",
           "user_id": 5,
           "hora": "01:07",
           "chat": "Teste perfeito!",
           "data": "2023-11-22",
-          "lido": true
+          "lido": true,
+          "id": 5
         }
       ],
       "id": 4
@@ -290,12 +364,14 @@
       "deletado": false,
       "content": [
         {
+          "deletado": false,
           "user": "Aron",
           "user_id": 5,
           "hora": "01:10",
           "chat": "Oi !",
           "data": "2023-11-22",
-          "lido": true
+          "lido": true,
+          "id": 1
         }
       ],
       "id": 5
@@ -308,23 +384,47 @@
       "deletado": true,
       "content": [
         {
+          "deletado": false,
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "11:10",
           "chat": "Oi amor!",
           "data": "2023-11-22",
-          "lido": false
+          "lido": false,
+          "id": 1
         },
         {
+          "deletado": false,
           "user": "Kamila",
           "user_id": 4,
           "hora": "11:16",
           "chat": "Oie!!",
           "data": "2023-11-22",
-          "lido": true
+          "lido": true,
+          "id": 2
         }
       ],
       "id": 6
+    },
+    {
+      "user_1_id": 1,
+      "user_1_nome": "Marcos Bento",
+      "user_2_id": 3,
+      "user_2_nome": "Benedito",
+      "deletado": true,
+      "content": [
+        {
+          "deletado": false,
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "11:46",
+          "chat": "Salve!",
+          "data": "2023-11-22",
+          "lido": false,
+          "id": 1
+        }
+      ],
+      "id": 7
     }
   ]
 }
