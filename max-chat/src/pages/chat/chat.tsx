@@ -16,6 +16,7 @@ import Botao from "../../components/botao/botao";
 import { Conversa } from "../../Interfaces/conversa";
 import { ConversaChat } from "../../Interfaces/conversaChat";
 import Icone from "../../components/icone/icone";
+import { Contatos } from "../../Interfaces/contato";
 
 function Chat(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
@@ -71,13 +72,44 @@ function Chat(){
         chatDivScroll.current.scrollTop = chatDivScroll.current.scrollHeight;
     }, [destinatario?.nome]);
     
+    // Função que pesquisa o apelido do contato cadastrado
+    const recuperaApelido = async (dadosDaConversa: [number, string]) =>{
+        const [id, nome] = dadosDaConversa;
+
+        const registro = await conectApi.recuperaUsuarioPorID(usuarioLogado.usuarioId);
+
+        // Mapeando os contatos para uma array de Promises
+        const promises = registro.conexaoConvertida.contatos.map(async (contato: Contatos) => {
+            const idDoContato = await recuperaIDPorEmail(contato.email);
+            if (id === idDoContato) {
+                return contato.apelido;
+            }
+        });
+    
+        // Aguardando a conclusão de todas as Promises
+        const resultados = await Promise.all(promises);
+        // Retornando o primeiro resultado que não seja o nome (quando disponível)
+        return resultados.find(resultado => resultado !== nome) || nome;
+    };
+
+    // Função que acessa o BD, pesquisa usando o email e retorna o ID
+    const recuperaIDPorEmail = async (email: string): Promise<number> =>{
+        const registro = await conectApi.recuperaUsuarioPorEmail(email);
+        return registro.conexaoConvertida[0].id;
+    };
+
     // Função que acessa o BD e retorna as mensagens
-    const pegaMensagens = async () => { 
+    const pegaMensagens = async () => {
         if (chat){ // Se o usuário veio direto de uma conversa existente
             const conversa = await conectApi.recuperaChat(chat);
             const dadosDaConversa = conversa.conexaoConvertida;
+            const nomeDoContato = await recuperaApelido(
+                dadosDaConversa.user_1_id === usuarioLogado.usuarioId
+                  ? [dadosDaConversa.user_2_id, dadosDaConversa.user_2_nome]
+                  : [dadosDaConversa.user_1_id, dadosDaConversa.user_1_nome]
+              );
             setDestinatario({
-                nome: dadosDaConversa.user_1_id === usuarioLogado.usuarioId ? dadosDaConversa.user_2_nome : dadosDaConversa.user_1_nome,
+                nome: nomeDoContato,
                 email: "",
                 id: 0
             });
