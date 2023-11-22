@@ -5,7 +5,7 @@ export default async function acessaMensagens(idLogado: number, qtdMensagens?: n
     const conversasFormatadas = [];
     const todasConversas = await conectApi.recuperaConversa();
     for (const iterator of todasConversas.conexaoConvertida) {
-        if (iterator.user_1_id === idLogado || iterator.user_2_id === idLogado){
+        if ((iterator.user_1_id === idLogado || iterator.user_2_id === idLogado) && iterator.deletado === false){
             const mensagem = iterator.content[iterator.content.length-1].chat;
             const autor = iterator.content[iterator.content.length-1].user;
             const idDoUsuario = iterator.user_1_id === idLogado ? iterator.user_2_id : iterator.user_1_id;

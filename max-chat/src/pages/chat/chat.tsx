@@ -21,6 +21,7 @@ function Chat(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
     const { chat, setChat } = useChat();
     const { contatoEmFoco, setContatoEmFoco } = useContatoEmFoco();
+    const [exibeOpcoes, setExibeOpcoes] = useState(false);
     const [destinatario, setDestinatario] = useState<{nome: string, email: string, id: number}>();
     const [chatEmFoco, setChatEmFoco] = useState<ConversaChat[]>([]);
     const [modal, setModal] = useState(false);
@@ -29,6 +30,8 @@ function Chat(){
     const [campoValor, setCampoValor] = useState("");
     const chatDivScroll: any = useRef(null);
     const [botaoScroll, setBotaoScroll] = useState(false);
+    const [deletarConversa, setDeletarConversa] = useState(false);
+    const [conversaDeletada, setConversaDeletada] = useState(false);
 
     // useEffect principal, valida usuário logado e consulta DB com polling
     useEffect(() => {
@@ -67,7 +70,8 @@ function Chat(){
         chatDivScroll.current.scrollTop = chatDivScroll.current.scrollHeight;
     }, [destinatario?.nome]);
     
-    const pegaMensagens = async () => { // Função que acessa o BD e retorna as mensagens
+    // Função que acessa o BD e retorna as mensagens
+    const pegaMensagens = async () => { 
         if (chat){ // Se o usuário veio direto de uma conversa existente
             const conversa = await conectApi.recuperaChat(chat);
             const dadosDaConversa = conversa.conexaoConvertida;
@@ -89,6 +93,7 @@ function Chat(){
         };
     };
 
+    // Função que altera o campo "lido" para true quando o usuario vê a mensagem
     const atualizaLeitura = async (idDoChat: number, conversa: Conversa) =>{
         //Verifique se há alguma mensagem não lida para o usuário atual
         const temMensagemNaoLida = conversa.content.some((mensagem: ConversaChat) => {
@@ -113,6 +118,7 @@ function Chat(){
         };
     };
 
+    // Função que pega a hora baseado no relógio do computador do usuário
     const pegaHora = () => {
         const carimbo = new Date().getTime() / 1000; // Obtém o carimbo Unix
         const data = new Date(carimbo * 1000); // Converte o carimbo para milissegundos e cria um objeto Date
@@ -122,6 +128,7 @@ function Chat(){
         return horaFormatada
     };
 
+    // Função que pega a data baseado no relógio do computador do usuário
     const pegaData = () => {
         const data = new Date();
         const dia = data.getUTCDate().toString().padStart(2, '0');
@@ -131,11 +138,11 @@ function Chat(){
         return dataCompleta;
     };
 
-
     const scrollToBottom = () => {
         chatDivScroll.current.scrollTop = chatDivScroll.current.scrollHeight;
     };
 
+    // Função que lida o click no botão enviar mensagem
     const handleTextoSubmit = async () => {
         if (!campoValor){
             handleModal("Escreva alguma mensagem primeiro!","vermelho");
@@ -166,12 +173,14 @@ function Chat(){
         };
     };
 
+    // Função que registra a conversa inicial no BD
     const registraConversa = async (todasMensagens: ConversaChat) => {
         const novaConversa: Conversa = {
             user_1_id: usuarioLogado.usuarioId,
             user_1_nome: usuarioLogado.usuarioNome,
             user_2_id: destinatario?.id || 0,
             user_2_nome: destinatario?.nome || "",
+            deletado: false,
             content: [todasMensagens],
         };
         const resultado = await conectApi.registraConversa(novaConversa);
@@ -182,6 +191,12 @@ function Chat(){
         };
     };
 
+    // Função que gerencia o click nos 3 pontinhos acima do chat e abre as opções
+    const handleOptionsClick = () =>{
+        setExibeOpcoes(true);
+    }
+
+    // Função que gerencia o modal de informações e avisos
     const handleModal = (text: string, corBotao: string) => {
         setModal(true);
         setModalText(text);
@@ -211,19 +226,66 @@ function Chat(){
         }
     };    
 
+    // Função que lida com o clicar no íncone de lixeira para deletar o chat
+    const handleDeletChat = () =>{
+        setDeletarConversa(true);
+        handleModal(`Tem certeza que deseja deletar a conversa com ${ destinatario && destinatario.nome} ?`, "vermelho");
+    }
+
+    // Função que registra o chat como "Deletado: true" no banco de dados
+    const apagarConversa = async () =>{
+        setModal(false)
+        setDeletarConversa(false);
+        if (chat){
+            const conversaAtual = await conectApi.recuperaChat(chat);
+            const conversaAtualizada: Conversa = ({
+                ...conversaAtual.conexaoConvertida,
+                content: [...conversaAtual.conexaoConvertida.content]
+            });
+            conversaAtualizada.deletado = true;
+            const resul = await conectApi.atualizaConversa(chat, conversaAtualizada)
+            if (resul.statusConexao > 199 && resul.statusConexao < 299 ){
+                handleModal("Conversa deletada com sucesso!", "verde");
+                setConversaDeletada(true);
+            } else {
+                handleModal("Erro ao deletar conversa! Contate o administrador!", "vermelho");
+            }
+        } else {
+            handleModal("Não é possível deletar uma conversa que nunca foi iniciada!", "vermelho");
+        };
+    }
+
+    // Conteúdo principal (JSX) do component React
     return(
         <div className={style.pagina}>
             <Cabecalho />
             <section className={style.conteudo}>
+                {/* Modal de alertas */}
                 {modal && <div className={style.modal_alert}>
-                    {/* Modal */}
                     <Modal altura={0}>
                         <div className={style.modal_alert_content}>
                             <p>{modalText}</p>
-                            <Botao texto ="Ok" cor={modalButton} onClick={() => {setModal(false)}}/>
+                            {deletarConversa ? 
+                                <div style={{display:"flex",gap:"3rem"}}>
+                                    <Botao texto ="Não" cor={"vermelho"} onClick={() => {
+                                        setModal(false);
+                                        setExibeOpcoes(false);
+                                        }}/>
+                                    <Botao texto ="Sim" cor={"verde"} onClick={apagarConversa}/>
+                                </div>
+                            :
+                                conversaDeletada ?
+                                <Link to="/menu">
+                                    <Botao texto ="OK" cor={modalButton}/>
+                                </Link>
+                                :
+                                <Botao texto ="Ok" cor={modalButton} onClick={() => {setModal(false)}}/>
+                            }
+                            
                         </div>
                     </Modal>
                 </div>}
+
                 <h3 className={style.titulo}>Max Chat</h3>
                 <div className={style.conversas}>
 
@@ -238,15 +300,29 @@ function Chat(){
                             </div>
                         </Modal>
                     </div>}
-                
+               
                     <Modal altura={0}> {/* Quando enviar 0 o componente insere "height: auto" */}
+
+                        {/* Modal de opções para deletar o chat inteiro */}
+                        <div className={`${chatStyle.chat_options_window} ${exibeOpcoes && `${chatStyle.active}`}`}>
+                            <div className={chatStyle.chat_options_container} onClick={()=>{setExibeOpcoes(false)}}>
+                                <p>Fechar</p>
+                                <Icone icon={"fa-solid fa-slash"}/>
+                            </div>
+                            <div className={chatStyle.chat_options_container} onClick={handleDeletChat}>
+                                <p>Deletar a conversa</p>
+                                <Icone icon={"fa-solid fa-trash-can"} cor={"vermelho"}/>
+                            </div>
+                        </div>
+
+                        <div onClick={handleOptionsClick} className={chatStyle.chat_options}><Icone icon={"fa-solid fa-ellipsis"} cor={"branco"}/></div>
                         <div ref={chatDivScroll} className={chatStyle.chat_container}>
                             <p className={chatStyle.chat_titulo}>Conversa com: {destinatario?.nome}</p>
                             {chatEmFoco && chatEmFoco.length === 0 && <p className={chatStyle.chat_titulo}>Ainda sem mensagens, mande a primeira!</p>}
                             {chatEmFoco && chatEmFoco.map((item, index) =>{
                                 return (
                                     <div key={index} className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income : chatStyle.chat_outcome)}>
-                                    <p className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income_text : chatStyle.chat_outcome_text)}>{item.user} Disse {validaData(item)} às {item.hora}</p>  
+                                    <p className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income_text : chatStyle.chat_outcome_text)}>{item.user} disse {validaData(item)} às {item.hora}</p>  
                                     <div className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income_balao : chatStyle.chat_outcome_balao)}>
                                         <Perfil idDoUsuario={item.user_id} proChat={true}/>
                                         <p className={chatStyle.chat_content}>{item.chat}</p>
@@ -260,12 +336,14 @@ function Chat(){
                                 </div>
                                 )
                             })}
+                            {/* Botão flutuante para ancorar ao final da conversa (quando há scroll) */}
                             {botaoScroll && (
                                 <div className={chatStyle.chat_container_scroll_button} onClick={scrollToBottom} style={{ position: 'fixed', bottom: '150px', right: '10px' }}>
                                     <Icone icon={"fa-solid fa-circle-arrow-down"} cor={"branco"}/>
                                     <p>ir para o final</p>
                                 </div>
                             )}
+
                             <hr style={{width:"90%"}}/>
                         </div>
                         <div  className={chatStyle.chat_submit}>

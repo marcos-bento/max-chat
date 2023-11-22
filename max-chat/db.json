@@ -111,6 +111,7 @@
       "user_1_nome": "Marcos Bento",
       "user_2_id": 2,
       "user_2_nome": "Fabio Albarelli",
+      "deletado": true,
       "content": [
         {
           "user": "Fabio Albarelli",
@@ -143,6 +144,22 @@
           "chat": "Com certeza terá! E pode esperar",
           "data": "2023-11-22",
           "lido": false
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "09:54",
+          "chat": "Estou chegando nos finalmentes!",
+          "data": "2023-11-22",
+          "lido": false
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "09:54",
+          "chat": "Isso me deixa animado rsrs",
+          "data": "2023-11-22",
+          "lido": false
         }
       ],
       "id": 1
@@ -152,6 +169,7 @@
       "user_1_nome": "Marcos Bento",
       "user_2_id": 4,
       "user_2_nome": "Kamila",
+      "deletado": true,
       "content": [
         {
           "user": "Marcos Bento",
@@ -185,6 +203,7 @@
       "user_1_nome": "Marcos Bento",
       "user_2_id": 3,
       "user_2_nome": "Benedito",
+      "deletado": false,
       "content": [
         {
           "user": "Marcos Bento",
@@ -218,6 +237,7 @@
       "user_1_nome": "Marcos Bento",
       "user_2_id": 5,
       "user_2_nome": "Aron",
+      "deletado": false,
       "content": [
         {
           "user": "Marcos Bento",
@@ -267,6 +287,7 @@
       "user_1_nome": "Aron",
       "user_2_id": 3,
       "user_2_nome": "Benedito",
+      "deletado": false,
       "content": [
         {
           "user": "Aron",
@@ -274,10 +295,28 @@
           "hora": "01:10",
           "chat": "Oi !",
           "data": "2023-11-22",
-          "lido": false
+          "lido": true
         }
       ],
       "id": 5
+    },
+    {
+      "user_1_id": 1,
+      "user_1_nome": "Marcos Bento",
+      "user_2_id": 4,
+      "user_2_nome": "Kamila",
+      "deletado": false,
+      "content": [
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "11:10",
+          "chat": "Oi amor!",
+          "data": "2023-11-22",
+          "lido": false
+        }
+      ],
+      "id": 6
     }
   ]
 }
