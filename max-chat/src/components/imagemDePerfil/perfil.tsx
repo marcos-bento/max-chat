@@ -6,9 +6,10 @@ import Icon from "../icone/icone";
 interface Props{
     idDoUsuario?: number;
     emailDoUsuario?: string;
+    proCabecalho?: boolean;
 };
 
-function Perfil({idDoUsuario, emailDoUsuario}: Props){
+function Perfil({idDoUsuario, emailDoUsuario, proCabecalho = false}: Props){
     const [fotoPerfil, setfotoPerfil] = useState("");
     const [gravatarURL, setGravatarURL] = useState("");
 
@@ -44,7 +45,7 @@ function Perfil({idDoUsuario, emailDoUsuario}: Props){
     return (
         <>
             {(fotoPerfil === "" && gravatarURL === "" ? 
-                <div style={{height: "50px", width: "50px"}}><Icon icon = "fa-solid fa-user" cor={"icone-foto"}/></div> :
+                <div style={{height: "50px", width: "50px"}}><Icon icon = "fa-solid fa-user" cor={(proCabecalho ? "icone-foto" : "cinza")}/></div> :
                 <img className={style.imagem} src={ gravatarURL !== "" ? gravatarURL : fotoPerfil } alt="Imagem de perfil" />
             )}
         </>

@@ -36,4 +36,36 @@
   text-align: center;
   margin: 0;
   padding: 0;
+}
+
+.chat_container .chat_container_svg .chat_container_foreign .chat_container_foreign_text_1 {
+  text-align: center;
+  transition: transform 0.3s;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--cinza-secundario);
+}
+.chat_container .chat_container_svg .chat_container_foreign .chat_container_foreign_text_2 {
+  text-align: center;
+  transition: transform 0.3s;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 1s steps(40, end);
+}
+.chat_container .chat_container_svg .chat_container_foreign .chat_container_foreign_text_3 {
+  text-align: center;
+  transition: transform 0.3s;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  bottom: 4px;
+  color: var(--cinza-secundario);
+}
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }/*# sourceMappingURL=balao.module.css.map */

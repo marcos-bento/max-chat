@@ -222,7 +222,7 @@ function Chat(){
                             {chatEmFoco && chatEmFoco.map((item, index) =>{
                                 return (
                                     <div key={index} className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income : chatStyle.chat_outcome)}>
-                                    <p className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income_text : chatStyle.chat_outcome_text)}>{item.user} disse as {item.hora}</p>  
+                                    <p className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income_text : chatStyle.chat_outcome_text)}>{item.user} disse às {item.hora}</p>  
                                     <div className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income_balao : chatStyle.chat_outcome_balao)}>
                                         <Perfil idDoUsuario={item.user_id}/>
                                         <p className={chatStyle.chat_content}>{item.chat}</p>

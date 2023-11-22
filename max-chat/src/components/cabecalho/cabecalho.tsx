@@ -60,11 +60,11 @@ function Cabecalho() {
             <path d="M11.9 -20.7C15.6 -18.6 18.6 -15.6 20.7 -11.9C22.8 -8.3 23.9 -4.2 23.9 0C23.9 4.2 22.8 8.3 20.7 11.9C18.6 15.6 15.6 18.6 11.9 20.7C8.3 22.8 4.2 23.9 0 23.9C-4.2 23.9 -8.3 22.8 -11.9 20.7C-15.6 18.6 -18.6 15.6 -20.7 11.9C-22.8 8.3 -23.9 4.2 -23.9 0C-23.9 -4.2 -22.8 -8.3 -20.7 -11.9C-18.6 -15.6 -15.6 -18.6 -11.9 -20.7C-8.3 -22.8 -4.2 -23.9 0 -23.9C4.2 -23.9 8.3 -22.8 11.9 -20.7" fill="#7EDAEC" stroke="#147B8F"></path>
             {(usuarioLogado && usuarioLogado.usuarioImagem ? 
               <foreignObject x="-25" y="-25" width="60" height="60">
-                <Perfil idDoUsuario={usuarioLogado.usuarioId}/>
+                <Perfil idDoUsuario={usuarioLogado.usuarioId} proCabecalho={true}/>
               </foreignObject>
             :
               <foreignObject x="-14" y="-14" width="30" height="30">
-                <Perfil idDoUsuario={0}/>
+                <Perfil idDoUsuario={0} proCabecalho={true}/>
               </foreignObject>
             )}
           </g>

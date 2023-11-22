@@ -128,6 +128,14 @@
           "chat": "Será que tem alguma novidade saindo?",
           "data": "2023-11-12",
           "lido": true
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "00:10",
+          "chat": "Com certeza terá! E pode esperar",
+          "data": "2023-11-22",
+          "lido": false
         }
       ],
       "id": 1
@@ -226,6 +234,14 @@
           "hora": "17:08",
           "chat": "kk",
           "data": "2023-10-2",
+          "lido": false
+        },
+        {
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "19:28",
+          "chat": "Testando data/hora",
+          "data": "2023-11-21",
           "lido": false
         }
       ],
