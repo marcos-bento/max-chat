@@ -187,6 +187,31 @@ function Chat(){
         setModalButton(corBotao);
     };
 
+    // Função que valida quando a mensagem foi enviada para retornar "hoje", "ontem" ou "dd/mm"
+    const validaData = (item: any) =>{
+        const dataMensagem = new Date(item.data);
+        const hoje = new Date();
+        const ontem = new Date();
+        ontem.setDate(hoje.getDate() - 1);
+        if (
+            dataMensagem.getDate() === hoje.getDate() &&
+            dataMensagem.getMonth() === hoje.getMonth() &&
+            dataMensagem.getFullYear() === hoje.getFullYear()
+        ) {
+            return 'hoje';
+        } else if (
+            dataMensagem.getDate() === ontem.getDate() &&
+            dataMensagem.getMonth() === ontem.getMonth() &&
+            dataMensagem.getFullYear() === ontem.getFullYear()
+        ) {
+            return 'ontem';
+        } else {
+            const dd = String(dataMensagem.getDate()).padStart(2, '0');
+            const mm = String(dataMensagem.getMonth() + 1).padStart(2, '0');
+            return `${dd}/${mm}`;
+        }
+    };
+
     return(
         <div className={style.pagina}>
             <Cabecalho />
@@ -222,7 +247,7 @@ function Chat(){
                             {chatEmFoco && chatEmFoco.map((item, index) =>{
                                 return (
                                     <div key={index} className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income : chatStyle.chat_outcome)}>
-                                    <p className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income_text : chatStyle.chat_outcome_text)}>{item.user} disse às {item.hora}</p>  
+                                    <p className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income_text : chatStyle.chat_outcome_text)}>{item.user} Disse {validaData(item)} às {item.hora}</p>  
                                     <div className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_income_balao : chatStyle.chat_outcome_balao)}>
                                         <Perfil idDoUsuario={item.user_id}/>
                                         <p className={chatStyle.chat_content}>{item.chat}</p>
