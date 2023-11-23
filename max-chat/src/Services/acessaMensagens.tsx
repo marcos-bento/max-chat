@@ -16,7 +16,8 @@ export default async function acessaMensagens(idLogado: number, qtdMensagens?: n
                     const destinatario = iterator.user_1_id === idLogado ? iterator.user_2_nome : iterator.user_1_nome;
                     const dataMensagem = iterator.content[iterator.content.length-1].data;
                     const horaMensagem = iterator.content[iterator.content.length-1].hora;
-                    conversasFormatadas.push({mensagem, autor, idDoUsuario, idDaConversa, destinatario, dataMensagem, horaMensagem});
+                    const lido = iterator.content[iterator.content.length-1].lido;
+                    conversasFormatadas.push({mensagem, autor, idDoUsuario, idDaConversa, destinatario, dataMensagem, horaMensagem, lido});
                     condicaoAtendida = true;
                     break;
                 };
@@ -29,7 +30,8 @@ export default async function acessaMensagens(idLogado: number, qtdMensagens?: n
                 const destinatario = iterator.user_1_id === idLogado ? iterator.user_2_nome : iterator.user_1_nome;
                 const dataMensagem = iterator.content[iterator.content.length-1].data;
                 const horaMensagem = iterator.content[iterator.content.length-1].hora;
-                conversasFormatadas.push({mensagem, autor, idDoUsuario, idDaConversa, destinatario, dataMensagem, horaMensagem});
+                const lido = iterator.content[iterator.content.length-1].lido;
+                conversasFormatadas.push({mensagem, autor, idDoUsuario, idDaConversa, destinatario, dataMensagem, horaMensagem, lido});
             };
         };
     };

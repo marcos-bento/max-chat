@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import style from './cabecalho.module.css';
 import stdStyle from "../../Common/CSS/conteudo.module.css"
@@ -7,45 +7,77 @@ import { useUser } from "../../Services/userContext";
 import Modal from '../modal/modal';
 import Botao from '../botao/botao';
 import Perfil from '../imagemDePerfil/perfil';
-
+import Icone from '../../components/icone/icone';
+import acessaMensagens from '../../Services/acessaMensagens';
 
 function Cabecalho() {
   const { usuarioLogado, setUsuarioLogado } = useUser();
   const [menuHamburguer, setmenuHamburguer] = useState(false);
   const [modal, setModal] = useState(false);
   const [modalText, setModalText] = useState("");
+  const [sinoClick, setSinoClick] = useState(false);
+  const [temNovaMensagem, setTemNovaMensagem] = useState(false);
+
+  // Método useEffect principal
+  useEffect( () => {
+    const interval = setInterval(() => {
+      pegaMensagens();
+    }, 5000); // Verifique a cada 5 segundos
   
+    return () => clearInterval(interval);
+  }, []);
+
+  // Função que valida se tem alguma nova mensagem, para alterar o ícone de sino
+  const pegaMensagens = async () => {
+    if (usuarioLogado){ // Validação para não acontecer antes de estar logado
+      const mensagens = await acessaMensagens(usuarioLogado.usuarioId);
+      const validador = (elemento: {lido: boolean; autor: string}) => elemento.lido === false && elemento.autor !== usuarioLogado.usuarioNome;
+      const novasMensagens = mensagens.some(validador)
+      if (novasMensagens){
+        setTemNovaMensagem(true);
+      } else {
+        setTemNovaMensagem(false);
+      };
+    };
+  };
+  
+  // Função que gerencia o estado do modal
   const handleModal = (text: string) => {
     setModal(true)
     setModalText(text)
   };
 
+  // Função que fecha o modal
   const handleOnClick = () =>{
     (menuHamburguer ? setmenuHamburguer(false): setmenuHamburguer(true));
   };
 
+  // Função que gerencia se o usuario quer mesmo sair
   const handleLogoff = () =>{
     if (usuarioLogado && usuarioLogado.usuarioLogado){
       handleModal("Tem certeza que deseja sair?");
     }
   }
 
+  // Função que descarta os dados do userContext usuarioLogado
   const logoff = () => {
     if (usuarioLogado){
-      usuarioLogado.usuarioId = "";
-      usuarioLogado.usuarioLogado = false;
-      usuarioLogado.usuarioNome = "";
-      usuarioLogado.usuarioImagem = "";
+      setUsuarioLogado("");
     }
   }
+
+  // Função que habilita o pop-up do sino de novas mensagens
+  const handleSinoClick = () =>{
+    setSinoClick(true);
+  };
 
   return (
       <header className={style.navbar}>
         {/* First element: Logo */}
-      <div className={style.titulo__container}>
-        <h1 className={style.titulo}>Max</h1>
-        <h2 className={style.titulo}>Chat</h2>
-      </div>
+        <div className={style.titulo__container}>
+          <h1 className={style.titulo}>Max</h1>
+          <h2 className={style.titulo}>Chat</h2>
+        </div>
         {/* Second element: Home Ícon */}
         <div>
           <Link to={ (usuarioLogado && usuarioLogado.usuarioLogado ? "/menu" : "/")}>
@@ -53,7 +85,29 @@ function Cabecalho() {
           </Link>
         </div>
         {/* Third element: Bell Ícon */}
-        <Icon icon = "fa-solid fa-bell"/>
+        <div className={usuarioLogado && temNovaMensagem && style.bell_container} onClick={usuarioLogado && handleSinoClick}>
+          <Icon icon = "fa-solid fa-bell"/>
+        </div>
+        {sinoClick && 
+          <div className={style.bell_popup}>
+            {temNovaMensagem && 
+              <div>
+                <p className={style.bell_popup_text}>Novas mensagens!</p>
+                <Link className={style.bell_popup_novo} to="/conversas">
+                  <p>Ir para página de conversas</p>
+                  <Icone icon={'fa-solid fa-comments'} />
+                </Link>
+              </div>
+            }
+            
+            {!temNovaMensagem && <p>Sem novas mensagens!</p>}
+            <div onClick={()=>setSinoClick(false)} className={style.bell_popup_close}>
+              <p>Fechar</p>
+              <Icone icon={'fa-solid fa-x'} />
+            </div>
+          </div>
+        }
+ 
         {/* Fourth element: Profile Picture */}
         <svg onClick={handleOnClick} id="visual" viewBox="0 0 50 50" width="50" height="50" xmlns="http://www.w3.org/2000/svg" version="1.1">
           <g transform="translate(25 25)">
@@ -70,19 +124,19 @@ function Cabecalho() {
           </g>
         </svg>
         {modal && <div className={stdStyle.modal_alert}>
-        {/* Modal */}
-        <Modal altura={0}>
-          <div className={stdStyle.modal_alert_content}>
-            <p>{modalText}</p>
-            <div className={stdStyle.modal_alert_content_double_button}>
-              <Botao texto ="Não" cor={"vermelho"} onClick={() => {setModal(false)}}/>
-              <Link to="/" onClick={logoff}>
-                <Botao texto ="Sim" cor={"verde"}/>
-              </Link>
+          {/* Modal */}
+          <Modal altura={0}>
+            <div className={stdStyle.modal_alert_content}>
+              <p>{modalText}</p>
+              <div className={stdStyle.modal_alert_content_double_button}>
+                <Botao texto ="Não" cor={"vermelho"} onClick={() => {setModal(false)}}/>
+                <Link to="/" onClick={logoff}>
+                  <Botao texto ="Sim" cor={"verde"}/>
+                </Link>
+              </div>
             </div>
-          </div>
-        </Modal>
-      </div>}
+          </Modal>
+        </div>}
 
         <div className={`${style.modal_navbar} ${menuHamburguer ? `${style.active}` : ''}`}>
           {/* Modal suspenso Navbar*/}

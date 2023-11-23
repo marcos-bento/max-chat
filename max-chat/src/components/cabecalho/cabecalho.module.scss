@@ -22,6 +22,58 @@
     }
   }
 
+  .bell_popup{
+    position: fixed;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0 0.5rem;
+    margin: 0;
+    border: 1px solid var(--azul-principal);
+    border-radius: 15px;
+    width: auto;
+    background-image: linear-gradient(var(--azul-principal), var(--azul-secundario));
+    .bell_popup_text{
+      color: white;
+      text-align: center;
+      font-size: 18px;
+    }
+    .bell_popup_novo{
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      padding-right: 0.6rem;
+    }
+    .bell_popup_close{
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      padding-right: 0.8rem;
+    }
+  }
+
+  .bell_container{
+    animation: sinoPulando 0.8s infinite;
+  }
+
+  @keyframes sinoPulando {
+    0% {
+      transform: rotate(0deg);
+    }
+    10% {
+      transform: rotate(45deg);
+    }
+    20% {
+      transform: rotate(0deg);
+    }
+    30% {
+      transform: rotate(-45deg);
+    }
+    40% {
+      transform: rotate(0deg);
+    }
+  }
+
   .svg{
     -webkit-text-stroke: 1px var(--azul-secundario); /* Para inserir uma borda azul no svg */
   }
