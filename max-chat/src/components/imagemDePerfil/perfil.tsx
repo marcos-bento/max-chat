@@ -15,35 +15,38 @@ function Perfil({idDoUsuario, emailDoUsuario, proCabecalho = false, proChat=fals
     const [gravatarURL, setGravatarURL] = useState("");
 
     useEffect( () => {
-        const carregaPerfil = async () => {
-            if (idDoUsuario){
-                const usuario = await conectApi.recuperaUsuarioPorID(idDoUsuario);
-                const url = usuario.conexaoConvertida.imagem;
-                if (usuario.conexaoConvertida.gravatar){
-                    getGravatar(usuario.conexaoConvertida.email);
+        
+        carregaPerfil();
+    }, []);
+
+    const carregaPerfil = async () => {
+        if (idDoUsuario){
+            const usuario = await conectApi.recuperaUsuarioPorID(idDoUsuario);
+            const url = usuario.conexaoConvertida.imagem;
+            if (usuario.conexaoConvertida.gravatar){
+                getGravatar(usuario.conexaoConvertida.email);
+            } else {
+                setfotoPerfil(url);
+            };
+        };
+        if (emailDoUsuario){
+            const usuario = await conectApi.recuperaUsuarioPorEmail(emailDoUsuario);
+            if (usuario.conexaoConvertida[0]){
+                const url = usuario.conexaoConvertida[0].imagem;
+                if (usuario.conexaoConvertida[0].gravatar){
+                    getGravatar(usuario.conexaoConvertida[0].email);
                 } else {
                     setfotoPerfil(url);
                 };
             };
-            if (emailDoUsuario){
-                const usuario = await conectApi.recuperaUsuarioPorEmail(emailDoUsuario);
-                if (usuario.conexaoConvertida[0]){
-                    const url = usuario.conexaoConvertida[0].imagem;
-                    if (usuario.conexaoConvertida[0].gravatar){
-                        getGravatar(usuario.conexaoConvertida[0].email);
-                    } else {
-                        setfotoPerfil(url);
-                    };
-                };
-            };
         };
-        carregaPerfil();
-    }, []);
+    };
 
     const getGravatar = (email: string) =>{
-        var gravatar = require('gravatar');
-        setGravatarURL(gravatar.url(email));
-    }
+        var gravatar = require('gravatar');    
+        const newGravatarURL = gravatar.url(email);
+        setGravatarURL(newGravatarURL);
+    };
 
     return (
         <>

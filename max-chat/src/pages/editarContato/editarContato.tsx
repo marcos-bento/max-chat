@@ -15,6 +15,7 @@ import { useContatoEmFoco } from "../../Services/contatoContext";
 import Botao from "../../components/botao/botao";
 import atualizaContato from "../../Services/atualizaContato";
 import deletarContato from "../../Services/deletarContato";
+import { Contatos } from "../../Interfaces/contato";
 
 function EditarContato(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
@@ -27,29 +28,31 @@ function EditarContato(){
     const [modoDeletarContato, setModoDeletarContato] = useState(false);
     const [modoAtualizar, setModoAtualizar] = useState(false);
     const [contatoDeletado, setContatoDeletado] = useState(false);
+    const [modoLimparApelido, setModoLimparApelido] = useState(false);
 
-    //Função para buscar os dados do contato que será editado
+    //useEffect principal
     useEffect(() =>{
         if (!usuarioLogado){ // Se não estiver logado
             window.location.href="/" // Redireciona para tela de Login
         };
-
-        const recuperaContato = async () =>{
-            const usuario = await conectApi.recuperaUsuarioPorID(usuarioLogado.usuarioId);
-            const contatos = usuario.conexaoConvertida.contatos;
-            for (let i=0;i<contatos.length;i++){
-                if (contatos[i].email === contatoEmFoco) {
-                    setDadosDoContato(contatos[i]);
-                };
-            };
-        }
+ 
         recuperaContato();
     },[]);
 
+    // Função responsável por acessar o BD e extrair os dados do contato a ser editado.
+    const recuperaContato = async () =>{
+        const usuario = await conectApi.recuperaUsuarioPorID(usuarioLogado.usuarioId);
+        const contatos = usuario.conexaoConvertida.contatos;
+        const destinatario = contatos.find((contato: { email: string; }) => contato.email === contatoEmFoco);
+        setDadosDoContato(destinatario);
+    };
+
+    // Função para gerenciar o estado do Input Apelido
     const handleApelidoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setApelido(event.target.value);
     };
 
+    // Função para lidar com o botão Atualizar Contato
     const handleAtualizarContato = () =>{
         if (apelido && apelido !== dadosDoContato?.apelido){
             handleModal(`Tem certeza que deseja atualizar o contato de ${dadosDoContato?.nome}?`, "verde");
@@ -59,34 +62,41 @@ function EditarContato(){
         };
     };
 
+    // Função para lidar com o botão Apagar Contato
     const handleApagarContato = () =>{
-        handleModal(`Tem certeza que deseja deletar da sua lista de contatos: ${dadosDoContato?.nome}?`, "verde");
+        handleModal(`Tem certeza que deseja deletar da sua lista de contatos: ${dadosDoContato?.nome}? Isso não apagará suas conversas!`, "verde");
         setModoDeletarContato(true);
     };
 
+    // Função para lidar com o Modal
     const handleModal = (text: string, corBotao: string) => {
         setModal(true);
         setModalText(text);
         setModalButton(corBotao);
     };
 
+    // Função responsável por limpar os estados de controle
     const handleModalOk = () => {
         setModal(false);
         setModoDeletarContato(false);
         setModoAtualizar(false);
+        setModoLimparApelido(false);
     };
 
+    // Função responsável por atualizar o contato da lista do usuário
     const handleModalOkAtualiza = async () => {
         const resultado = await atualizaContato(usuarioLogado.usuarioId, contatoEmFoco ,apelido);
         setModal(false)
         setModoAtualizar(false);
         if (resultado.retorno){
+            recuperaContato();
             handleModal(resultado.texto, "verde");
         } else {
             handleModal(resultado.texto, "vermelho");
         };
     };
 
+    // Função responsável por deletar o contato da lista do usuário
     const handleModalOkDeletar = async () => {
         const resultado = await deletarContato(usuarioLogado.usuarioId, contatoEmFoco);
         setModal(false)
@@ -96,6 +106,36 @@ function EditarContato(){
             setContatoDeletado(true);
         } else {
             handleModal(resultado.texto, "vermelho");
+        };
+    };
+
+    // Função responsável por gerenciar o click do botão "Limpar apelido"
+    const handleDeleteAlias = () => {
+        handleModal(`Tem certeza que deseja deletar o apelido de ${dadosDoContato && dadosDoContato.apelido}?`, "vermelho");
+        setModoLimparApelido(true);
+    };
+
+    // Função responsável por editar o apelido do contato para "" e salvar no bd
+    const handleModalOkDeletarAlias = async () => {
+        handleModalOk();
+        if (dadosDoContato){
+            const usuario = await conectApi.recuperaUsuarioPorID(usuarioLogado.usuarioId);
+            const contatos = usuario.conexaoConvertida;
+            let contatosAtualizados = {...contatos, contatos:[]}; // Recebe os dados do usuario mas não dos contatos
+            contatosAtualizados.contatos = contatos.contatos.map((contato: Contatos) =>{
+                if (contato.email === dadosDoContato.email){
+                    return {...contato, apelido:''};
+                } else {
+                    return contato;
+                };
+            });
+            const resul = await conectApi.atualizaUsuario(usuarioLogado.usuarioId, contatosAtualizados);
+            if (resul.statusConexao > 199 && resul.statusConexao < 299){
+                recuperaContato();
+                handleModal("Apelido deletado com sucesso!", "verde");
+            } else{
+                handleModal(`Erro ao deletar apelido! Erro: ${resul.statusConexao}, contate o administrador!`, "vermelho");
+            };
         };
     };
 
@@ -111,7 +151,7 @@ function EditarContato(){
                             {/* Botões para atualizar o contato:  */}
                             {modoAtualizar && !modoDeletarContato &&
                                 (
-                                    <div style={{display: "flex", gap: "3rem"}}>
+                                    <div className={style.modal_alert_content_double_button}>
                                         <Botao texto ="Não" cor={"vermelho"} onClick={handleModalOk}/>
                                         <Botao texto ="Sim" cor={modalButton} onClick={handleModalOkAtualiza}/>
                                     </div>
@@ -121,15 +161,25 @@ function EditarContato(){
                             {/* Botões para deletar o contato: */}
                             {modoDeletarContato && !modoAtualizar &&
                                 (
-                                    <div style={{display: "flex", gap: "3rem"}}>
+                                    <div className={style.modal_alert_content_double_button}>
                                         <Botao texto ="Cancelar" cor={"verde"} onClick={handleModalOk}/>
                                         <Botao texto ="Deletar" cor={"vermelho"} onClick={handleModalOkDeletar}/>
                                     </div>
                                 )
                             }
 
+                            {/* Botões para limpar apelido: */}
+                            {modoLimparApelido &&
+                                (
+                                    <div className={style.modal_alert_content_double_button}>
+                                        <Botao texto ="Cancelar" cor={"verde"} onClick={handleModalOk}/>
+                                        <Botao texto ="Deletar" cor={"vermelho"} onClick={handleModalOkDeletarAlias}/>
+                                    </div>
+                                )
+                            }
+
                             {/* Botão normal */}
-                            {!modoAtualizar && !modoDeletarContato && !contatoDeletado && <Botao texto ="Ok" cor={modalButton} onClick={handleModalOk}/>}
+                            {!modoLimparApelido && !modoAtualizar && !modoDeletarContato && !contatoDeletado && <Botao texto ="Ok" cor={modalButton} onClick={handleModalOk}/>}
 
                             {/* Botão normal pós deletar*/}
                             {contatoDeletado && 
@@ -150,10 +200,11 @@ function EditarContato(){
                                     <p>conhecido como:</p>
                                 </div>
                                 <div>
-                                    <Perfil idDoUsuario={dadosDoContato?.id || 0}/>
+                                    {dadosDoContato && <Perfil emailDoUsuario={dadosDoContato.email}/>}
                                 </div>
                             </div>
                             <Input placeholder={(dadosDoContato?.apelido ? dadosDoContato.apelido : "Digite o apelido para o contato") } onChange={handleApelidoChange}/>
+                            {dadosDoContato && dadosDoContato.apelido && <Botao texto={"Limpar apelido"} cor={"vermelho"} onClick={handleDeleteAlias}/>}
                         </div>
                     </Modal>
                     <Balao tipo={"botao"} icone={"fa-solid fa-check"} cor={"verde"} texto={"Atualizar contato"} onClick={handleAtualizarContato}/>
