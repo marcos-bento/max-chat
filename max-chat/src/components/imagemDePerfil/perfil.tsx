@@ -4,7 +4,7 @@ import { conectApi } from "../../Services/conectaApi";
 import Icon from "../icone/icone";
 
 interface Props{
-    idDoUsuario?: number;
+    idDoUsuario?: string;
     emailDoUsuario?: string;
     proCabecalho?: boolean;
     proChat?:boolean;
@@ -21,22 +21,22 @@ function Perfil({idDoUsuario, emailDoUsuario, proCabecalho = false, proChat=fals
 
     const carregaPerfil = async () => {
         if (idDoUsuario){
-            const usuario = await conectApi.recuperaUsuarioPorID(idDoUsuario);
-            const url = usuario.conexaoConvertida.imagem;
-            if (usuario.conexaoConvertida.gravatar){
-                getGravatar(usuario.conexaoConvertida.email);
-            } else {
-                setfotoPerfil(url);
+            const usuario = await conectApi.recuperaImagemPorID(idDoUsuario);
+            if (usuario){
+                if (usuario.gravatar){
+                    getGravatar(usuario.email);
+                } else {
+                    setfotoPerfil(usuario.imagem);
+                };
             };
         };
         if (emailDoUsuario){
             const usuario = await conectApi.recuperaUsuarioPorEmail(emailDoUsuario);
-            if (usuario.conexaoConvertida[0]){
-                const url = usuario.conexaoConvertida[0].imagem;
-                if (usuario.conexaoConvertida[0].gravatar){
-                    getGravatar(usuario.conexaoConvertida[0].email);
+            if (usuario){
+                if (usuario.gravatar){
+                    getGravatar(usuario.email);
                 } else {
-                    setfotoPerfil(url);
+                    setfotoPerfil(usuario.imagem);
                 };
             };
         };

@@ -7,7 +7,6 @@ import Formulario from '../../components/formulario/formulario';
 import Modal from '../../components/modal/modal';
 import Botao from '../../components/botao/botao';
 
-
 function Login() {
   const [modal, setModal] = useState(false);
   const [modalText, setModalText] = useState("");

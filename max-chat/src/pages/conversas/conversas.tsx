@@ -6,12 +6,12 @@ import Rodape from "../../components/rodape/rodape";
 import Balao from "../../components/balao/balao";
 import BotaoGrande from "../../components/botaoGrande/botaoGrande";
 import { useUser } from "../../Services/userContext";
-import acessaMensagens from "../../Services/acessaMensagens";
 import { useChat } from "../../Services/chatContext";
+import { conectApi } from "../../Services/conectaApi";
 
 function Conversas(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
-    const [conversasDoUsuario, setConversasDoUsuario] = useState<{ mensagem: string; autor: string, idDoUsuario: number, idDaConversa: number, destinatario: string, dataMensagem: string, horaMensagem: string}[]>([]);
+    const [conversasDoUsuario, setConversasDoUsuario] = useState<{chat: string, user: string, user_id: string, idDaConversa: number, destinatario: string,  destinatario_id: string, data: string, hora: string }[]>([]);
     const { chat, setChat } = useChat();
 
 
@@ -20,7 +20,7 @@ function Conversas(){
             window.location.href="/" // Redireciona para tela de Login
         }
         const pegaMensagens = async () => { // Função que acessa o BD e retorna as mensagens
-            const mensagens = await acessaMensagens(usuarioLogado.usuarioId);
+            const mensagens = await conectApi.recuperaUltimasMensagensPorId(usuarioLogado.usuarioId);
             setConversasDoUsuario(mensagens);
         };
 
@@ -35,8 +35,8 @@ function Conversas(){
                 <div className={style.conversas}>
                     {conversasDoUsuario && conversasDoUsuario.map((item,index) =>{
                         return <Link key={index} to="/chat" onClick={() => setChat(item.idDaConversa)}>
-                        <p className={style.conversas_destinatario}>Conversa com: {item.destinatario}</p>
-                        <Balao key={index} tipo={"chat"} perfilID={item.idDoUsuario} autor={item.autor} mensagem={item.mensagem} dataDaMensagem={item.dataMensagem} horaDaMensagem={item.horaMensagem}/>
+                            <p className={style.conversas_destinatario}>Conversa com: {item.destinatario}</p>
+                            <Balao key={index} tipo={"chat"} perfilID={item.destinatario_id === usuarioLogado.usuarioId ? item.user_id : item.destinatario_id} autor={item.user} mensagem={item.chat} dataDaMensagem={item.data} horaDaMensagem={item.hora}/>
                         </Link>
                     })}
                     {conversasDoUsuario.length === 0 && <p className={style.titulo}>você ainda não tem conversas!<br></br>Começe uma já!</p>}

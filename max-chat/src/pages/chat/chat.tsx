@@ -14,17 +14,17 @@ import { conectApi } from "../../Services/conectaApi";
 import { useContatoEmFoco } from "../../Services/contatoContext";
 import Botao from "../../components/botao/botao";
 import { Conversa } from "../../Interfaces/conversa";
-import { ConversaChat } from "../../Interfaces/conversaChat";
 import Icone from "../../components/icone/icone";
 import { Contatos } from "../../Interfaces/contato";
+import { Mensagem } from "../../Interfaces/mensagem";
 
 function Chat(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
     const { chat, setChat } = useChat();
     const { contatoEmFoco, setContatoEmFoco } = useContatoEmFoco();
     const [exibeOpcoes, setExibeOpcoes] = useState(false);
-    const [destinatario, setDestinatario] = useState<{nome: string, email: string, id: number}>();
-    const [chatEmFoco, setChatEmFoco] = useState<ConversaChat[]>([]);
+    const [destinatario, setDestinatario] = useState<{nome: string, email: string, id: string}>();
+    const [chatEmFoco, setChatEmFoco] = useState<Mensagem[]>([]);
     const [modal, setModal] = useState(false);
     const [modalText, setModalText] = useState("");
     const [modalButton, setModalButton] = useState("");
@@ -40,11 +40,8 @@ function Chat(){
         if (!usuarioLogado){ // Se não estiver logado
             window.location.href="/" // Redireciona para tela de Login
         }
-        const interval = setInterval(() => {
-          pegaMensagens();
-        }, 5000); // Verifique a cada 5 segundos
-      
-        return () => clearInterval(interval);
+
+        pegaMensagens();
     },[]);
 
     // useEffect dedicado a lógica de controle do botão flutuante de scroll
@@ -73,94 +70,80 @@ function Chat(){
     }, [destinatario?.nome]);
     
     // Função que pesquisa o apelido do contato cadastrado
-    const recuperaApelido = async (dadosDaConversa: [number, string]) =>{
-        const [id, nome] = dadosDaConversa;
-
-        const registro = await conectApi.recuperaUsuarioPorID(usuarioLogado.usuarioId);
-
-        // Mapeando os contatos para uma array de Promises
-        const promises = registro.conexaoConvertida.contatos.map(async (contato: Contatos) => {
-            const idDoContato = await recuperaIDPorEmail(contato.email);
-            if (id === idDoContato) {
-                return contato.apelido;
-            }
-        });
-    
-        // Aguardando a conclusão de todas as Promises
-        const resultados = await Promise.all(promises);
-        // Retornando o primeiro resultado que não seja o nome (quando disponível)
-        return resultados.find(resultado => resultado !== nome) || nome;
+    const recuperaUsuarioDestino = async (userIdPk: string) =>{
+        const usuarioDestino = await conectApi.recuperaUsuarioPorID(userIdPk);
+        return usuarioDestino;
     };
 
-    // Função que acessa o BD, pesquisa usando o email e retorna o ID
-    const recuperaIDPorEmail = async (email: string): Promise<number> =>{
-        const registro = await conectApi.recuperaUsuarioPorEmail(email);
-        return registro.conexaoConvertida[0].id;
+    // Função que verifica se as mensagens possuem a propriedade "deletado" como true
+    const verificaMensagensDeletadas = async (mensagens:Mensagem[]) =>{
+        const mensagensFiltradas:any = [];
+        if (mensagens){
+            mensagens.map((mensagem :{deletado: boolean})=>{
+                if (!mensagem.deletado){
+                    mensagensFiltradas.push(mensagem);
+                } else {
+                    mensagensFiltradas.push(mensagem);
+                    mensagensFiltradas[mensagensFiltradas.length-1].chat = "Mensagem apagada";
+                };
+            });
+            return mensagensFiltradas;
+        };
     };
 
     // Função que acessa o BD e retorna as mensagens
     const pegaMensagens = async () => {
         if (chat){ // Se o usuário veio direto de uma conversa existente
-            const conversa = await conectApi.recuperaChat(chat);
-            const dadosDaConversa = conversa.conexaoConvertida;
-            const nomeDoContato = await recuperaApelido(
-                dadosDaConversa.user_1_id === usuarioLogado.usuarioId
-                  ? [dadosDaConversa.user_2_id, dadosDaConversa.user_2_nome]
-                  : [dadosDaConversa.user_1_id, dadosDaConversa.user_1_nome]
-              );
-            setDestinatario({
-                nome: nomeDoContato,
-                email: "",
-                id: 0
-            });
-            const conversaFiltrada:any = [];
-            dadosDaConversa.content.map((mensagem :{deletado: boolean})=>{
-                if (!mensagem.deletado){
-                    conversaFiltrada.push(mensagem);
-                } else {
-                    conversaFiltrada.push(mensagem);
-                    conversaFiltrada[conversaFiltrada.length-1].chat = "Mensagem apagada";
+            const conversa = await conectApi.recuperaConversaPorId(chat);
+            if (typeof conversa === 'object'){
+                
+                const idDestino = (conversa.user_1_id === usuarioLogado.usuarioId ? conversa.user_2_id : conversa.user_1_id);
+
+                const contatoDestino = await recuperaUsuarioDestino(idDestino);
+                if (contatoDestino){
+                    
+                    setDestinatario({
+                        nome: contatoDestino.nome,
+                        email: contatoDestino.email,
+                        id: idDestino
+                    });
                 };
-            });
-            const mensagens = conversaFiltrada;
-            if (dadosDaConversa.deletado){
-                setConversaDeletada(true);
-                handleModal("Essa conversa foi deletada!", "vermelho");
-            } else {
-                setChatEmFoco(mensagens);
-                atualizaLeitura(chat, dadosDaConversa);
-            }
+
+                const mensagens = await conectApi.recuperaTodasMensagensPorId(chat) as Mensagem[];
+                const mensagensFiltradas = verificaMensagensDeletadas(mensagens);
+                if (conversa.deletado){
+                    setConversaDeletada(true);
+                    handleModal("Essa conversa foi deletada!", "vermelho");
+                } else {
+                    setChatEmFoco(mensagens);
+                };
+                atualizaLeitura(chat, await mensagensFiltradas);
+            };
         } else { // Se não vamos criar uma conversa do zero:
             const usuarioDestino = await conectApi.recuperaUsuarioPorEmail(contatoEmFoco);
-            setDestinatario({
-                nome: usuarioDestino.conexaoConvertida[0].nome,
-                email: usuarioDestino.conexaoConvertida[0].email,
-                id: usuarioDestino.conexaoConvertida[0].id,
-            });       
+            if (usuarioDestino){
+                setDestinatario({
+                    nome: usuarioDestino.nome,
+                    email: usuarioDestino.email,
+                    id: usuarioDestino.id,
+                }); 
+            };    
         };
     };
 
     // Função que altera o campo "lido" para true quando o usuario vê a mensagem
-    const atualizaLeitura = async (idDoChat: number, conversa: Conversa) =>{
+    const atualizaLeitura = async (idDoChat: string, conversa: Mensagem[]) =>{
         //Verifique se há alguma mensagem não lida para o usuário atual
-        const temMensagemNaoLida = conversa.content.some((mensagem: ConversaChat) => {
-            return mensagem.user_id !== usuarioLogado.usuarioId && !mensagem.lido;
-        });
-        // Se houver, atualize as mensagens como lidas
-        if (temMensagemNaoLida) {
-            chatDivScroll.current.scrollTop = chatDivScroll.current.scrollHeight; // Envia o scroll até o final
-            const contentAtualizado  = conversa.content.map((mensagem: ConversaChat) => {
-                if (mensagem.user_id === usuarioLogado.usuarioId){
-                    return {...mensagem};
-                }else{
-                    return {...mensagem, lido: true}; // Primeiro altero todas mensagens para true
-                };
+        if (conversa){
+            const temMensagemNaoLida = conversa.some((mensagem: Mensagem) => {
+                return mensagem.user_id !== usuarioLogado.usuarioId && !mensagem.lido;
             });
-    
-            const conversaAtualizada = { ...conversa, content: contentAtualizado };
-            const resultado = await conectApi.atualizaConversaLeitura(idDoChat, conversaAtualizada);
-            if (resultado.statusConexao < 199 && resultado.statusConexao > 300){
-                alert(`Erro: ${resultado.statusConexao}!`);
+            // Se houver, atualize as mensagens como lidas
+            if (temMensagemNaoLida) {
+                chatDivScroll.current.scrollTop = chatDivScroll.current.scrollHeight; // Envia o scroll até o final
+                if (!await conectApi.atualizaConversaLeitura(chat,usuarioLogado.usuarioId)){
+                    handleModal("Erro ao acessar o Banco de dados!", "vermelho");
+                };
             };
         };
     };
@@ -189,63 +172,76 @@ function Chat(){
         chatDivScroll.current.scrollTop = chatDivScroll.current.scrollHeight;
     };
 
-    // Função que pega o ID da ultima mensagem para registrar a próxima
+    // Função que pega o ID da ultima mensagem para registrar a próxima (DEPRECATED DELETAR)
     const idDaUltimaMensagem = () =>{
         if (!chat){
             return 0;
         } else {
-            return chatEmFoco[chatEmFoco.length - 1].id;
-        }
+            return chatEmFoco[chatEmFoco.length - 1].id+1;
+        };
     };
 
     // Função que lida o click no botão enviar mensagem
     const handleTextoSubmit = async () => {
-        if (!campoValor){
-            handleModal("Escreva alguma mensagem primeiro!","vermelho");
+        if (!campoValor) {
+            handleModal("Escreva alguma mensagem primeiro!", "vermelho");
         } else {
             const todasMensagens = chatEmFoco ? chatEmFoco : [];
-            const novaMensagem = ({
-                deletado: false,
-                user: usuarioLogado.usuarioNome,
-                user_id: usuarioLogado.usuarioId,
-                hora: pegaHora(),
-                chat: campoValor,
-                data: pegaData(),
-                lido: false,
-                id: idDaUltimaMensagem() + 1,
-            });
-            setCampoValor(""); // Limpe o valor do campo
-            todasMensagens.push(novaMensagem);
-            if (!chat){ // Se é a primeira mensagem da conversa
-                registraConversa(todasMensagens[0]); // Então registra no BD
-            } else {
-                const conversaAtual = await conectApi.recuperaChat(chat);
-                const conversaAtualizada: Conversa = ({
-                    ...conversaAtual.conexaoConvertida,
-                    content: [...todasMensagens]
+            if (destinatario){
+                const novaMensagem: Mensagem = ({
+                    deletado: false,
+                    user: usuarioLogado.usuarioNome,
+                    user_id: usuarioLogado.usuarioId,
+                    hora: pegaHora(),
+                    chat: campoValor,
+                    data: pegaData(),
+                    lido: false,
+                    conversa_id: "", // Não define o valor aqui, será atualizado depois
+                    destinatario_id: destinatario.id,
+                    destinatario: destinatario?.nome || "",
+                    id: idDaUltimaMensagem()
                 });
-                conectApi.atualizaConversa(chat, conversaAtualizada) // Senão, apenas atualiza a lista de mensagens
+    
+                setCampoValor(""); // Limpe o valor do campo
+                todasMensagens.push(novaMensagem);
+    
+                let updatedChat = chat; // Armazena o valor atual de chat
+    
+                if (!updatedChat) { // Se for a primeira mensagem
+                    const novaConversa: Conversa = {
+                        deletado: false,
+                        user_1_id: usuarioLogado.usuarioId,
+                        user_1_nome: usuarioLogado.usuarioNome,
+                        user_2_id: destinatario.id,
+                        user_2_nome: destinatario?.nome || "",
+                    };
+                    const resultado = await conectApi.registraConversa(novaConversa)
+                    if (!resultado.status) {
+                        handleModal(`Houve um erro ao enviar sua mensagem, ${resultado.texto}`, "vermelho");
+                    } else {
+                        updatedChat = resultado.texto; // Atualiza o valor de chat
+                    };
+                };
+    
+                // Atualiza o chat
+                setChat(updatedChat);
+    
+                // Chamada do próximo passo após a atualização de chat
+                registraConversa(novaMensagem, updatedChat);
+                chatDivScroll.current.scrollTop = chatDivScroll.current.scrollHeight;
+                setChatEmFoco(todasMensagens);
             };
-            chatDivScroll.current.scrollTop = chatDivScroll.current.scrollHeight;
-            setChatEmFoco(todasMensagens);
         };
     };
 
     // Função que registra a conversa inicial no BD
-    const registraConversa = async (todasMensagens: ConversaChat) => {
-        const novaConversa: Conversa = {
-            user_1_id: usuarioLogado.usuarioId,
-            user_1_nome: usuarioLogado.usuarioNome,
-            user_2_id: destinatario?.id || 0,
-            user_2_nome: destinatario?.nome || "",
-            deletado: false,
-            content: [todasMensagens],
-        };
-        const resultado = await conectApi.registraConversa(novaConversa);
-        if (resultado.statusConexao < 199 || resultado.statusConexao > 300){
-            handleModal("Houve um erro ao enviar sua mensagem", "vermelho");   
-        } else {
-            setChat(resultado.conexaoConvertida.id);
+    const registraConversa = async (mensagem: Mensagem, chatId: string) => {
+        // Define o valor de conversa_id como o ID da conversa
+        mensagem.conversa_id = chatId;
+        
+        const resultado = await conectApi.registraMensagem(chatId, mensagem);
+        if (!resultado) {
+            handleModal(`Houve um erro ao enviar sua mensagem, ${resultado}`, "vermelho");
         };
     };
 
@@ -295,19 +291,12 @@ function Chat(){
         setModal(false)
         setDeletarConversa(false);
         if (chat){
-            const conversaAtual = await conectApi.recuperaChat(chat);
-            const conversaAtualizada: Conversa = ({
-                ...conversaAtual.conexaoConvertida,
-                content: [...conversaAtual.conexaoConvertida.content]
-            });
-            conversaAtualizada.deletado = true;
-            const resul = await conectApi.atualizaConversa(chat, conversaAtualizada)
-            if (resul.statusConexao > 199 && resul.statusConexao < 299 ){
+            if (await conectApi.deletaConversa(chat)){
                 handleModal("Conversa deletada com sucesso!", "verde");
                 setConversaDeletada(true);
             } else {
                 handleModal("Erro ao deletar conversa! Contate o administrador!", "vermelho");
-            }
+            };
         } else {
             handleModal("Não é possível deletar uma conversa que nunca foi iniciada!", "vermelho");
         };
@@ -320,20 +309,7 @@ function Chat(){
 
     // Função que registra a propriedade "deletado" como true no banco de dados;
     const handleDeletarConfirm = async (id: number) => {
-        const conversaAtual = await conectApi.recuperaChat(chat);
-        const todasMensagens = conversaAtual.conexaoConvertida.content;
-        todasMensagens.map((mensagem: { id: number; deletado: boolean; }) =>{
-            if (mensagem.id === id){
-                mensagem.deletado = true;
-            };
-        });
-        const conversaAtualizada: Conversa = ({
-            ...conversaAtual.conexaoConvertida,
-            content: [...todasMensagens]
-        });
-        const resul = await conectApi.atualizaConversa(chat, conversaAtualizada);
-        setMensagemParaExcluir(0);
-        if (resul.statusConexao > 199 && resul.statusConexao < 299){
+        if (await conectApi.deletaMensagem(chat, id)){
             handleModal("Mensagem deletada com sucesso!", "verde");
             pegaMensagens();
         } else {
@@ -419,18 +395,18 @@ function Chat(){
                             {chatEmFoco && chatEmFoco.length === 0 && <p className={chatStyle.chat_titulo}>Ainda sem mensagens, mande a primeira!</p>}
                             {chatEmFoco && chatEmFoco.map((item, index) => {
                             return (
-                                <div onClick={()=> mensagemParaExcluir !== item.id && !item.deletado && handleDeletMessageClick(item.id)} key={index} className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_outcome : chatStyle.chat_income)}>
+                                <div onClick={()=> !item.deletado && handleDeletMessageClick(item.id)} key={index} className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_outcome : chatStyle.chat_income)}>
                                     <p className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_outcome_text : chatStyle.chat_income_text)}>
                                         {item.user} disse {validaData(item)} às {item.hora}
                                     </p>
                                     <div className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_outcome_balao : chatStyle.chat_income_balao)}>
-                                        <Perfil idDoUsuario={item.user_id} proChat={true} />
+                                        <Perfil idDoUsuario={item.user_id === usuarioLogado.usuarioId ? item.user_id : destinatario?.id} proChat={true} />
                                         {mensagemParaExcluir === item.id && usuarioLogado.usuarioId === item.user_id ? (
                                             // Renderiza a mensagem de confirmação aqui
                                             <div className={chatStyle.chat_deletar_mensagem_container}>
                                                 <p className={chatStyle.chat_deletar_mensagem}>Deletar mensagem?</p>
                                                 <div className={chatStyle.chat_deletar_mensagem_buttons}>
-                                                    <Botao texto={"Não"} cor={"vermelho"} onClick={()=>handleDeletMessageClick(0)}/>
+                                                    <Botao texto={"Não"} cor={"vermelho"} onClick={()=>handleDeletMessageClick(item.id)}/>
                                                     <Botao texto={"Sim"} cor={"verde"} onClick={()=>handleDeletarConfirm(item.id)}/>
                                                 </div>
                                             </div>
@@ -494,5 +470,6 @@ function Chat(){
         </div>
     )
 };
+
 
 export default Chat;

@@ -11,7 +11,7 @@ interface BalaoProps {
   icone?: string;
   cor?: string;
   texto?: string;
-  perfilID?: number;
+  perfilID?: string;
   autor?: string;
   mensagem?: string;
   nomeDoContato?: string;
@@ -68,7 +68,7 @@ function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contat
       case "chat":
         return (
           <div className={style.chat_container}>
-            <Perfil idDoUsuario={perfilID  || 0} />
+            <Perfil idDoUsuario={perfilID  || ""} />
             <svg className={style.chat_container_svg} width="190" height="75" viewBox="0 0 172 75">
               <g>
                 <rect width="169.102439" height="70.266926" rx="35.13" ry="35.13" transform="translate(2.897562 2.366537)" fill="#ffffff"/>

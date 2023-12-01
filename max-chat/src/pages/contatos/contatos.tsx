@@ -10,16 +10,19 @@ import { conectApi } from "../../Services/conectaApi";
 
 function Contatos(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
-    const [contatos, setContatos] = useState<{ idInternoDoContato: number; email: string, nome: string, apelido: string }[]>([]);
+    const [contatos, setContatos] = useState<{ user_id: string; email: string, nome: string, apelido: string }[]>([]);
 
     useEffect( () => {
         if (!usuarioLogado){ // Se não estiver logado
             window.location.href="/" // Redireciona para tela de Login
-        }
+        };
         const pegaContatos = async () => {
-            const todosUsuarios = await conectApi.recuperaUsuarioPorID(usuarioLogado.usuarioId);
-            const todosContatos = todosUsuarios.conexaoConvertida.contatos;
-            setContatos(todosContatos);
+            const todosContatos = await conectApi.recuperaContatosPorID(usuarioLogado.usuarioId);
+            if (todosContatos){
+                setContatos(todosContatos);
+            } else {
+                // Avisar que não localizou nenhum contato! FAZER
+            };
         };
 
         pegaContatos();

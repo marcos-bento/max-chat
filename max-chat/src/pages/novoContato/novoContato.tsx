@@ -10,7 +10,8 @@ import Modal from "../../components/modal/modal";
 import Input from "../../components/formulario/input/input";
 import Botao from "../../components/botao/botao";
 import { useUser } from "../../Services/userContext";
-import adicionaContato from "../../Services/adicionaContato";
+import { conectApi } from "../../Services/conectaApi";
+import { Contatos } from "../../Interfaces/contato";
 
 function NovoContato(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
@@ -49,15 +50,47 @@ function NovoContato(){
         setModalButton(corBotao)
     };
 
+    const validaSeContatoJaExiste = async (id: string) => {
+        try{
+            const listaDeContatos = await conectApi.recuperaContatosPorID(usuarioLogado.usuarioId);
+            if (listaDeContatos){ // Se a lista de contatos existe, valide-a:
+                for (let i=0;i < listaDeContatos.length; i++){
+                    if (listaDeContatos[i].email === email){
+                        // Se encontrar o registro, retorna True
+                        return true;
+                    };
+                };
+                return false;
+            } else { // Se a lista de contatos não existe é porque não foi criada a subcoleção
+                return false;
+            };
+        } catch (error){
+            handleModal(`Erro ao acessar o banco de dados: ${error}`,"vermelho");
+        };
+    };
+
     const onAddContato = async (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.preventDefault();
         if (email && emailValido){
-            const resultado = await adicionaContato(usuarioLogado.usuarioId, usuarioLogado.usuarioEmail, email, apelido);
-            if (!resultado.retorno){
-                handleModal(resultado.texto, "vermelho");
+            // Primeiro consulta se o usuário está cadastrado:
+            const usuarioDestino = await conectApi.recuperaUsuarioPorEmail(email);
+            if (usuarioDestino && await validaSeContatoJaExiste(usuarioLogado.usuarioId) === false){
+                // Depois valida se o usuário já faz parte da lista de contatos:
+                const novoContato: Contatos = {
+                    apelido: apelido,
+                    email: email,
+                    nome: usuarioDestino.nome,
+                    user_id: usuarioLogado.usuarioId
+                };
+                const resultado = await conectApi.registraContato(usuarioLogado.usuarioId, novoContato);
+                if (resultado){
+                    setContatoAdicionado(true);
+                    handleModal(`Adicionado ${apelido ? apelido : usuarioDestino.nome} com sucesso!`, "verde");
+                } else {
+                    handleModal(resultado, "vermelho");
+                };
             } else {
-                setContatoAdicionado(true);
-                handleModal(resultado.texto, "verde");
+                handleModal("Este email ainda não possui cadastro ou já é seu contato!", "vermelho");
             }
         } else {
             handleModal("Contato incorreto ou já existente", "vermelho");

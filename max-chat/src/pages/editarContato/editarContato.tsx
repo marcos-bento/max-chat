@@ -13,13 +13,10 @@ import { useUser } from "../../Services/userContext";
 import { conectApi } from "../../Services/conectaApi";
 import { useContatoEmFoco } from "../../Services/contatoContext";
 import Botao from "../../components/botao/botao";
-import atualizaContato from "../../Services/atualizaContato";
-import deletarContato from "../../Services/deletarContato";
-import { Contatos } from "../../Interfaces/contato";
 
 function EditarContato(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
-    const [ dadosDoContato, setDadosDoContato ] = useState<{ id: number; email: string, nome: string, apelido: string }>();
+    const [ dadosDoContato, setDadosDoContato ] = useState<{ user_id: string; email: string, nome: string, apelido: string }>();
     const { contatoEmFoco, setContatoEmFoco } = useContatoEmFoco();
     const [apelido, setApelido] = useState("");
     const [modal, setModal] = useState(false);
@@ -41,10 +38,11 @@ function EditarContato(){
 
     // Função responsável por acessar o BD e extrair os dados do contato a ser editado.
     const recuperaContato = async () =>{
-        const usuario = await conectApi.recuperaUsuarioPorID(usuarioLogado.usuarioId);
-        const contatos = usuario.conexaoConvertida.contatos;
-        const destinatario = contatos.find((contato: { email: string; }) => contato.email === contatoEmFoco);
-        setDadosDoContato(destinatario);
+        const contatos = await conectApi.recuperaContatosPorID(usuarioLogado.usuarioId);
+        if (contatos){
+            const destinatario = contatos.find((contato: { email: string; }) => contato.email === contatoEmFoco);
+            setDadosDoContato(destinatario);
+        };
     };
 
     // Função para gerenciar o estado do Input Apelido
@@ -85,28 +83,20 @@ function EditarContato(){
 
     // Função responsável por atualizar o contato da lista do usuário
     const handleModalOkAtualiza = async () => {
-        const resultado = await atualizaContato(usuarioLogado.usuarioId, contatoEmFoco ,apelido);
-        setModal(false)
+        const resultado = await conectApi.atualizarApelidoDoContato(usuarioLogado.usuarioId, contatoEmFoco ,apelido);
+        setModal(false);
         setModoAtualizar(false);
-        if (resultado.retorno){
-            recuperaContato();
-            handleModal(resultado.texto, "verde");
-        } else {
-            handleModal(resultado.texto, "vermelho");
-        };
+        handleModal(resultado, "verde");
+        recuperaContato();
     };
 
     // Função responsável por deletar o contato da lista do usuário
     const handleModalOkDeletar = async () => {
-        const resultado = await deletarContato(usuarioLogado.usuarioId, contatoEmFoco);
+        const resultado = await conectApi.deletarContatoPorId(usuarioLogado.usuarioId, contatoEmFoco);
         setModal(false)
         setModoDeletarContato(false);
-        if (resultado.retorno){
-            handleModal(resultado.texto, "verde");
-            setContatoDeletado(true);
-        } else {
-            handleModal(resultado.texto, "vermelho");
-        };
+        setContatoDeletado(true);
+        handleModal(resultado, "verde");
     };
 
     // Função responsável por gerenciar o click do botão "Limpar apelido"
@@ -117,26 +107,10 @@ function EditarContato(){
 
     // Função responsável por editar o apelido do contato para "" e salvar no bd
     const handleModalOkDeletarAlias = async () => {
-        handleModalOk();
-        if (dadosDoContato){
-            const usuario = await conectApi.recuperaUsuarioPorID(usuarioLogado.usuarioId);
-            const contatos = usuario.conexaoConvertida;
-            let contatosAtualizados = {...contatos, contatos:[]}; // Recebe os dados do usuario mas não dos contatos
-            contatosAtualizados.contatos = contatos.contatos.map((contato: Contatos) =>{
-                if (contato.email === dadosDoContato.email){
-                    return {...contato, apelido:''};
-                } else {
-                    return contato;
-                };
-            });
-            const resul = await conectApi.atualizaUsuario(usuarioLogado.usuarioId, contatosAtualizados);
-            if (resul.statusConexao > 199 && resul.statusConexao < 299){
-                recuperaContato();
-                handleModal("Apelido deletado com sucesso!", "verde");
-            } else{
-                handleModal(`Erro ao deletar apelido! Erro: ${resul.statusConexao}, contate o administrador!`, "vermelho");
-            };
-        };
+        setModoLimparApelido(false);
+        const resultado = await conectApi.atualizarApelidoDoContato(usuarioLogado.usuarioId, contatoEmFoco ,""); 
+        handleModal(resultado,"verde");  
+        recuperaContato();
     };
 
     return(

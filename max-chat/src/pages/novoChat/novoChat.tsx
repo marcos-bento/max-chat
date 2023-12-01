@@ -16,25 +16,22 @@ function NovoChat(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
     const { contatoEmFoco, setContatoEmFoco } = useContatoEmFoco();
     const [ listaEmBranco, setListaEmBranco ] = useState(false);
+    const [ listaDeContatos, setListaDeContatos ] = useState<{email: string, nome: string, apelido: string}[]>()
+
 
     useEffect( () => {
         if (!usuarioLogado){ // Se não estiver logado
             window.location.href="/" // Redireciona para tela de Login
         }
         const pegaContatos = async () => {
-            const usuario = await conectApi.recuperaUsuarioPorID(usuarioLogado.usuarioId);
-            if (usuario.conexaoConvertida && usuario.conexaoConvertida.contatos){
-                const contatos = usuario.conexaoConvertida.contatos;
-                if (contatos.length < 1){
-                    setListaEmBranco(true);
-                } else {
-                    setListaEmBranco(false);
-                };
+            const contatos = await conectApi.recuperaContatosPorID(usuarioLogado.usuarioId);
+            if (!contatos){
+                setListaEmBranco(true);
             } else {
-                alert("Erro ao carregar os dados do usuário!");
+                setListaEmBranco(false);
+                setListaDeContatos(contatos);
             };
         };
-
         pegaContatos();
     }, []);
     
@@ -45,12 +42,14 @@ function NovoChat(){
                 <h3 className={style.titulo}>Nova conversa</h3>
                 <div className={style.conversas}>
                     <Modal altura={0}>
-                        <div className={styleNovoChat.novoChat}>
-                            <p>Selecione o contato:</p>
-                            <Select placeholder={"Selecione o contato"}/>
-                            {listaEmBranco && <p style={{textAlign:"center"}}>Parece que você ainda não tem nenhum contato! <br></br><br></br>
-                            Primeiro adicione algum contato. Para isso <Link to="/novoContato">clique aqui</Link></p>}
-                        </div>
+                        {listaDeContatos ? (
+                            <div className={styleNovoChat.novoChat}>
+                                <p>Selecione o contato:</p>
+                                <Select placeholder={"Selecione o contato"} contatos={listaDeContatos}/>
+                            </div>
+                        ) : (
+                            <p style={{ textAlign: "center" }}>Carregando contatos...</p>
+                        )}
                     </Modal>
                     <Link to="/chat">
                         <Balao tipo={"botao"} icone={"fa-solid fa-comment-dots"} cor={"azul"} texto={"Iniciar conversa"}/>

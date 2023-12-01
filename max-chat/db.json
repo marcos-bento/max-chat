@@ -278,7 +278,7 @@
           "user": "Marcos Bento",
           "user_id": 1,
           "hora": "17:04",
-          "chat": "Tudo beleza meu querido?",
+          "chat": "Mensagem apagada",
           "data": "2023-10-02",
           "lido": true,
           "id": 2
@@ -292,6 +292,16 @@
           "data": "2023-11-21",
           "lido": true,
           "id": 3
+        },
+        {
+          "deletado": false,
+          "user": "Marcos Bento",
+          "user_id": 1,
+          "hora": "13:33",
+          "chat": "Tudo bem ?",
+          "data": "2023-11-23",
+          "lido": false,
+          "id": 4
         }
       ],
       "id": 3

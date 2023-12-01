@@ -12,6 +12,9 @@ import { useUser } from "../../Services/userContext";
 import Botao from "../../components/botao/botao";
 import { conectApi } from "../../Services/conectaApi";
 import { Cadastro } from "../../Interfaces/cadastro";
+import { auth } from "../../Services/firebase";
+import { EmailAuthProvider, User, getAuth, reauthenticateWithCredential, updatePassword } from "firebase/auth";
+import { UsuarioLogado } from "../../Services/usuarioLogado";
 
 function EditarPerfil(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
@@ -33,7 +36,7 @@ function EditarPerfil(){
 
         const  consultaGravatar = async () =>{
             const usuario = await conectApi.recuperaUsuarioPorID(usuarioLogado.usuarioId);
-            if (usuario.conexaoConvertida.gravatar){
+            if (usuario && usuario.gravatar){
                 setGravatarInput(true);
                 setGravatarBancoDados(true);
             };
@@ -41,9 +44,9 @@ function EditarPerfil(){
 
         const consultaImagem = async () => {
             const usuario = await conectApi.recuperaUsuarioPorID(usuarioLogado.usuarioId);
-            if (usuario.conexaoConvertida.imagem){
+            if (usuario && usuario.imagem){
                 setPossuiImagem(true);
-                setImagem(usuario.conexaoConvertida.imagem);
+                setImagem(usuario.imagem);
             };
         };
         consultaGravatar();
@@ -92,28 +95,41 @@ function EditarPerfil(){
         setImagem("");
         setBotaoValida(true);
         handleModal("Tem certeza que deseja deletar a imagem atual de perfil? Isso é irreversível!", "verde");
-    }
+    };
 
     const handleAlterarPerfil = async () => {
         setBotaoValida(false);
-        const usuario = await conectApi.recuperaUsuarioPorID(usuarioLogado.usuarioId);
-        const dadosDoUsuario = usuario.conexaoConvertida;
-        let novosDados: Cadastro = {
-            email: dadosDoUsuario.email,
-            nome: (nome || nome !== "" ? nome : dadosDoUsuario.nome),
-            senha: (senha || senha !== "" ? senha : dadosDoUsuario.senha),
-            imagem: (imagem  || imagem !== "" ? imagem : possuiImagem ? imagem : dadosDoUsuario.imagem),
-            gravatar: gravatarInput, 
-            contatos: dadosDoUsuario.contatos
+        // Primeiro atualiza a senha (se foi alterada!)
+        let statusSenha = "";
+        if (senha){
+            const auth = getAuth();
+            if (auth){
+                try{
+                    await updatePassword(auth.currentUser as User, senha)
+                } catch (error) {
+                    statusSenha = `Erro ao atualizar a senha: ${error}`;
+                };
+            };
         };
-        const resultado = await conectApi.atualizaUsuario(usuarioLogado.usuarioId, novosDados);
-        if (resultado.statusConexao > 199 && resultado.statusConexao < 299){
-            usuarioLogado.usuarioNome = novosDados.nome;
-            usuarioLogado.usuarioImagem = novosDados.imagem;
-            handleModal("Cadastro atualizado com sucesso!", "verde");
+
+        if (!imagem){
+            setPossuiImagem(false);
         } else {
-            handleModal("Erro ao tentar atualizar cadastro.", "vermelho")
+            setPossuiImagem(true);
         };
+
+        // Depois atualiza nome, imagem e gravatar
+        const usuarioAtualizado = {
+            email: usuarioLogado.usuarioEmail,
+            nome: (nome ? nome : usuarioLogado.usuarioNome),
+            imagem: imagem,
+            gravatar: gravatarInput,
+        };
+
+        const resultado = await conectApi.atualizaUsuario(usuarioLogado.usuarioId, usuarioAtualizado);
+        setUsuarioLogado(new UsuarioLogado(usuarioLogado.usuarioId, (nome ? nome : usuarioLogado.usuarioNome), usuarioLogado.usuarioEmail, (imagem || gravatarInput && "gravatar" || "")));
+
+        handleModal(`${resultado} - ${(statusSenha && statusSenha)}`,"verde");
     };
 
     return(

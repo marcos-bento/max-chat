@@ -1,10 +1,7 @@
-import { Contatos } from "./contato";
-
-export interface User {
-    id: number;
+export interface Usuario {
+    id: string;
     email: string;
     nome: string;
-    senha: string;
     imagem: string;
-    contato: Contatos[];
-}
+    gravatar: boolean;
+};
