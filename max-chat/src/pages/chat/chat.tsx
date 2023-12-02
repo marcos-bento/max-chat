@@ -122,11 +122,14 @@ function Chat(){
         } else { // Se não vamos criar uma conversa do zero:
             const usuarioDestino = await conectApi.recuperaUsuarioPorEmail(contatoEmFoco);
             if (usuarioDestino){
-                setDestinatario({
-                    nome: usuarioDestino.nome,
-                    email: usuarioDestino.email,
-                    id: usuarioDestino.id,
-                }); 
+                const idPk = await conectApi.recuperaIDPorCampoUserID(usuarioDestino.id);
+                if (idPk){
+                    setDestinatario({
+                        nome: usuarioDestino.nome,
+                        email: usuarioDestino.email,
+                        id: idPk,
+                    }); 
+                };
             };    
         };
     };

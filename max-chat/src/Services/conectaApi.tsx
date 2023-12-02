@@ -10,7 +10,7 @@ interface UsuarioData {
     imagem: string;
     gravatar: boolean;
     email: string;
-}
+};
 
 // Registra um usuário novo
 async function registraUsuario(usuario: Usuario): Promise<string> {
