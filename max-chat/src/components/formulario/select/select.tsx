@@ -35,7 +35,7 @@ function Select({placeholder, contatos}:Props){
     
     return (
         <select className={Style.input} placeholder={placeholder} {...(contatoEmFoco && { value: contatoEmFoco })} onChange={handleOnSelect}>
-            {contatos && contatos.map((contato, index) => {return (
+            {contatos && contatos.length > 0 && contatos.map((contato, index) => {return (
                 <option key={index} value={contato.email}>
                     {(contato.apelido ? contato.apelido : contato.nome)}
                 </option>)}

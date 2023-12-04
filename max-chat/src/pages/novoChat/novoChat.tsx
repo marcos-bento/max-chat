@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import style from "../../Common/CSS/conteudo.module.css"
 import styleNovoChat from "./novoChat.module.css"
 import { Link } from 'react-router-dom';
@@ -27,6 +27,12 @@ function NovoChat(){
             const contatos = await conectApi.recuperaContatosPorID(usuarioLogado.usuarioId);
             if (!contatos){
                 setListaEmBranco(true);
+                const contatoEmBranco: any = {
+                    email: "",
+                    nome: "",
+                    apelido: "",
+                };
+                setListaDeContatos(contatoEmBranco);
             } else {
                 setListaEmBranco(false);
                 setListaDeContatos(contatos);
@@ -50,6 +56,8 @@ function NovoChat(){
                         ) : (
                             <p style={{ textAlign: "center" }}>Carregando contatos...</p>
                         )}
+
+                        {listaEmBranco && <p className={styleNovoChat.mensagem_agenda_vazia}>Opa! parece que você não tem nenhum contato na sua lista!<br></br>Que tal <Link to="/novoContato">adicionar um contato</Link> ?</p>}
                     </Modal>
                     <Link to="/chat">
                         <Balao tipo={"botao"} icone={"fa-solid fa-comment-dots"} cor={"azul"} texto={"Iniciar conversa"}/>

@@ -191,7 +191,7 @@ function Chat(){
         } else {
             const todasMensagens = chatEmFoco ? chatEmFoco : [];
             if (destinatario){
-                const timestamp = new Date().toISOString();
+                const timestamp = new Date().toLocaleString();
                 
                 const novaMensagem: Mensagem = ({
                     deletado: false,
