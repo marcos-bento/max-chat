@@ -110,7 +110,6 @@ function Chat(){
                 };
 
                 const mensagens = await conectApi.recuperaTodasMensagensPorId(chat) as Mensagem[];
-                console.log("mensagens: ",mensagens);
                 const mensagensFiltradas = verificaMensagensDeletadas(mensagens);
                 if (conversa.deletado){
                     setConversaDeletada(true);

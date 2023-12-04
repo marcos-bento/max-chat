@@ -13,6 +13,7 @@ import { db, auth } from '../../Services/firebase';
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { conectApi } from "../../Services/conectaApi";
 import { Usuario } from "../../Interfaces/user";
+import Icone from "../icone/icone";
 
 // ################
 
@@ -26,6 +27,7 @@ function Formulario({type = "" }: { type?: string }) {
   const [modalButton, setModalButton] = useState("");
   const { usuarioLogado, setUsuarioLogado } = useUser();
   const [logado, setLogado] = useState(false);
+  const [carregando, setCarregando] = useState(false);
 
   // Função que atualiza o valor digitado no e-mail
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,23 +83,29 @@ function Formulario({type = "" }: { type?: string }) {
   
   // Valida o login (FIREBASE)
   const fazerLogin = async (event: Event) => {
+    setCarregando(true);
     event.preventDefault();
     if (emailValido) {
       await signInWithEmailAndPassword(auth, email, senha).then((userCredencial)=>{
         criaEstadoLogado(userCredencial.user.uid);
+        setCarregando(false);
         handleModal('Usuário logado com sucesso!','verde');
         setLogado(true);
       })
       .catch ((error)=>{
+        setCarregando(false);
         handleModal(`Erro ao fazer login: ${error.code}`,'vermelho');
       });
     } else {
+      setCarregando(false);
       handleModal("Email inválido!",'vermelho');
-    }
+    };
+    
   };
 
   // Valida o registro (FIREBASE)
   const cadastrarUsuario = async () => {
+    setCarregando(true);
     if (emailValido) {
       if (email !== "" && senha !== "" && nome !== ""){ 
         try {
@@ -118,22 +126,39 @@ function Formulario({type = "" }: { type?: string }) {
 
           const resul = await conectApi.registraUsuario(dadosUsuario);
           setLogado(true);
+          setCarregando(false);
           handleModal(resul, 'verde');
           await criaEstadoLogado(userCredencial.user.uid);
 
         } catch (error) {
+          setCarregando(false);
           handleModal(`Erro ao cadastrar usuário: ${error}`, 'vermelho');
         };
       } else {
+        setCarregando(false);
         handleModal('Preencha todos os campos para registrar um usuário!', 'vermelho');
       };
     } else {
+      setCarregando(false);
       handleModal("Email inválido!",'vermelho');
     };
   };
 
   return (
     <div className={type === "" ? style.formulario : style.formulario_medio}>
+
+      {carregando && <div className={stdStyle.modal_alert}>
+        {/* Modal */}
+        <Modal altura={0}>
+          <div className={stdStyle.modal_alert_content}>
+            <p>Por favor aguarde! Carregando!</p>
+            <div className={stdStyle.modal_alert_content_loading}>
+              <Icone icon={"fa-solid fa-spinner"}/>
+            </div>
+          </div>
+        </Modal>
+      </div>}
+
       {modal && <div className={stdStyle.modal_alert}>
         {/* Modal */}
         <Modal altura={0}>
