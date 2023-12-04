@@ -8,26 +8,42 @@ import BotaoGrande from "../../components/botaoGrande/botaoGrande";
 import { useUser } from "../../Services/userContext";
 import { useChat } from "../../Services/chatContext";
 // Database imports
-import { collection, getDocs, where, query } from 'firebase/firestore';
-import { auth, db } from '../../Services/firebase';
+import { collection, getDocs, onSnapshot, query, where } from 'firebase/firestore';
+import { db } from '../../Services/firebase';
 import { conectApi } from "../../Services/conectaApi";
-// ################
 
-function Menu(){
-    const { usuarioLogado, setUsuarioLogado } = useUser();
-    const { chat, setChat } = useChat();
-    const [conversasDoUsuario, setConversasDoUsuario] = useState<{chat: string, user: string, user_id: string, conversa_id: string, deletado: boolean, destinatario: string,  destinatario_id: string, data: string, hora: string }[]>([]);
-    
-    useEffect( () => {
+function Menu() {
+    const { usuarioLogado } = useUser();
+    const { setChat } = useChat();
+    const [conversasDoUsuario, setConversasDoUsuario] = useState<{ chat: string, user: string, user_id: string, conversa_id: string, deletado: boolean, destinatario: string, destinatario_id: string, data: string, hora: string }[]>([]);
+
+    useEffect(() => {
         const pegaMensagens = async () => {
-            if (usuarioLogado){
+            if (usuarioLogado) {
                 const mensagens = await conectApi.recuperaUltimasMensagensPorId(usuarioLogado.usuarioId, 3);
                 setConversasDoUsuario(mensagens);
-            };
+            }
         };
 
-        pegaMensagens();
-    }, []);
+        const unsubscribeChats = onSnapshot(collection(db, 'chats'), (snapshot) => {
+            // Chame a função pegaMensagens() sempre que houver uma atualização na coleção 'chats'
+            pegaMensagens();
+
+            // Acesse a subcoleção 'content' de cada documento
+            snapshot.docs.forEach((doc) => {
+                const contentCollection = collection(db, 'chats', doc.id, 'content');
+                const unsubscribeContent = onSnapshot(contentCollection, () => {
+                    // Chame a função pegaMensagens() sempre que houver uma atualização na subcoleção 'content'
+                    pegaMensagens();
+                });
+            });
+        });
+
+        // Certifique-se de cancelar a inscrição para evitar vazamentos de memória
+        return () => {
+            unsubscribeChats();
+        };
+    }, [usuarioLogado]);
 
     return(
         <div className={style.pagina}>
