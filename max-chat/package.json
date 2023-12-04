@@ -9,7 +9,6 @@
     "db.json"
   ],
   "devDependencies": {
-    "concurrently": "^8.2.2",
     "typescript-plugin-css-modules": "^5.0.2"
   },
   "dependencies": {
@@ -22,19 +21,17 @@
     "@types/react-dom": "^18.2.14",
     "bootstrap": "^5.3.2",
     "gravatar": "^1.8.2",
-    "json-server": "^0.17.4",
     "node-sass": "^9.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.17.0",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "firebase": "^10.6.0"
   },
   "scripts": {
-    "start-react": "set PORT=3001 && react-scripts --openssl-legacy-provider start",
-    "start-json-server": "json-server --watch db.json",
-    "start": "concurrently \"npm run start-react\" \"npm run start-json-server\"",
+    "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -4,7 +4,7 @@ Projeto desenvolvido para praticar e aperfeiçoar as habilidades adquiridas ao l
 | :placard: Vitrine.Dev |     |
 | -------------  | --- |
 | :sparkles: Nome        | **Max-Chat**
-| :label: Tecnologias | React, Typescript, HTML, css, REST API.
+| :label: Tecnologias | React, Typescript, HTML, css, FireBase.
 | :rocket: URL         | em breve
 
 <!-- Inserir imagem com a #vitrinedev ao final do link -->

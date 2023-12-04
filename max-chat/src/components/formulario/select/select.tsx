@@ -18,9 +18,9 @@ function Select({placeholder, contatos}:Props){
         if (!usuarioLogado){ // Se não estiver logado
             window.location.href="/" // Redireciona para tela de Login
         };
-
+        
         const recuperaContatos = async () =>{
-            if (contatos.length > 0 && !contatoEmFoco){
+            if (contatos.length > 0){
                 setContatoEmFoco(contatos[0].email);
             };
             setChat("");

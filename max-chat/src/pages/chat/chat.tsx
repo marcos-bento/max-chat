@@ -110,6 +110,7 @@ function Chat(){
                 };
 
                 const mensagens = await conectApi.recuperaTodasMensagensPorId(chat) as Mensagem[];
+                console.log("mensagens: ",mensagens);
                 const mensagensFiltradas = verificaMensagensDeletadas(mensagens);
                 if (conversa.deletado){
                     setConversaDeletada(true);
@@ -313,10 +314,16 @@ function Chat(){
         setMensagemParaExcluir(id);
     };
 
+    // Função que gerencia o estado da mensagem para ser excluída
+    const handleDeletMessageCancel = () => {
+        setMensagemParaExcluir(null);
+    };
+
     // Função que registra a propriedade "deletado" como true no banco de dados;
     const handleDeletarConfirm = async (id: number) => {
         if (await conectApi.deletaMensagem(chat, id)){
             handleModal("Mensagem deletada com sucesso!", "verde");
+            handleDeletMessageCancel();
             pegaMensagens();
         } else {
             handleModal("Erro ao deletar mensagem! Contate o administrador!","vermelho");
@@ -401,7 +408,7 @@ function Chat(){
                             {chatEmFoco && chatEmFoco.length === 0 && <p className={chatStyle.chat_titulo}>Ainda sem mensagens, mande a primeira!</p>}
                             {chatEmFoco && chatEmFoco.map((item, index) => {
                             return (
-                                <div onClick={()=> !item.deletado && handleDeletMessageClick(item.id)} key={index} className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_outcome : chatStyle.chat_income)}>
+                                <div onClick={()=> !item.deletado && mensagemParaExcluir !== item.id && handleDeletMessageClick(item.id)} key={index} className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_outcome : chatStyle.chat_income)}>
                                     <p className={(item.user === usuarioLogado.usuarioNome ? chatStyle.chat_outcome_text : chatStyle.chat_income_text)}>
                                         {item.user} disse {validaData(item)} às {item.hora}
                                     </p>
@@ -412,7 +419,7 @@ function Chat(){
                                             <div className={chatStyle.chat_deletar_mensagem_container}>
                                                 <p className={chatStyle.chat_deletar_mensagem}>Deletar mensagem?</p>
                                                 <div className={chatStyle.chat_deletar_mensagem_buttons}>
-                                                    <Botao texto={"Não"} cor={"vermelho"} onClick={()=>handleDeletMessageClick(item.id)}/>
+                                                    <Botao texto={"Não"} cor={"vermelho"} onClick={()=>handleDeletMessageCancel()}/>
                                                     <Botao texto={"Sim"} cor={"verde"} onClick={()=>handleDeletarConfirm(item.id)}/>
                                                 </div>
                                             </div>

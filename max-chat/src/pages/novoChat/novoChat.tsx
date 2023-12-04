@@ -59,9 +59,10 @@ function NovoChat(){
 
                         {listaEmBranco && <p className={styleNovoChat.mensagem_agenda_vazia}>Opa! parece que você não tem nenhum contato na sua lista!<br></br>Que tal <Link to="/novoContato">adicionar um contato</Link> ?</p>}
                     </Modal>
+                    {!listaEmBranco && 
                     <Link to="/chat">
                         <Balao tipo={"botao"} icone={"fa-solid fa-comment-dots"} cor={"azul"} texto={"Iniciar conversa"}/>
-                    </Link>
+                    </Link>}
                 </div>
             </section>
             <section className={style.containerDeBotoes}>

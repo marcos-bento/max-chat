@@ -51,6 +51,9 @@
   gap: 1rem;
   padding-right: 0.8rem;
 }
+.navbar .bell_container_stopped {
+  font-size: 16px;
+}
 .navbar .bell_container {
   animation: sinoPulando 0.8s infinite;
 }

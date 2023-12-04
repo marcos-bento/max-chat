@@ -78,6 +78,10 @@ function Cabecalho() {
     setSinoClick(true);
   };
 
+  const handleSinoClickNoLogged = () =>{
+    setSinoClick(false);
+  };
+
   return (
       <header className={style.navbar}>
         {/* First element: Logo */}
@@ -92,7 +96,7 @@ function Cabecalho() {
           </Link>
         </div>
         {/* Third element: Bell Ícon */}
-        <div className={usuarioLogado && temNovaMensagem && style.bell_container} onClick={usuarioLogado && handleSinoClick}>
+        <div className={usuarioLogado && temNovaMensagem ? style.bell_container : style.bell_container_stopped} onClick={usuarioLogado ? handleSinoClick : handleSinoClickNoLogged}>
           <Icon icon = "fa-solid fa-bell"/>
         </div>
         {sinoClick && 
