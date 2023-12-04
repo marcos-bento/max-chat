@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export interface Mensagem {
     deletado: boolean;
     user: string;
@@ -10,5 +12,5 @@ export interface Mensagem {
     destinatario_id: string;
     destinatario: string;
     id: number;
-    
+    timestamp: string;
 };

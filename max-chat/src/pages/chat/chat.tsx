@@ -191,6 +191,8 @@ function Chat(){
         } else {
             const todasMensagens = chatEmFoco ? chatEmFoco : [];
             if (destinatario){
+                const timestamp = new Date().toISOString();
+                
                 const novaMensagem: Mensagem = ({
                     deletado: false,
                     user: usuarioLogado.usuarioNome,
@@ -202,7 +204,8 @@ function Chat(){
                     conversa_id: "", // Não define o valor aqui, será atualizado depois
                     destinatario_id: destinatario.id,
                     destinatario: destinatario?.nome || "",
-                    id: idDaUltimaMensagem()
+                    id: idDaUltimaMensagem(),
+                    timestamp: timestamp, // Adiciona o timestamp ao objeto novaMensagem
                 });
     
                 setCampoValor(""); // Limpe o valor do campo

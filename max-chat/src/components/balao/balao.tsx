@@ -41,10 +41,11 @@ function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contat
   };
 
   // Função que valida quando a mensagem foi enviada para retornar "hoje", "ontem" ou "dd/mm"
-  const validaData = (data: any) => {
+  const validaData = (data: string) => {
     const dataMensagem = new Date(data);
     const hoje = new Date();
     const ontem = new Date(hoje);
+
     ontem.setDate(hoje.getDate() - 1);
 
     // Ajusta para a mesma hora, minutos, segundos e milissegundos
@@ -58,7 +59,7 @@ function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contat
         return 'ontem';
     } else {
         const dd = String(dataMensagem.getDate()).padStart(2, '0');
-        const mm = String(dataMensagem.getUTCMonth() + 1).padStart(2, '0');
+        const mm = String(dataMensagem.getMonth() + 1).padStart(2, '0');
         return `${dd}/${mm}`;
     }
   };    

@@ -22,7 +22,6 @@ function Menu(){
         const pegaMensagens = async () => {
             if (usuarioLogado){
                 const mensagens = await conectApi.recuperaUltimasMensagensPorId(usuarioLogado.usuarioId, 3);
-                console.log("mensagens ",mensagens);
                 setConversasDoUsuario(mensagens);
             };
         };
@@ -39,7 +38,7 @@ function Menu(){
                 <div className={style.conversas}>
                     {conversasDoUsuario && conversasDoUsuario.length > 0 && conversasDoUsuario.map((item, index) =>{
                         return <Link key={index} to="/chat" onClick={() => setChat(item.conversa_id)}>
-                            <p className={style.conversas_destinatario}>Conversa com: {item.destinatario}</p>
+                            <p className={style.conversas_destinatario}>Conversa com: {item.destinatario === usuarioLogado.usuarioNome ? item.user : item.destinatario}</p>
                             <Balao key={index} tipo={"chat"} perfilID={item.destinatario_id === usuarioLogado.usuarioId ? item.user_id : item.destinatario_id} autor={item.user} mensagem={item.chat} dataDaMensagem={item.data} horaDaMensagem={item.hora}/>
                         </Link>
                     })}

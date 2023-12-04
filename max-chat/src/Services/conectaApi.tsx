@@ -216,8 +216,7 @@ async function recuperaUltimasMensagensPorId(idLogado: string, limitador?: numbe
         const mensagensPromises = chatsSnapshot.docs.map(async (chatDoc) => {
             const contentQuery = query(
                 collection(chatDoc.ref, "content"),
-                orderBy('data', 'desc'), // Ordena por data em ordem decrescente
-                orderBy('hora', 'desc'), // Em caso de empate, ordena por hora em ordem decrescente
+                orderBy('timestamp', 'desc'), // Alteração aqui para ordenar pelo timestamp
                 limit(1)
             );
 
@@ -225,17 +224,27 @@ async function recuperaUltimasMensagensPorId(idLogado: string, limitador?: numbe
 
             if (!contentSnapshot.empty) {
                 // O documento mais recente na subcoleção "content"
-                const ultimaMensagem = contentSnapshot.docs[0].data();
+                const ultimaMensagem = contentSnapshot.docs[0].data() as Mensagem;
                 return ultimaMensagem;
             }
         });
 
-        return Promise.all(mensagensPromises);
+        const mensagens = await Promise.all(mensagensPromises);
+        return mensagens.filter((mensagem) => mensagem !== undefined) as Mensagem[]; // Filtra e converte para Mensagem[]
     };
 
-    let todasMensagens: any = [];
+    let todasMensagens: Mensagem[] = [];
     todasMensagens.push(...(await processChatsSnapshot(chatsSnapshotUser1)));
     todasMensagens.push(...(await processChatsSnapshot(chatsSnapshotUser2)));
+
+    todasMensagens = todasMensagens.filter((mensagem) => mensagem !== undefined); // Filtra novamente para garantir
+
+    // Ordena as mensagens pelo timestamp, considerando data e hora
+    todasMensagens = todasMensagens.sort((a, b) => {
+        const timestampA = a ? new Date(`${a.data} ${a.hora}`).getTime() : 0;
+        const timestampB = b ? new Date(`${b.data} ${b.hora}`).getTime() : 0;
+        return timestampB - timestampA;
+    });
 
     if (limitador) {
         todasMensagens = todasMensagens.slice(0, limitador);
@@ -243,8 +252,6 @@ async function recuperaUltimasMensagensPorId(idLogado: string, limitador?: numbe
 
     return todasMensagens;
 };
-
-
 
 // Retorna uma conversa específica por ID
 async function recuperaConversaPorId (id: string): Promise<Conversa | string>{
