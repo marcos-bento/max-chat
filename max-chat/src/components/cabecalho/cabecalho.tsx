@@ -10,8 +10,9 @@ import Perfil from '../imagemDePerfil/perfil';
 import Icone from '../../components/icone/icone';
 import { signOut } from 'firebase/auth';
 import { auth, db } from '../../Services/firebase';
-import { collection, getDocs, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, getDocs, onSnapshot} from 'firebase/firestore';
 import { Mensagem } from '../../Interfaces/mensagem';
+import { conectApi } from '../../Services/conectaApi';
 
 function Cabecalho() {
   const { usuarioLogado, setUsuarioLogado } = useUser();
@@ -22,41 +23,39 @@ function Cabecalho() {
   const [temNovaMensagem, setTemNovaMensagem] = useState(false);
 
   useEffect(() => {
-    if (usuarioLogado) {
-      const verificaNovaMensagem = (mensagens: Mensagem[]) => {
-        // Verifique se há alguma mensagem não lida para o usuário atual
-        if (mensagens) {
-          const temMensagemNaoLida = mensagens.some((mensagem: Mensagem) => {
-            return mensagem.user_id !== usuarioLogado.usuarioId && !mensagem.lido;
-          });
-          // Se houver, atualize as mensagens como lidas
-          if (temMensagemNaoLida) {
-            setTemNovaMensagem(true);
-          } else {
-            setTemNovaMensagem(false);
-          }
-        }
-      };
-  
-      const unsubscribeChats = onSnapshot(collection(db, 'chats'), async (snapshot) => {
+    if (usuarioLogado){
+      const unsubscribeChats = onSnapshot(collection(db, 'chats'), (snapshot) => {
         // Acesse a subcoleção 'content' de cada documento
-        for (const doc of snapshot.docs) {
-          const contentCollection = collection(db, 'chats', doc.id, 'content');
-          const contentSnapshot = await getDocs(contentCollection);
-  
-          const mensagens = contentSnapshot.docs.map((mensagemDoc) => mensagemDoc.data() as Mensagem);
-  
-          // Chame a função verificaNovaMensagem sempre que houver uma atualização na subcoleção 'content'
-          verificaNovaMensagem(mensagens);
-        }
+        snapshot.docs.forEach((doc) => {
+            const contentCollection = collection(db, 'chats', doc.id, 'content');
+            const unsubscribeContent = onSnapshot(contentCollection, () => {
+                // Chame a função verificanovamnesagem() sempre que houver uma atualização na subcoleção 'content'
+                verificaNovaMensagem();
+            });
+        });
       });
-  
+
       // Certifique-se de cancelar a inscrição para evitar vazamentos de memória
       return () => {
-        unsubscribeChats();
+          unsubscribeChats();
       };
-    }
+    };
   }, [usuarioLogado]);
+
+  const verificaNovaMensagem = async () => {
+    const mensagens = await conectApi.recuperaUltimasMensagensPorId(usuarioLogado.usuarioId);
+    // Verifique se há alguma mensagem não lida para o usuário atual
+    if (mensagens) {
+      for (const iterator of mensagens) {
+        if (iterator.user_id !== usuarioLogado.usuarioId && !iterator.lido){
+          setTemNovaMensagem(true);
+          break;
+        } else {
+          setTemNovaMensagem(false);
+        };
+      };
+    };
+  };
   
   // Função que gerencia o estado do modal
   const handleModal = (text: string) => {

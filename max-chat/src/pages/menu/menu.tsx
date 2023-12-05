@@ -8,7 +8,7 @@ import BotaoGrande from "../../components/botaoGrande/botaoGrande";
 import { useUser } from "../../Services/userContext";
 import { useChat } from "../../Services/chatContext";
 // Database imports
-import { collection, getDocs, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../../Services/firebase';
 import { conectApi } from "../../Services/conectaApi";
 
@@ -44,6 +44,11 @@ function Menu() {
             unsubscribeChats();
         };
     }, [usuarioLogado]);
+
+    useEffect(() => {
+        // Se o usuario não estiver logado, redireciona para "/"
+        if (!usuarioLogado) window.location.href = '/';
+    }, []);
 
     return(
         <div className={style.pagina}>
