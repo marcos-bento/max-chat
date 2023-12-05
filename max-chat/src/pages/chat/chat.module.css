@@ -103,6 +103,7 @@
 .chat_container .chat_outcome .chat_outcome_balao .chat_content {
   color: white;
   padding: 1rem;
+  word-break: break-all;
 }
 .chat_container .chat_outcome .chat_outcome_balao .chat_content_deletado {
   color: var(--cinza-principal);

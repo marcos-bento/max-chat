@@ -38,6 +38,21 @@
   padding-top: 0;
 }
 
+.chat_container .chat_container_foreign_nova_mensagem {
+  color: var(--azul-secundario);
+  position: absolute;
+  left: 70px;
+  padding-bottom: 3.8rem;
+  animation: mensagemNova 1s infinite;
+}
+@keyframes mensagemNova {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
 .chat_container .chat_container_svg .chat_container_foreign .chat_container_foreign_text_1 {
   text-align: center;
   transition: transform 0.3s;

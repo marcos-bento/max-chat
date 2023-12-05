@@ -18,10 +18,11 @@ interface BalaoProps {
   emailDoContato?: string;
   horaDaMensagem?: string;
   dataDaMensagem?: string;
+  ehMensagemNova?: boolean;
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
-function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contato", perfilID ,autor, mensagem, nomeDoContato, emailDoContato, onClick , horaDaMensagem="00:00", dataDaMensagem=""}: BalaoProps) {
+function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contato", perfilID ,autor, mensagem, nomeDoContato, emailDoContato, onClick , horaDaMensagem="00:00", dataDaMensagem="", ehMensagemNova=false}: BalaoProps) {
   const { contatoEmFoco, setContatoEmFoco } = useContatoEmFoco();
   const { usuarioLogado, setUsuarioLogado } = useUser();
 
@@ -69,6 +70,7 @@ function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contat
       case "chat":
         return (
           <div className={style.chat_container}>
+            {ehMensagemNova && <p className={style.chat_container_foreign_nova_mensagem}>novo</p>}
             <Perfil idDoUsuario={perfilID  || ""} />
             <svg className={style.chat_container_svg} width="190" height="75" viewBox="0 0 172 75">
               <g>
@@ -78,7 +80,7 @@ function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contat
                 ? <polygon points="0.917372,-14.730946 12.603735,7.27677 -12.603735,7.27677 0.917372,-14.730946" transform="matrix(-.007959-.826668 0.802301-.007725 8.990246 37.47121)" fill="#ffffff"/>
                 // Se for o destinatario que falou, exibe balao com "conversa pra direita"
                 : <polygon points="0.917372,-14.730946 12.603735,7.27677 -12.603735,7.27677 0.917372,-14.730946" transform="matrix(.007959 0.826668-.802301 0.007725 167.110072 37.52879)" fill="#ffffff"/>)}
-                <foreignObject className={style.chat_container_foreign} x="10" y="-5" width="150" height="75">
+                <foreignObject className={style.chat_container_foreign} x="10" y="-5" width="150" height="75"> 
                   <p className={style.chat_container_foreign_text_1}>{autor} diz: </p>
                   <p ref={textRef} className={style.chat_container_foreign_text_2}>{mensagem}</p>
                   <p className={style.chat_container_foreign_text_3}>{validaData(dataDaMensagem)} às: {horaDaMensagem}</p>

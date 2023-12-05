@@ -9,7 +9,9 @@ import Botao from '../botao/botao';
 import Perfil from '../imagemDePerfil/perfil';
 import Icone from '../../components/icone/icone';
 import { signOut } from 'firebase/auth';
-import { auth } from '../../Services/firebase';
+import { auth, db } from '../../Services/firebase';
+import { collection, getDocs, onSnapshot, query, where } from 'firebase/firestore';
+import { Mensagem } from '../../Interfaces/mensagem';
 
 function Cabecalho() {
   const { usuarioLogado, setUsuarioLogado } = useUser();
@@ -19,31 +21,42 @@ function Cabecalho() {
   const [sinoClick, setSinoClick] = useState(false);
   const [temNovaMensagem, setTemNovaMensagem] = useState(false);
 
-  // Método useEffect principal
-  useEffect( () => {
-    if (!usuarioLogado){
-      return;
-    }
-    const interval = setInterval(() => {
-      pegaMensagens();
-    }, 5000); // Verifique a cada 5 segundos
+  useEffect(() => {
+    if (usuarioLogado) {
+      const verificaNovaMensagem = (mensagens: Mensagem[]) => {
+        // Verifique se há alguma mensagem não lida para o usuário atual
+        if (mensagens) {
+          const temMensagemNaoLida = mensagens.some((mensagem: Mensagem) => {
+            return mensagem.user_id !== usuarioLogado.usuarioId && !mensagem.lido;
+          });
+          // Se houver, atualize as mensagens como lidas
+          if (temMensagemNaoLida) {
+            setTemNovaMensagem(true);
+          } else {
+            setTemNovaMensagem(false);
+          }
+        }
+      };
   
-    return () => clearInterval(interval);
-  }, []);
-
-  // Função que valida se tem alguma nova mensagem, para alterar o ícone de sino
-  const pegaMensagens = async () => {
-    if (usuarioLogado){ // Validação para não acontecer antes de estar logado
-      // const mensagens = await acessaMensagens(usuarioLogado.usuarioId);
-      // const validador = (elemento: {lido: boolean; autor: string}) => elemento.lido === false && elemento.autor !== usuarioLogado.usuarioNome;
-      // const novasMensagens = mensagens.some(validador)
-      // if (novasMensagens){
-      //   setTemNovaMensagem(true);
-      // } else {
-      //   setTemNovaMensagem(false);
-      // };
-    };
-  };
+      const unsubscribeChats = onSnapshot(collection(db, 'chats'), async (snapshot) => {
+        // Acesse a subcoleção 'content' de cada documento
+        for (const doc of snapshot.docs) {
+          const contentCollection = collection(db, 'chats', doc.id, 'content');
+          const contentSnapshot = await getDocs(contentCollection);
+  
+          const mensagens = contentSnapshot.docs.map((mensagemDoc) => mensagemDoc.data() as Mensagem);
+  
+          // Chame a função verificaNovaMensagem sempre que houver uma atualização na subcoleção 'content'
+          verificaNovaMensagem(mensagens);
+        }
+      });
+  
+      // Certifique-se de cancelar a inscrição para evitar vazamentos de memória
+      return () => {
+        unsubscribeChats();
+      };
+    }
+  }, [usuarioLogado]);
   
   // Função que gerencia o estado do modal
   const handleModal = (text: string) => {

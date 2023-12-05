@@ -285,7 +285,7 @@ async function recuperaTodasMensagensPorId(id: string): Promise<Mensagem[] | nul
     const mensagensRef = collection(db, 'chats', id, 'content');
 
     // Adiciona a cláusula de ordenação por data e hora
-    const q = query(mensagensRef, orderBy('data'), orderBy('hora'));
+    const q = query(mensagensRef, orderBy('data'), orderBy('hora'), orderBy('id', 'asc'));
 
     const querySnapshot = await getDocs(q);
 

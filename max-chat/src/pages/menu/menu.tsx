@@ -15,14 +15,14 @@ import { conectApi } from "../../Services/conectaApi";
 function Menu() {
     const { usuarioLogado } = useUser();
     const { setChat } = useChat();
-    const [conversasDoUsuario, setConversasDoUsuario] = useState<{ chat: string, user: string, user_id: string, conversa_id: string, deletado: boolean, destinatario: string, destinatario_id: string, data: string, hora: string }[]>([]);
+    const [conversasDoUsuario, setConversasDoUsuario] = useState<{ lido: boolean, chat: string, user: string, user_id: string, conversa_id: string, deletado: boolean, destinatario: string, destinatario_id: string, data: string, hora: string }[]>([]);
 
     useEffect(() => {
         const pegaMensagens = async () => {
             if (usuarioLogado) {
                 const mensagens = await conectApi.recuperaUltimasMensagensPorId(usuarioLogado.usuarioId, 3);
                 setConversasDoUsuario(mensagens);
-            }
+            };
         };
 
         const unsubscribeChats = onSnapshot(collection(db, 'chats'), (snapshot) => {
@@ -55,7 +55,7 @@ function Menu() {
                     {conversasDoUsuario && conversasDoUsuario.length > 0 && conversasDoUsuario.map((item, index) =>{
                         return <Link key={index} to="/chat" onClick={() => setChat(item.conversa_id)}>
                             <p className={style.conversas_destinatario}>Conversa com: {item.destinatario === usuarioLogado.usuarioNome ? item.user : item.destinatario}</p>
-                            <Balao key={index} tipo={"chat"} perfilID={item.destinatario_id === usuarioLogado.usuarioId ? item.user_id : item.destinatario_id} autor={item.user} mensagem={item.deletado ? "mensagem apagada" : item.chat} dataDaMensagem={item.data} horaDaMensagem={item.hora}/>
+                            <Balao ehMensagemNova={item.user_id !== usuarioLogado.usuarioId && !item.lido && true} key={index} tipo={"chat"} perfilID={item.destinatario_id === usuarioLogado.usuarioId ? item.user_id : item.destinatario_id} autor={item.user} mensagem={item.deletado ? "mensagem apagada" : item.chat} dataDaMensagem={item.data} horaDaMensagem={item.hora}/>
                         </Link>
                     })}
 

@@ -67,7 +67,7 @@ function Chat(){
     // useEffect dedicado a scrollar a mensagem ao final quando a mesma for carregada
     useEffect(() => {
         chatDivScroll.current.scrollTop = chatDivScroll.current.scrollHeight;
-    }, [destinatario?.nome]);
+    }, [destinatario && chatEmFoco]);
     
     // Função que pesquisa o apelido do contato cadastrado
     const recuperaUsuarioDestino = async (userIdPk: string) =>{
@@ -164,9 +164,9 @@ function Chat(){
     // Função que pega a data baseado no relógio do computador do usuário
     const pegaData = () => {
         const data = new Date();
-        const dia = data.getUTCDate().toString().padStart(2, '0');
-        const mes = (data.getUTCMonth() + 1).toString().padStart(2, '0');
-        const ano = data.getUTCFullYear();
+        const dia = data.getDate().toString().padStart(2, '0');
+        const mes = (data.getMonth() + 1).toString().padStart(2, '0');
+        const ano = data.getFullYear();
         const dataCompleta = `${ano}-${mes}-${dia}`;
         return dataCompleta;
     };
@@ -249,6 +249,7 @@ function Chat(){
         if (!resultado) {
             handleModal(`Houve um erro ao enviar sua mensagem, ${resultado}`, "vermelho");
         };
+        scrollToBottom();
     };
 
     // Função que gerencia o click nos 3 pontinhos acima do chat e abre as opções
