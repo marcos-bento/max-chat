@@ -11,4 +11,10 @@
   align-self: flex-start;
   margin: 0;
   padding: 0.5rem 1.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .editar_perfil p {
+    align-self: center;
+  }
 }/*# sourceMappingURL=editarPerfil.module.css.map */

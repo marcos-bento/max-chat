@@ -19,4 +19,10 @@
 .containerContato .texto__contatoDesde {
   align-self: self-start;
   padding: 0.5rem 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .containerContato .containerSuperior {
+    justify-content: center;
+  }
 }/*# sourceMappingURL=editarContato.module.css.map */

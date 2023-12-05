@@ -168,4 +168,24 @@
 .chat_submit .chat_submit_botao .chat_submit_botao_texto {
   color: black;
   padding: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .chat_container .chat_income .chat_income_balao {
+    width: 650px;
+  }
+  .chat_container .chat_outcome .chat_outcome_balao {
+    width: 650px;
+  }
+  .chat_submit {
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+  .chat_submit .chat_submit_botao {
+    width: 500px;
+  }
 }/*# sourceMappingURL=chat.module.css.map */
