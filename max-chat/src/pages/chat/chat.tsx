@@ -17,6 +17,8 @@ import { Conversa } from "../../Interfaces/conversa";
 import Icone from "../../components/icone/icone";
 import { Contatos } from "../../Interfaces/contato";
 import { Mensagem } from "../../Interfaces/mensagem";
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "../../Services/firebase";
 
 function Chat(){
     const { usuarioLogado, setUsuarioLogado } = useUser();
@@ -34,6 +36,27 @@ function Chat(){
     const [deletarConversa, setDeletarConversa] = useState(false);
     const [conversaDeletada, setConversaDeletada] = useState(false);
     const [mensagemParaExcluir, setMensagemParaExcluir] = useState<number | null>(null);
+
+    useEffect(() => {
+        const unsubscribeChats = onSnapshot(collection(db, 'chats'), (snapshot) => {
+            // Chame a função pegaMensagens() sempre que houver uma atualização na coleção 'chats'
+            pegaMensagens();
+
+            // Acesse a subcoleção 'content' de cada documento
+            snapshot.docs.forEach((doc) => {
+                const contentCollection = collection(db, 'chats', doc.id, 'content');
+                const unsubscribeContent = onSnapshot(contentCollection, () => {
+                    // Chame a função pegaMensagens() sempre que houver uma atualização na subcoleção 'content'
+                    pegaMensagens();
+                });
+            });
+        });
+
+        // Certifique-se de cancelar a inscrição para evitar vazamentos de memória
+        return () => {
+            unsubscribeChats();
+        };
+    }, [usuarioLogado && chat]);
 
     // useEffect principal, valida usuário logado e consulta DB com polling
     useEffect(() => {
