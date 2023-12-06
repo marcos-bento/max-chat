@@ -4,18 +4,8 @@ import Cabecalho from '../../components/cabecalho/cabecalho';
 import BotaoGrande from '../../components/botaoGrande/botaoGrande';
 import style from '../../Common/CSS/conteudo.module.css';
 import Rodape from '../../components/rodape/rodape';
-// Imports para teste (DELETAR)
-import { addDoc, collection, getDocs  } from "firebase/firestore"; 
-import { auth, db } from '../../Services/firebase';
-import { conectApi } from '../../Services/conectaApi';
-import { Mensagem } from '../../Interfaces/mensagem';
-// Fim dos imports de teste
-
 
 function Index() {
-  // Teste (DELETAR)
-  const uid = auth.currentUser?.uid;
-  // Fim
 
   return (
     <div className={style.pagina}>

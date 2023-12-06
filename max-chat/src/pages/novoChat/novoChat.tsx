@@ -1,4 +1,4 @@
-import React, { SetStateAction, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "../../Common/CSS/conteudo.module.css"
 import styleNovoChat from "./novoChat.module.css"
 import { Link } from 'react-router-dom';
@@ -8,13 +8,11 @@ import Balao from "../../components/balao/balao";
 import BotaoGrande from "../../components/botaoGrande/botaoGrande";
 import Modal from "../../components/modal/modal";
 import Select from "../../components/formulario/select/select";
-import { useContatoEmFoco } from "../../Services/contatoContext";
 import { useUser } from "../../Services/userContext";
 import { conectApi } from "../../Services/conectaApi";
 
 function NovoChat(){
-    const { usuarioLogado, setUsuarioLogado } = useUser();
-    const { contatoEmFoco, setContatoEmFoco } = useContatoEmFoco();
+    const { usuarioLogado } = useUser();
     const [ listaEmBranco, setListaEmBranco ] = useState(false);
     const [ listaDeContatos, setListaDeContatos ] = useState<{email: string, nome: string, apelido: string}[]>()
 

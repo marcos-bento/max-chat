@@ -11,42 +11,47 @@ import { useChat } from "../../Services/chatContext";
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../../Services/firebase';
 import { conectApi } from "../../Services/conectaApi";
+import { useContatoEmFoco } from "../../Services/contatoContext";
 
 function Menu() {
     const { usuarioLogado } = useUser();
     const { setChat } = useChat();
     const [conversasDoUsuario, setConversasDoUsuario] = useState<{ lido: boolean, chat: string, user: string, user_id: string, conversa_id: string, deletado: boolean, destinatario: string, destinatario_id: string, data: string, hora: string }[]>([]);
+    const { setContatoEmFoco } = useContatoEmFoco();
 
     useEffect(() => {
-        const pegaMensagens = async () => {
-            if (usuarioLogado) {
-                const mensagens = await conectApi.recuperaUltimasMensagensPorId(usuarioLogado.usuarioId, 3);
-                setConversasDoUsuario(mensagens);
+        if (usuarioLogado){
+            const pegaMensagens = async () => {
+                if (usuarioLogado) {
+                    const mensagens = await conectApi.recuperaUltimasMensagensPorId(usuarioLogado.usuarioId, 3);
+                    setConversasDoUsuario(mensagens);
+                };
             };
-        };
-
-        const unsubscribeChats = onSnapshot(collection(db, 'chats'), (snapshot) => {
-            // Chame a função pegaMensagens() sempre que houver uma atualização na coleção 'chats'
-            pegaMensagens();
-
-            // Acesse a subcoleção 'content' de cada documento
-            snapshot.docs.forEach((doc) => {
-                const contentCollection = collection(db, 'chats', doc.id, 'content');
-                const unsubscribeContent = onSnapshot(contentCollection, () => {
-                    // Chame a função pegaMensagens() sempre que houver uma atualização na subcoleção 'content'
-                    pegaMensagens();
+    
+            const unsubscribeChats = onSnapshot(collection(db, 'chats'), (snapshot) => {
+                // Chame a função pegaMensagens() sempre que houver uma atualização na coleção 'chats'
+                pegaMensagens();
+    
+                // Acesse a subcoleção 'content' de cada documento
+                snapshot.docs.forEach((doc) => {
+                    const contentCollection = collection(db, 'chats', doc.id, 'content');
+                    const unsubscribeContent = onSnapshot(contentCollection, () => {
+                        // Chame a função pegaMensagens() sempre que houver uma atualização na subcoleção 'content'
+                        pegaMensagens();
+                    });
                 });
             });
-        });
-
-        // Certifique-se de cancelar a inscrição para evitar vazamentos de memória
-        return () => {
-            unsubscribeChats();
+    
+            // Certifique-se de cancelar a inscrição para evitar vazamentos de memória
+            return () => {
+                unsubscribeChats();
+            };
         };
     }, [usuarioLogado]);
 
     useEffect(() => {
         // Se o usuario não estiver logado, redireciona para "/"
+        setContatoEmFoco("");
         if (!usuarioLogado) window.location.href = '/';
     }, []);
 

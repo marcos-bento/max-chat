@@ -20,8 +20,6 @@ function Contatos(){
             const todosContatos = await conectApi.recuperaContatosPorID(usuarioLogado.usuarioId);
             if (todosContatos){
                 setContatos(todosContatos);
-            } else {
-                // Avisar que não localizou nenhum contato! FAZER
             };
         };
 

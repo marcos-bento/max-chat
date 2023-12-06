@@ -10,8 +10,7 @@ import Perfil from '../imagemDePerfil/perfil';
 import Icone from '../../components/icone/icone';
 import { signOut } from 'firebase/auth';
 import { auth, db } from '../../Services/firebase';
-import { collection, getDocs, onSnapshot} from 'firebase/firestore';
-import { Mensagem } from '../../Interfaces/mensagem';
+import { collection, onSnapshot} from 'firebase/firestore';
 import { conectApi } from '../../Services/conectaApi';
 
 function Cabecalho() {
@@ -43,15 +42,17 @@ function Cabecalho() {
   }, [usuarioLogado]);
 
   const verificaNovaMensagem = async () => {
-    const mensagens = await conectApi.recuperaUltimasMensagensPorId(usuarioLogado.usuarioId);
-    // Verifique se há alguma mensagem não lida para o usuário atual
-    if (mensagens) {
-      for (const iterator of mensagens) {
-        if (iterator.user_id !== usuarioLogado.usuarioId && !iterator.lido){
-          setTemNovaMensagem(true);
-          break;
-        } else {
-          setTemNovaMensagem(false);
+    if (usuarioLogado){
+      const mensagens = await conectApi.recuperaUltimasMensagensPorId(usuarioLogado.usuarioId);
+      // Verifique se há alguma mensagem não lida para o usuário atual
+      if (mensagens) {
+        for (const iterator of mensagens) {
+          if (iterator.user_id !== usuarioLogado.usuarioId && !iterator.lido){
+            setTemNovaMensagem(true);
+            break;
+          } else {
+            setTemNovaMensagem(false);
+          };
         };
       };
     };
@@ -78,8 +79,9 @@ function Cabecalho() {
   // Função que descarta os dados do userContext usuarioLogado (e faz logoff no FiREBASE)
   const logoff = async () => {
     try {
-      setUsuarioLogado("");
-      await signOut(auth);
+      await signOut(auth).then(() =>{      
+        setUsuarioLogado("");
+        window.location.href="/";});
     } catch (error) {
       handleModal(`Erro ao realizar o logoff: ${error}`);
     };

@@ -90,3 +90,12 @@
         }
     }
 }
+
+@media screen and (min-width: 768px) {
+    .chat_container{
+        .chat_container_foreign_nova_mensagem{
+            position: absolute;
+            left: 520px;
+        }
+    }
+}

@@ -10,8 +10,8 @@ interface Props{
 };
 
 function Select({placeholder, contatos}:Props){
-    const { usuarioLogado, setUsuarioLogado } = useUser();
-    const { chat, setChat } = useChat();
+    const { usuarioLogado } = useUser();
+    const { setChat } = useChat();
     const { contatoEmFoco, setContatoEmFoco } = useContatoEmFoco();
 
     useEffect( () => {
@@ -20,7 +20,7 @@ function Select({placeholder, contatos}:Props){
         };
         
         const recuperaContatos = async () =>{
-            if (contatos.length > 0){
+            if (contatos.length > 0 && !contatoEmFoco){
                 setContatoEmFoco(contatos[0].email);
             };
             setChat("");
