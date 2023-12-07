@@ -10,8 +10,9 @@ import Perfil from '../imagemDePerfil/perfil';
 import Icone from '../../components/icone/icone';
 import { signOut } from 'firebase/auth';
 import { auth, db } from '../../Services/firebase';
-import { collection, onSnapshot} from 'firebase/firestore';
+import { collection, doc, onSnapshot} from 'firebase/firestore';
 import { conectApi } from '../../Services/conectaApi';
+import {Howl} from 'howler';
 
 function Cabecalho() {
   const { usuarioLogado, setUsuarioLogado } = useUser();
@@ -48,16 +49,19 @@ function Cabecalho() {
       if (mensagens) {
         for (const iterator of mensagens) {
           if (iterator.user_id !== usuarioLogado.usuarioId && !iterator.lido){
+            document.title="(1) Max Chat"
             setTemNovaMensagem(true);
+            
             break;
           } else {
+            document.title="Max Chat"
             setTemNovaMensagem(false);
           };
         };
       };
     };
   };
-  
+
   // Função que gerencia o estado do modal
   const handleModal = (text: string) => {
     setModal(true)
@@ -152,8 +156,6 @@ function Cabecalho() {
             )}
           </g>
         </svg>
-        {/* Desktop 1440px */}
-            
 
         {modal && <div className={stdStyle.modal_alert}>
           {/* Modal */}

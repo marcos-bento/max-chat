@@ -16,7 +16,7 @@ function Sobre() {
             <h1 className={sobreStyle.titulo}>Max</h1>
             <h2 className={sobreStyle.titulo}>Chat</h2>
           </div>
-          <p className={sobreStyle.texto}>O projeto Max Chat foi criado para fins de treinamento e prática das principais tecnologias do mercado, construído com Typescript, utilizando Bootstrap, React e até mockando um Rest API para conexão com banco de dados, o projeto foi um desafio e ao mesmo tempo a consolidação do conhecimento adquirido durante diversos cursos e aperfeiçoamentos do desenvolvedor.
+          <p className={sobreStyle.texto}>O projeto Max Chat foi criado para fins de treinamento e prática das principais tecnologias do mercado, construído com Typescript, utilizando Sass, React e conexão com banco de dados, o projeto foi um desafio e ao mesmo tempo a consolidação do conhecimento adquirido durante diversos cursos e aperfeiçoamentos do desenvolvedor.
           <br></br><br></br>
           Nenhuma informação, dado ou registro é armazenado ou enviado a outra instituição.
           <br></br><br></br>
