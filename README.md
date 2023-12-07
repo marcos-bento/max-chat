@@ -16,7 +16,7 @@ O projeto "Max-Chat" é uma aplicação web desenvolvida com React, TypeScript e
 
 O projeto está atualmente em desenvolvimento.
 
-**Progresso:** ![Progresso](https://progress-bar.dev/98)
+**Progresso:** ![Progresso](https://progress-bar.dev/100)
 
 ## Funcionalidades Principais
 1. **Login e Registro de Usuário**:
