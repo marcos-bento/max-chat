@@ -12,15 +12,18 @@ function Index() {
       <Cabecalho />
       <section className={style.conteudo}>
         <h3 className={style.titulo}>Max Chat</h3>
-        <Link to="/login">
-          <BotaoGrande icon="fa-solid fa-right-to-bracket" texto="Login | Já sou membro" />
-        </Link>
-        <Link to="/registrar">
-          <BotaoGrande icon="fa-solid fa-user-plus" texto="Signup | Novo registro" />
-        </Link>
-        <Link to="/sobre">
-          <BotaoGrande icon="fa-solid fa-question" texto="Dúvidas | Sobre" />
-        </Link>
+        <div className={style.conteudo_container_botoes}>
+          <Link to="/login">
+            <BotaoGrande icon="fa-solid fa-right-to-bracket" texto="Login | Já sou membro" />
+          </Link>
+          <Link to="/registrar">
+            <BotaoGrande icon="fa-solid fa-user-plus" texto="Signup | Novo registro" />
+          </Link>
+          <Link to="/sobre">
+            <BotaoGrande icon="fa-solid fa-question" texto="Dúvidas | Sobre" />
+          </Link>
+        </div>
+
       </section>
       <Rodape />
     </div>

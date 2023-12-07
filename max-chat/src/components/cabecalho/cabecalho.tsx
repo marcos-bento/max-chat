@@ -152,6 +152,9 @@ function Cabecalho() {
             )}
           </g>
         </svg>
+        {/* Desktop 1440px */}
+            
+
         {modal && <div className={stdStyle.modal_alert}>
           {/* Modal */}
           <Modal altura={0}>

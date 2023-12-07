@@ -125,3 +125,18 @@
   }
 }
 
+@media screen and (min-width: 1440px) {
+  .navbar{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    .titulo__container{
+      grid-column: 1 / span 3;
+      grid-row: 1;
+      .titulo{
+        font-size: 38px;
+        margin: -18px;
+      }
+    }
+  } 
+}

@@ -113,4 +113,20 @@
 }
 .navbar .modal_navbar .modal_navbar_content .modal_navbar_content_text {
   color: white;
+}
+
+@media screen and (min-width: 1440px) {
+  .navbar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+  }
+  .navbar .titulo__container {
+    grid-column: 1/span 3;
+    grid-row: 1;
+  }
+  .navbar .titulo__container .titulo {
+    font-size: 38px;
+    margin: -18px;
+  }
 }/*# sourceMappingURL=cabecalho.module.css.map */
