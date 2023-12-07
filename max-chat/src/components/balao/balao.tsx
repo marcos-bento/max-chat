@@ -23,8 +23,8 @@ interface BalaoProps {
 }
 
 function Balao({ tipo, icone="fa-solid fa-plus", cor="verde", texto="Novo Contato", perfilID ,autor, mensagem, nomeDoContato, emailDoContato, onClick , horaDaMensagem="00:00", dataDaMensagem="", ehMensagemNova=false}: BalaoProps) {
-  const { contatoEmFoco, setContatoEmFoco } = useContatoEmFoco();
-  const { usuarioLogado, setUsuarioLogado } = useUser();
+  const { setContatoEmFoco } = useContatoEmFoco();
+  const { usuarioLogado } = useUser();
 
   const textRef = useRef<HTMLParagraphElement | null>(null);
 

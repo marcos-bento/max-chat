@@ -14,7 +14,7 @@ import { conectApi } from "../../Services/conectaApi";
 import { Contatos } from "../../Interfaces/contato";
 
 function NovoContato(){
-    const { usuarioLogado, setUsuarioLogado } = useUser();
+    const { usuarioLogado } = useUser();
     const [email, setEmail] = useState("");
     const [apelido, setApelido] = useState("");
     const [emailValido, setEmailValido] = useState(true);

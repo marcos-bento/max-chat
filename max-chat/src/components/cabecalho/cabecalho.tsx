@@ -10,9 +10,8 @@ import Perfil from '../imagemDePerfil/perfil';
 import Icone from '../../components/icone/icone';
 import { signOut } from 'firebase/auth';
 import { auth, db } from '../../Services/firebase';
-import { collection, doc, onSnapshot} from 'firebase/firestore';
+import { collection, onSnapshot} from 'firebase/firestore';
 import { conectApi } from '../../Services/conectaApi';
-import {Howl} from 'howler';
 
 function Cabecalho() {
   const { usuarioLogado, setUsuarioLogado } = useUser();

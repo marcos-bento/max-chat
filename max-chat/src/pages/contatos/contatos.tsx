@@ -9,7 +9,7 @@ import { useUser } from "../../Services/userContext";
 import { conectApi } from "../../Services/conectaApi";
 
 function Contatos(){
-    const { usuarioLogado, setUsuarioLogado } = useUser();
+    const { usuarioLogado } = useUser();
     const [contatos, setContatos] = useState<{ user_id: string; email: string, nome: string, apelido: string }[]>([]);
 
     useEffect( () => {

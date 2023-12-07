@@ -6,11 +6,10 @@ import Botao from "../botao/botao";
 import Modal from "../modal/modal";
 import { useUser } from "../../Services/userContext";
 import { UsuarioLogado } from "../../Services/usuarioLogado";
-import { Link, useInRouterContext } from "react-router-dom";
+import { Link } from "react-router-dom";
 // Database imports
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { db, auth } from '../../Services/firebase';
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import {  auth } from '../../Services/firebase';
 import { conectApi } from "../../Services/conectaApi";
 import { Usuario } from "../../Interfaces/user";
 import Icone from "../icone/icone";
@@ -25,7 +24,7 @@ function Formulario({type = "" }: { type?: string }) {
   const [modal, setModal] = useState(false);
   const [modalText, setModalText] = useState("");
   const [modalButton, setModalButton] = useState("");
-  const { usuarioLogado, setUsuarioLogado } = useUser();
+  const { setUsuarioLogado } = useUser();
   const [logado, setLogado] = useState(false);
   const [carregando, setCarregando] = useState(false);
 

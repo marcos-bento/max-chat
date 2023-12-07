@@ -15,9 +15,9 @@ import { useContatoEmFoco } from "../../Services/contatoContext";
 import Botao from "../../components/botao/botao";
 
 function EditarContato(){
-    const { usuarioLogado, setUsuarioLogado } = useUser();
+    const { usuarioLogado } = useUser();
     const [ dadosDoContato, setDadosDoContato ] = useState<{ user_id: string; email: string, nome: string, apelido: string }>();
-    const { contatoEmFoco, setContatoEmFoco } = useContatoEmFoco();
+    const { contatoEmFoco } = useContatoEmFoco();
     const [apelido, setApelido] = useState("");
     const [modal, setModal] = useState(false);
     const [modalText, setModalText] = useState("");

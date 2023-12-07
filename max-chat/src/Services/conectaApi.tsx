@@ -1,10 +1,10 @@
 import { collection, getDocs, query, where, doc, updateDoc, runTransaction, addDoc, orderBy, limit, DocumentData, QuerySnapshot, FieldPath, getDoc, deleteDoc } from "firebase/firestore";
-import { Cadastro } from "../Interfaces/cadastro";
 import { Conversa } from "../Interfaces/conversa";
 import { db } from "./firebase";
 import { Usuario } from "../Interfaces/user";
 import { Contatos } from "../Interfaces/contato";
 import { Mensagem } from "../Interfaces/mensagem";
+import { Cadastro } from "../Interfaces/cadastro";
 
 interface UsuarioData {
     imagem: string;

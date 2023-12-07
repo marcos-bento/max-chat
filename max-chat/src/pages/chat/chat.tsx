@@ -15,15 +15,14 @@ import { useContatoEmFoco } from "../../Services/contatoContext";
 import Botao from "../../components/botao/botao";
 import { Conversa } from "../../Interfaces/conversa";
 import Icone from "../../components/icone/icone";
-import { Contatos } from "../../Interfaces/contato";
 import { Mensagem } from "../../Interfaces/mensagem";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../Services/firebase";
 
 function Chat(){
-    const { usuarioLogado, setUsuarioLogado } = useUser();
+    const { usuarioLogado } = useUser();
     const { chat, setChat } = useChat();
-    const { contatoEmFoco, setContatoEmFoco } = useContatoEmFoco();
+    const { contatoEmFoco } = useContatoEmFoco();
     const [exibeOpcoes, setExibeOpcoes] = useState(false);
     const [destinatario, setDestinatario] = useState<{nome: string, email: string, id: string}>();
     const [chatEmFoco, setChatEmFoco] = useState<Mensagem[]>([]);

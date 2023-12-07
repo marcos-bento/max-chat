@@ -11,9 +11,7 @@ import Input from "../../components/formulario/input/input";
 import { useUser } from "../../Services/userContext";
 import Botao from "../../components/botao/botao";
 import { conectApi } from "../../Services/conectaApi";
-import { Cadastro } from "../../Interfaces/cadastro";
-import { auth } from "../../Services/firebase";
-import { EmailAuthProvider, User, getAuth, reauthenticateWithCredential, updatePassword } from "firebase/auth";
+import {  User, getAuth, updatePassword } from "firebase/auth";
 import { UsuarioLogado } from "../../Services/usuarioLogado";
 
 function EditarPerfil(){

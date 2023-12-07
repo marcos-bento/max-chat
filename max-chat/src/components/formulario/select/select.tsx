@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Style from './select.module.css';
 import { useUser } from "../../../Services/userContext";
 import { useContatoEmFoco } from "../../../Services/contatoContext";
